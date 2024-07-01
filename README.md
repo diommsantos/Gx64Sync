@@ -107,6 +107,7 @@ Based on testplugin,  https://github.com/x64dbg/testplugin. x64dbg support is ex
 
 
 # TODO
+- [ ] Improve README.md and DEV.md
 - [ ] Get a cooler name than Gx64Sync ;)
 - [ ] make a GUI for GSync similar to ret-sync
 - [ ] fix x64Dbg closing crash
