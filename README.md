@@ -32,7 +32,7 @@ details.
   - [x64Dbg plugin](#x64dbg-plugin)
 - [TODO](#todo)
 - [Known Bugs/Limitations](#known-bugslimitations)
-- [Acknowledgments]#(Acknowledgments)
+- [Acknowledgments](#Acknowledgments)
 -------------------------------------------------------------------------------
 
 # Features
