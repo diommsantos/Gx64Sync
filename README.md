@@ -130,6 +130,7 @@ Conflict(s):
 
 # Acknowledgments
 Gx64Sync is powered by and would not be possible without the amazing open sourse projects:
+- [ret-sync](https://github.com/bootleg/ret-sync) (provided huge inspiration and innumerous code examples for this project)  
 - [asio](https://think-async.com/Asio/asio-1.30.2/doc/) 
 - [glaze](https://github.com/stephenberry/glaze)
 - [jackson-jr](https://github.com/FasterXML/jackson-jr)
