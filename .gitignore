@@ -1,0 +1,6 @@
+**/.vs/**
+**/*.exe
+**/*.pdb
+**/*.obj
+x64Sync/.vs/**
+ext_x64dbg/.vs/x64dbg_sync/v17/Browse.VC.db
