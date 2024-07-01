@@ -5,8 +5,6 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "x64Sync", "x64Sync.vcxproj", "{F48D9AED-2D46-4C8E-BBB2-BE5F642EF248}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "x64dbg_sync", "..\ext_x64dbg\x64dbg_sync\x64dbg_sync.vcxproj", "{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -29,18 +27,6 @@ Global
 		{F48D9AED-2D46-4C8E-BBB2-BE5F642EF248}.Test SyncHandler|x64.Build.0 = Test SyncHandler|x64
 		{F48D9AED-2D46-4C8E-BBB2-BE5F642EF248}.Test SyncHandler|x86.ActiveCfg = Test SyncHandler|Win32
 		{F48D9AED-2D46-4C8E-BBB2-BE5F642EF248}.Test SyncHandler|x86.Build.0 = Test SyncHandler|Win32
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Debug|x64.ActiveCfg = Debug|x64
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Debug|x64.Build.0 = Debug|x64
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Debug|x86.ActiveCfg = Debug|Win32
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Debug|x86.Build.0 = Debug|Win32
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Release|x64.ActiveCfg = Release|x64
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Release|x64.Build.0 = Release|x64
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Release|x86.ActiveCfg = Release|Win32
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Release|x86.Build.0 = Release|Win32
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Test SyncHandler|x64.ActiveCfg = Release|x64
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Test SyncHandler|x64.Build.0 = Release|x64
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Test SyncHandler|x86.ActiveCfg = Release|Win32
-		{BDD87FFE-A2CA-4CB6-859E-7058A59C24C6}.Test SyncHandler|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
