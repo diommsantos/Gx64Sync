@@ -1,4 +1,9 @@
-﻿  LocationSync.cpp
+﻿  Client.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+  LocationSync.cpp
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\expected(11): warning STL4038: The contents of <expected> are available only with C++23 or later.
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
@@ -26,8 +31,6 @@ C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\SyncHandler.hpp(46,14): 
               MessageType=Messages::Location
           ]
   
-  Messages.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\expected(11): warning STL4038: The contents of <expected> are available only with C++23 or later.
   SyncHandler.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
@@ -44,8 +47,7 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.3351
 C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\plugin.cpp(126,11): warning C4804: '<=': unsafe use of type 'bool' in operation
      Creating library C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\x64\Release\x64Sync.lib and object C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\x64\Release\x64Sync.exp
   Generating code
-  0 of 2877 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 2877 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   x64Sync.vcxproj -> C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\x64\Release\x64Sync.dp64

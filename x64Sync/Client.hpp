@@ -1,7 +1,7 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include "asio-1.30.2\include\asio.hpp"
+#include "asio.hpp"
 #include <functional>
 
 using asio::ip::tcp;
