@@ -25,15 +25,23 @@ details.
 
 -------------------------------------------------------------------------------
 # Table of contents
-
+- [Features](#Features)
+- [Usage](#usage)
 - [Installation](#installation)
   - [Ghidra plugin](#ghidra-plugin)
   - [x64Dbg plugin](#x64dbg-plugin)
-- [Features](#Features)
-- [Usage](#usage)
 - [TODO](#todo)
 - [Known Bugs/Limitations](#known-bugslimitations)
 -------------------------------------------------------------------------------
+
+# Features
+* Fast and fully async
+* Allows for synchronization of adresses in both ways (sync addresses from Ghidra to x64Dbg and from x64Dbg to Ghidra)
+* Easily extensible, see DEV.md
+    
+# Usage
+
+![Gx64Sync Demo ](/docs/Gx64SyncDemo.gif)
 
 # Installation
 
@@ -96,24 +104,15 @@ Based on testplugin,  https://github.com/x64dbg/testplugin. x64dbg support is ex
    Paste the "``pluginsdk``" directory into "``ext_x64dbg\x64dbg_sync``"
 2. Copy the dll (extension is ``.d32`` or ``.dp64``) within x64dbg's plugin directory.
 
-# Features
-* Fast and fully async
-* Allows for synchronization of adresses in both ways (sync addresses from Ghidra to x64Dbg and from x64Dbg to Ghidra)
-* Easily extensible, see DEV.md
-    
-# Usage
-
-![Gx64Sync Demo ](/docs/Gx64SyncDemo.gif)
-
-
 
 # TODO
-
+- [ ] Get a cooler name than Gx64Sync ;)
+- [ ] make a GUI for GSync similar to ret-sync
 - [ ] fix x64Dbg closing crash
-- [ ] Implement all the features of [ret-sync](https://github.com/bootleg/ret-sync)
+- [ ] Implement all the features of [ret-sync](https://github.com/bootleg/ret-sync) (comment migration, debugger commands in Ghidra...)
 - [ ] Improve logging in GSync and x64Sync
 - [ ] Implement HyperSync (fully automatic syncing, that is once an address is highlited,
-both in Ghidra or x64Sync, it is synced in the other tool)
+both in Ghidra or x64Sync, it is synced in the other tool + automatic loading and change of modules in both tools)
 - [ ] Automatic C++ virtual methods shenanigans?
 
 Have suggestions? Open an issue or contact me at diommsantos@gmail.com!
