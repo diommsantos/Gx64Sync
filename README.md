@@ -32,6 +32,7 @@ details.
   - [x64Dbg plugin](#x64dbg-plugin)
 - [TODO](#todo)
 - [Known Bugs/Limitations](#known-bugslimitations)
+- [Acknowledgments]#(Acknowledgments)
 -------------------------------------------------------------------------------
 
 # Features
@@ -125,5 +126,11 @@ Have suggestions? Open an issue or contact me at diommsantos@gmail.com!
 Conflict(s):
 
 - Logitech Updater software is known to use the same default port (9100).
+
+# Acknowledgments
+Gx64Sync is powered by and would not be possible without the amazing open sourse projects:
+- [asio](https://think-async.com/Asio/asio-1.30.2/doc/) 
+- [glaze](https://github.com/stephenberry/glaze)
+- [jackson-jr](https://github.com/FasterXML/jackson-jr)
 
 
