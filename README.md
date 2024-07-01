@@ -99,9 +99,11 @@ Based on testplugin,  https://github.com/x64dbg/testplugin. x64dbg support is ex
 # Features
 * Fast and fully async
 * Allows for synchronization of adresses in both ways (sync addresses from Ghidra to x64Dbg and from x64Dbg to Ghidra)
-* Easily extensible, see DEV.md  
+* Easily extensible, see DEV.md
+    
 # Usage
 
+![Gx64Sync Demo ](/docs/Gx64SyncDemo.gif)
 
 
 
