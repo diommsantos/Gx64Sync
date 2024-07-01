@@ -9,7 +9,7 @@
 #include <map>
 #include "glaze/glaze.hpp"
 
-typedef unsigned long long duint;
+typedef unsigned long long address;
 
 namespace Messages {
 
@@ -29,14 +29,14 @@ namespace Messages {
     {
     public:
         static constexpr std::string_view id{ "loc" };
-        duint loc;
+        address loc;
     };
 
     class Base
     {
     public:
         static constexpr std::string_view id{ "base" };
-        duint base;
+        address base;
     };
 
     using Message = std::variant<Location, Test, Base>;

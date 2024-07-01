@@ -1,0 +1,95 @@
+﻿  LocationSync.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\expected(11): warning STL4038: The contents of <expected> are available only with C++23 or later.
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244: '=': conversion from 'const _Ty' to '_Ty', possible loss of data
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         with
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         [
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:             _Ty=uint64_t
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         ]
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         and
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         [
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:             _Ty=size_t
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         ]
+  (compiling source file 'LocationSync.cpp')
+  C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\json\schema.hpp(91,45):
+  	see reference to function template instantiation 'auto glz::object<const char(&)[5],std::optional<std::string_view>glz::schema::* ,const char(&)[6],std::optional<std::string_view>glz::schema::* ,const char(&)[12],std::optional<std::string_view>glz::schema::* ,const char(&)[8],std::optional<glz::schema::schema_any>glz::schema::* ,const char(&)[11],std::optional<bool>glz::schema::* ,const char(&)[9],const glz::detail::opts_wrapper::<lambda_1>&,const char(&)[9],std::optional<bool>glz::schema::* ,const char(&)[10],std::optional<bool>glz::schema::* ,const char(&)[6],std::optional<glz::schema::schema_any>glz::schema::* ,const char(&)[10],std::optional<uint64_t>glz::schema::* ,const char(&)[10],std::optional<uint64_t>glz::schema::* ,const char(&)[8],std::optional<std::string_view>glz::schema::* ,const char(&)[7],std::optional<glz::detail::defined_formats>glz::schema::* ,const char(&)[8],glz::schema::schema_numberglz::schema::* ,const char(&)[8],glz::schema::schema_numberglz::schema::* ,const char(&)[17],glz::schema::schema_numberglz::schema::* ,const char(&)[17],glz::schema::schema_numberglz::schema::* ,const char(&)[11],glz::schema::schema_numberglz::schema::* ,const char(&)[14],std::optional<uint64_t>glz::schema::* ,const char(&)[14],std::optional<uint64_t>glz::schema::* ,const char(&)[9],std::optional<std::span<const std::string_view,4294967295>>glz::schema::* ,const char(&)[9],std::optional<uint64_t>glz::schema::* ,const char(&)[9],std::optional<uint64_t>glz::schema::* ,const char(&)[12],std::optional<uint64_t>glz::schema::* ,const char(&)[12],std::optional<uint64_t>glz::schema::* ,const char(&)[12],std::optional<bool>glz::schema::* ,const char(&)[5],std::optional<std::span<const std::string_view,4294967295>>glz::schema::* ,const char(&)[9],std::optional<glz::detail::ExtUnits>glz::schema::* ,const char(&)[12],std::optional<bool>glz::schema::* >(const char (&)[5],std::optional<std::string_view> glz::schema::* &&,const char (&)[6],std::optional<std::string_view> glz::schema::* &&,const char (&)[12],std::optional<std::string_view> glz::schema::* &&,const char (&)[8],std::optional<glz::schema::schema_any> glz::schema::* &&,const char (&)[11],std::optional<bool> glz::schema::* &&,const char (&)[9],const glz::detail::opts_wrapper::<lambda_1> &,const char (&)[9],std::optional<bool> glz::schema::* &&,const char (&)[10],std::optional<bool> glz::schema::* &&,const char (&)[6],std::optional<glz::schema::schema_any> glz::schema::* &&,const char (&)[10],std::optional<uint64_t> glz::schema::* &&,const char (&)[10],std::optional<uint64_t> glz::schema::* &&,const char (&)[8],std::optional<std::string_view> glz::schema::* &&,const char (&)[7],std::optional<glz::detail::defined_formats> glz::schema::* &&,const char (&)[8],glz::schema::schema_number glz::schema::* &&,const char (&)[8],glz::schema::schema_number glz::schema::* &&,const char (&)[17],glz::schema::schema_number glz::schema::* &&,const char (&)[17],glz::schema::schema_number glz::schema::* &&,const char (&)[11],glz::schema::schema_number glz::schema::* &&,const char (&)[14],std::optional<uint64_t> glz::schema::* &&,const char (&)[14],std::optional<uint64_t> glz::schema::* &&,const char (&)[9],std::optional<std::span<const std::string_view,4294967295>> glz::schema::* &&,const char (&)[9],std::optional<uint64_t> glz::schema::* &&,const char (&)[9],std::optional<uint64_t> glz::schema::* &&,const char (&)[12],std::optional<uint64_t> glz::schema::* &&,const char (&)[12],std::optional<uint64_t> glz::schema::* &&,const char (&)[12],std::optional<bool> glz::schema::* &&,const char (&)[5],std::optional<std::span<const std::string_view,4294967295>> glz::schema::* &&,const char (&)[9],std::optional<glz::detail::ExtUnits> glz::schema::* &&,const char (&)[12],std::optional<bool> glz::schema::* &&) noexcept' being compiled
+  	C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\core\common.hpp(867,59):
+  	see reference to class template instantiation 'glz::group_builder<Tuple>' being compiled
+  	C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(167,33):
+  	see reference to function template instantiation 'auto glz::make_groups_helper<Tuple>(void)' being compiled
+          with
+          [
+              Tuple=Tuple
+          ]
+  	C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(158,31):
+  	see reference to function template instantiation 'auto glz::shrink_index_array<29,const _Ty1&>(_T0)' being compiled
+          with
+          [
+              _Ty1=std::array<uint64_t,58>,
+              _T0=const std::array<uint64_t,58> &
+          ]
+  
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\LocationSync.cpp(25,49): warning C4838: conversion from 'address' to 'duint' requires a narrowing conversion
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\LocationSync.cpp(25,49): warning C4244: 'initializing': conversion from 'address' to 'duint', possible loss of data
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\LocationSync.cpp(25,83): warning C4838: conversion from 'address' to 'duint' requires a narrowing conversion
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\LocationSync.cpp(25,83): warning C4244: 'initializing': conversion from 'address' to 'duint', possible loss of data
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\LocationSync.cpp(47,8): warning C4101: 'size': unreferenced local variable
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\SyncHandler.hpp(46,14): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'LocationSync.cpp')
+  C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\SyncHandler.hpp(46,14):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\LocationSync.cpp(41,11):
+  	see reference to function template instantiation 'void SyncHandler::send<Messages::Location>(const MessageType &)' being compiled
+          with
+          [
+              MessageType=Messages::Location
+          ]
+  
+  plugin.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\expected(11): warning STL4038: The contents of <expected> are available only with C++23 or later.
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244: '=': conversion from 'const _Ty' to '_Ty', possible loss of data
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         with
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         [
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:             _Ty=uint64_t
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         ]
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         and
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         [
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:             _Ty=size_t
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24): warning C4244:         ]
+  (compiling source file 'plugin.cpp')
+  C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(46,24):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\json\schema.hpp(91,45):
+  	see reference to function template instantiation 'auto glz::object<const char(&)[5],std::optional<std::string_view>glz::schema::* ,const char(&)[6],std::optional<std::string_view>glz::schema::* ,const char(&)[12],std::optional<std::string_view>glz::schema::* ,const char(&)[8],std::optional<glz::schema::schema_any>glz::schema::* ,const char(&)[11],std::optional<bool>glz::schema::* ,const char(&)[9],const glz::detail::opts_wrapper::<lambda_1>&,const char(&)[9],std::optional<bool>glz::schema::* ,const char(&)[10],std::optional<bool>glz::schema::* ,const char(&)[6],std::optional<glz::schema::schema_any>glz::schema::* ,const char(&)[10],std::optional<uint64_t>glz::schema::* ,const char(&)[10],std::optional<uint64_t>glz::schema::* ,const char(&)[8],std::optional<std::string_view>glz::schema::* ,const char(&)[7],std::optional<glz::detail::defined_formats>glz::schema::* ,const char(&)[8],glz::schema::schema_numberglz::schema::* ,const char(&)[8],glz::schema::schema_numberglz::schema::* ,const char(&)[17],glz::schema::schema_numberglz::schema::* ,const char(&)[17],glz::schema::schema_numberglz::schema::* ,const char(&)[11],glz::schema::schema_numberglz::schema::* ,const char(&)[14],std::optional<uint64_t>glz::schema::* ,const char(&)[14],std::optional<uint64_t>glz::schema::* ,const char(&)[9],std::optional<std::span<const std::string_view,4294967295>>glz::schema::* ,const char(&)[9],std::optional<uint64_t>glz::schema::* ,const char(&)[9],std::optional<uint64_t>glz::schema::* ,const char(&)[12],std::optional<uint64_t>glz::schema::* ,const char(&)[12],std::optional<uint64_t>glz::schema::* ,const char(&)[12],std::optional<bool>glz::schema::* ,const char(&)[5],std::optional<std::span<const std::string_view,4294967295>>glz::schema::* ,const char(&)[9],std::optional<glz::detail::ExtUnits>glz::schema::* ,const char(&)[12],std::optional<bool>glz::schema::* >(const char (&)[5],std::optional<std::string_view> glz::schema::* &&,const char (&)[6],std::optional<std::string_view> glz::schema::* &&,const char (&)[12],std::optional<std::string_view> glz::schema::* &&,const char (&)[8],std::optional<glz::schema::schema_any> glz::schema::* &&,const char (&)[11],std::optional<bool> glz::schema::* &&,const char (&)[9],const glz::detail::opts_wrapper::<lambda_1> &,const char (&)[9],std::optional<bool> glz::schema::* &&,const char (&)[10],std::optional<bool> glz::schema::* &&,const char (&)[6],std::optional<glz::schema::schema_any> glz::schema::* &&,const char (&)[10],std::optional<uint64_t> glz::schema::* &&,const char (&)[10],std::optional<uint64_t> glz::schema::* &&,const char (&)[8],std::optional<std::string_view> glz::schema::* &&,const char (&)[7],std::optional<glz::detail::defined_formats> glz::schema::* &&,const char (&)[8],glz::schema::schema_number glz::schema::* &&,const char (&)[8],glz::schema::schema_number glz::schema::* &&,const char (&)[17],glz::schema::schema_number glz::schema::* &&,const char (&)[17],glz::schema::schema_number glz::schema::* &&,const char (&)[11],glz::schema::schema_number glz::schema::* &&,const char (&)[14],std::optional<uint64_t> glz::schema::* &&,const char (&)[14],std::optional<uint64_t> glz::schema::* &&,const char (&)[9],std::optional<std::span<const std::string_view,4294967295>> glz::schema::* &&,const char (&)[9],std::optional<uint64_t> glz::schema::* &&,const char (&)[9],std::optional<uint64_t> glz::schema::* &&,const char (&)[12],std::optional<uint64_t> glz::schema::* &&,const char (&)[12],std::optional<uint64_t> glz::schema::* &&,const char (&)[12],std::optional<bool> glz::schema::* &&,const char (&)[5],std::optional<std::span<const std::string_view,4294967295>> glz::schema::* &&,const char (&)[9],std::optional<glz::detail::ExtUnits> glz::schema::* &&,const char (&)[12],std::optional<bool> glz::schema::* &&) noexcept' being compiled
+  	C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\core\common.hpp(867,59):
+  	see reference to class template instantiation 'glz::group_builder<Tuple>' being compiled
+  	C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(167,33):
+  	see reference to function template instantiation 'auto glz::make_groups_helper<Tuple>(void)' being compiled
+          with
+          [
+              Tuple=Tuple
+          ]
+  	C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\glaze\util\tuple.hpp(158,31):
+  	see reference to function template instantiation 'auto glz::shrink_index_array<29,const _Ty1&>(_T0)' being compiled
+          with
+          [
+              _Ty1=std::array<uint64_t,58>,
+              _T0=const std::array<uint64_t,58> &
+          ]
+  
+C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\plugin.cpp(126,11): warning C4804: '<=': unsafe use of type 'bool' in operation
+     Creating library C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\Release\x64Sync.lib and object C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\Release\x64Sync.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 2888 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  x64Sync.vcxproj -> C:\Users\Diogo Santos\Desktop\Projetos\Gx64Sync\x64Sync\Release\x64Sync.dp32

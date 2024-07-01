@@ -17,8 +17,8 @@ public:
 private:
 	SyncHandler &sh;
 	bool active = false;
-	duint currBase;
-	duint remoteBase;
+	address currBase;
+	address remoteBase;
 	void syncRemoteBase(const Messages::Base& mBase);
 	void syncRemoteAdress(const Messages::Location& mLoc);
 	std::vector<int> subscriberHandles;
