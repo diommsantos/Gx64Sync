@@ -37,7 +37,7 @@ details.
 
 # Installation
 
-To correctly work with the 
+In order for Gx64Sync to function correctly, is necessary to install both the Ghidra plugin and the x64Dbg plugin. 
 
 ## Ghidra plugin
 
