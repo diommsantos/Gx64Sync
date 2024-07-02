@@ -50,43 +50,47 @@ In order for Gx64Sync to function correctly, is necessary to install both the Gh
 
 ## Ghidra plugin
 
-### Build the Ghidra extension
-
-The Ghidra plugin is tied to the Ghidra version it is being installed on. Now is necessary to build it, 
+The Ghidra plugin is tied to the Ghidra version it is being installed on. Currently is necessary to build it;
 built plugins will be provided in the future for the latest Ghidra versions. 
+
+### Build the Ghidra extension
 
 1. Install Ghidra
 2. Install [gradle](https://docs.gradle.org/current/userguide/installation.html#ex-installing-manually)
-3. Navigate to the `GSync` folder
-4. Build extension for your Ghidra installation (replace `$GHIDRA_DIR` with your installation directory)
+3. Navigate to the `Gx64Sync\GSync` folder
+
+```bash
+cd Gx64Sync\GSync
+```
+ 
+4. Build extension for your Ghidra installation (replace `$GHIDRA_DIR` with your installation directory). For example,
+if you have the following Ghidra installation path `C:\ghidra_11.0.3_PUBLIC` you would run 
+`gradle -PGHIDRA_INSTALL_DIR=C:\ghidra_11.0.3_PUBLIC`. 
 
 ```bash
 gradle -PGHIDRA_INSTALL_DIR=$GHIDRA_DIR
 ```
 
-### Install the Ghidra extension
+### Install the Ghidra plguin
 
 1. From Ghidra projects manager: ``File`` -> ``Install Extensions...``, click on the
-   `+` sign and select the `ext_ghidra/dist/ghidra_*_retsync.zip` and click OK.
-   This will effectively extract the `retsync` folder from the zip into
-   `$GHIDRA_DIR/Extensions/Ghidra/`
+   `+` sign and select the `Gx64Sync\GSync\dist\ghidra_*_GSync.zip` and click OK.
+   This will effectively extract the `GSync` folder from the zip into
+   `$GHIDRA_DIR\Extensions\Ghidra\`
 2. Restart Ghidra as requested
 3. After reloading Ghidra, open a module in CodeBrowser. It should tell you a
    new extension plugin has been detected. Select "yes" to configure it. Then
-   tick "RetSyncPlugin" and click OK. The console should show something like:
+   tick "GSyncPlugin" and click OK. The console should show something like:
 
 ```
-[*] retsync init
-[>] programOpened: tm.sys
-    imageBase: 0x1c0000000
+[*] Gsync init
+Server constructor Called!
 ```
 
-4. From Ghidra CodeBrowser tool: use toolbar icons or shortcuts to enable (``Alt+s``)/disable (``Alt+Shift+s``)/restart (``Alt+r``)
-   synchronization.
-
-A status window is also available from ``Windows`` -> ``RetSyncPlugin``. You
-generally want to drop it on the side to integrate it with the Ghidra
-environment windows.
+###Troubleshooting
+To verify the Ghidra plugin is correctly installed, you can open CodeBrowser and select
+``File`` -> ``Configure`` -> ``Examples (Configure) `` and check that the `GSyncPlugin` option
+exists and is selected. If that is the case ``Window``->``GSyncPlugin`` menu option should exist. 
 
 
 ## x64Dbg Plugin
