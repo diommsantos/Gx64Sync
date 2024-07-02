@@ -64,10 +64,8 @@ cd Gx64Sync\GSync
 ```
  
 3. Build the plugin for your Ghidra installation (replace `$GHIDRA_DIR` with your installation directory).
-
-For example,
-if you have the following Ghidra installation path `C:\ghidra_11.0.3_PUBLIC` you would run 
-`gradle -PGHIDRA_INSTALL_DIR=C:\ghidra_11.0.3_PUBLIC`. 
+For example, if you have the following Ghidra installation path `C:\ghidra_11.0.3_PUBLIC` you would run 
+``gradle -PGHIDRA_INSTALL_DIR=C:\ghidra_11.0.3_PUBLIC``. 
 
 ```bash
 gradle -PGHIDRA_INSTALL_DIR=$GHIDRA_DIR
