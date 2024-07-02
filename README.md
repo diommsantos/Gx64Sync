@@ -88,7 +88,7 @@ Server constructor Called!
 You can check the install path by selecting ``GSync`` under ``File`` -> ``Install Extensions...``, 
 and verifying the ``Install Path:`` property.  
 
-###Troubleshooting
+### Troubleshooting
 To verify the Ghidra plugin is correctly installed, you can open CodeBrowser and select
 ``File`` -> ``Configure`` -> ``Examples (Configure) `` and check that the `GSyncPlugin` option
 exists and is selected. If that is the case ``Window``->``GSyncPlugin`` menu option should exist. 
