@@ -63,7 +63,9 @@ built plugins will be provided in the future for the latest Ghidra versions.
 cd Gx64Sync\GSync
 ```
  
-3. Build the plugin for your Ghidra installation (replace `$GHIDRA_DIR` with your installation directory). For example,
+3. Build the plugin for your Ghidra installation (replace `$GHIDRA_DIR` with your installation directory).
+
+For example,
 if you have the following Ghidra installation path `C:\ghidra_11.0.3_PUBLIC` you would run 
 `gradle -PGHIDRA_INSTALL_DIR=C:\ghidra_11.0.3_PUBLIC`. 
 
