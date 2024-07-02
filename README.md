@@ -55,15 +55,14 @@ built plugins will be provided in the future for the latest Ghidra versions.
 
 ### Build the Ghidra extension
 
-1. Install Ghidra
-2. Install [gradle](https://docs.gradle.org/current/userguide/installation.html#ex-installing-manually)
-3. Navigate to the `Gx64Sync\GSync` folder
+1. Install [gradle](https://docs.gradle.org/current/userguide/installation.html#ex-installing-manually)
+2. Navigate to the `Gx64Sync\GSync` folder
 
 ```bash
 cd Gx64Sync\GSync
 ```
  
-4. Build extension for your Ghidra installation (replace `$GHIDRA_DIR` with your installation directory). For example,
+3. Build extension for your Ghidra installation (replace `$GHIDRA_DIR` with your installation directory). For example,
 if you have the following Ghidra installation path `C:\ghidra_11.0.3_PUBLIC` you would run 
 `gradle -PGHIDRA_INSTALL_DIR=C:\ghidra_11.0.3_PUBLIC`. 
 
@@ -75,8 +74,6 @@ gradle -PGHIDRA_INSTALL_DIR=$GHIDRA_DIR
 
 1. From Ghidra projects manager: ``File`` -> ``Install Extensions...``, click on the
    `+` sign and select the `Gx64Sync\GSync\dist\ghidra_*_GSync.zip` and click OK.
-   This will effectively extract the `GSync` folder from the zip into
-   `$GHIDRA_DIR\Extensions\Ghidra\`
 2. Restart Ghidra as requested
 3. After reloading Ghidra, open a module in CodeBrowser. It should tell you a
    new extension plugin has been detected. Select "yes" to configure it. Then
@@ -86,6 +83,9 @@ gradle -PGHIDRA_INSTALL_DIR=$GHIDRA_DIR
 [*] Gsync init
 Server constructor Called!
 ```
+
+You can check the install path by selecting ``GSync`` under ``File`` -> ``Install Extensions...``, 
+and verifying the ``Install Path:`` property.  
 
 ###Troubleshooting
 To verify the Ghidra plugin is correctly installed, you can open CodeBrowser and select
