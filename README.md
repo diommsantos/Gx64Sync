@@ -36,9 +36,10 @@ details.
 -------------------------------------------------------------------------------
 
 # Features
-* Fast and fully async
+* Fast and fully asynchronous
 * Allows for synchronization of adresses in both ways (sync addresses from Ghidra to x64Dbg and from x64Dbg to Ghidra)
 * Easily extensible, see DEV.md
+* and much more...
     
 # Usage
 
