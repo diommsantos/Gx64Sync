@@ -52,21 +52,15 @@ In order for Gx64Sync to function correctly, is necessary to install both the Gh
 
 ### Build the Ghidra extension
 
-Either use the pre-built version from the `ext_ghidra/dist` folder or follow the instruction to build it.
-Each extension build only supports the version of Ghidra specified in the plugin's file name.
-E.g. `ghidra_9.1_PUBLIC_20191104_retsync.zip` is for Ghidra 9.1 Public.
+The Ghidra plugin is tied to the Ghidra version it is being installed on. Now is necessary to build it, 
+built plugins will be provided in the future for the latest Ghidra versions. 
 
 1. Install Ghidra
-2. Install gradle
+2. Install [gradle](https://docs.gradle.org/current/userguide/installation.html#ex-installing-manually)
+3. Navigate to the `GSync` folder
+4. Build extension for your Ghidra installation (replace `$GHIDRA_DIR` with your installation directory)
 
 ```bash
-apt install gradle
-```
-
-3. Build extension for your Ghidra installation (replace `$GHIDRA_DIR` with your installation directory)
-
-```bash
-cd ext_ghidra
 gradle -PGHIDRA_INSTALL_DIR=$GHIDRA_DIR
 ```
 
@@ -107,6 +101,7 @@ Based on testplugin,  https://github.com/x64dbg/testplugin. x64dbg support is ex
 
 
 # TODO
+- [ ] Add pre-built GSync plugins for the latest Ghidra versions
 - [ ] Improve README.md and DEV.md
 - [ ] Get a cooler name than Gx64Sync ;)
 - [ ] make a GUI for GSync similar to ret-sync
