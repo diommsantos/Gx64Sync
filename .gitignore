@@ -1,6 +1,2 @@
-**/.vs/**
-**/*.exe
-**/*.pdb
-**/*.obj
-x64Sync/.vs/**
-ext_x64dbg/.vs/x64dbg_sync/v17/Browse.VC.db
+hercules_3-2-8.exe
+/.vs/
