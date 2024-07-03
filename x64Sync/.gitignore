@@ -1,7 +1,9 @@
 /.vs/
 /x64Sync/
 /Release/**
+!/Release/x64Sync.dp32
 /x64/**
+!/x64/Release
 !/x64/Release/x64Sync.dp64
 /PluginDevBuildTool.exe
 /PluginDevServer.exe
