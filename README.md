@@ -95,15 +95,28 @@ exists and is selected. If that is the case ``Window``->``GSyncPlugin`` menu opt
 
 
 ## x64Dbg Plugin
+This plugin has a 32-bit and 64-bit version.
+### 64-bit version
+1. Copy `Gx64Sync\x64Sync\x64\Release\x64Sync.dp64` to the plugins folder of the 64-bit version of x64Dbg (usually under `x64Dbg\release\x64\plugins`).
+### 32-bit version
+1. Copy `Gx64Sync\x64Sync\Release\x64Sync.dp32` to the plugins folder of the 32-bit version of x64Dbg (usually under `x64Dbg\release\x32\plugins`).
 
-Based on testplugin,  https://github.com/x64dbg/testplugin. x64dbg support is experimental, however:
-
-1. Build the plugin using the VS solution (optional, see pre-built binaries).
-   May you need a different version of the plugin sdk,
-   a copy can be found in each release of x64dbg.
-   Paste the "``pluginsdk``" directory into "``ext_x64dbg\x64dbg_sync``"
-2. Copy the dll (extension is ``.d32`` or ``.dp64``) within x64dbg's plugin directory.
-
+### Troubleshooting
+The plugin should work righ out of the box. If it was installed correctly something similar to 
+```
+[pluginload] x64Sync
+[x64Sync] pluginInit(pluginHandle: 2)
+[PLUGIN, x64Sync] Command "x64SyncConnect" registered!
+[PLUGIN, x64Sync] Command "x64SyncStop" registered!
+[PLUGIN, x64Sync] Command "StartLocationSync" registered!
+[PLUGIN, x64Sync] Command "StopLocationSync" registered!
+[PLUGIN, x64Sync] Command "SyncLocation" registered!
+[PLUGIN, x64Sync] Command "SyncBase" registered!
+[PLUGIN, x64Sync] Command "Funciona" registered!
+[PLUGIN] x64Sync v1 Loaded!
+[x64Sync] pluginSetup(pluginHandle: 2)
+```
+should appear in the log tab of x64Dbg.
 
 # TODO
 - [ ] Add pre-built GSync plugins for the latest Ghidra versions
