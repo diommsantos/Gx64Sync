@@ -42,9 +42,9 @@ To verify that the Eclipse environment is setup correctly, you can open CodeBrow
 ``File`` -> ``Configure`` -> ``Examples (Configure) `` and check that the `GSyncPlugin` option
 exists and is selected. If that is the case ``Window``->``GSyncPlugin`` menu option should exist.
 
-[!Warning]
-When the plugin is built from gradle outside of Eclipse the GSync Run/Debug Configuration stops working, to fix this remove all the files created by
-by gradle while building the plugin.
+> [!WARNING] 
+> When the plugin is built from gradle outside of Eclipse the GSync Run/Debug Configuration stops working, to fix this remove all the files created by
+> by gradle while building the plugin.
 
 ## Debugging x64Sync
 
