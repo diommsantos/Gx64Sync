@@ -1,4 +1,5 @@
 /.vs/
+/Debug/
 /x64Sync/
 /Release/**
 !/Release/x64Sync.dp32
