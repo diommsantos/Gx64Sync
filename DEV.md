@@ -73,6 +73,7 @@ Your debug configuration is complete, and it should be possible to debug x64Sync
 5. Run the `PluginDevServer.exe`.
 6. Start the 32-bit version of x64Debug. 
 
+### Troubleshooting
 > [!WARNING] 
 > Do not forget to run `PluginDevServer.exe` and the appropiate version of x64Debug to properly debug x64Sync. 
 # Software Architecture
