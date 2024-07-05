@@ -48,7 +48,33 @@ exists and is selected. If that is the case ``Window``->``GSyncPlugin`` menu opt
 
 ## Debugging x64Sync
 
+### 64-bit version
+1. For debugging the 64-bit version, copy ``GSync\x64Sync\PluginDevHelper.dp64`` to the ``x64DBG_INSTALL_DIR\release\x64\plugins`` folder where ``x64DBG_INSTALL_DIR`` is the installation directory of x64Dbg. See [PluginDevHelper](https://github.com/x64dbg/PluginDevHelper) for more details.
+2. Open ``x64Sync.sln`` in Visual Studio and run the x64 Debug Configurations. This should create a `x64\Debug` folder  in the `x64Sync` folder and a `.dp64` file inside.
+3. Change directories to the `x64\Debug` folder and run the following command:
+   ``
+   mklink x64Sync.dp64 x64DBG_INSTALL_DIR\release\x64\plugins\x64Sync
+   ``
+   Once again ``x64DBG_INSTALL_DIR`` is the installation directory of x64Dbg.
+4. In Visual Studio select `Debug`-> `x64Sync Debug Properties`. Verify that ``Coniguration:`` is set to ``Debug`` and ``Platform:`` to ``x64``. Under ``Configuration Properties``->``Debugging`` change the command property to ``x64DBG_INSTALL_DIR\release\x64\x64dbg.exe``. 
+5. Run the `PluginDevServer.exe`.
+6. Start the 64-bit version of x64Debug. 
+Your debug configuration is complete, and it should be possible to debug x64Sync from inside Visual Studio.
 
+### 32-bit version
+1. For the 32-bit version, copy ``GSync\x64Sync\PluginDevHelper.dp32`` to the ``x64DBG_INSTALL_DIR\release\x32\plugins``.
+2. Open ``x64Sync.sln`` in Visual Studio and run the x86 Debug Configurations. This should create a `Debug` folder  in the `x64Sync` folder and a `.dp32` file inside.
+3. Change directories to the `Debug` folder and run the following command:
+   ``
+   mklink x64Sync.dp32 x64DBG_INSTALL_DIR\release\x32\plugins\x64Sync
+   ``
+   Once again ``x64DBG_INSTALL_DIR`` is the installation directory of x64Dbg.
+4. In Visual Studio select `Debug`-> `x64Sync Debug Properties`. Verify that ``Coniguration:`` is set to ``Debug`` and ``Platform:`` to ``x32``. Under ``Configuration Properties``->``Debugging`` change the command property to ``x64DBG_INSTALL_DIR\release\x32\x32dbg.exe``. 
+5. Run the `PluginDevServer.exe`.
+6. Start the 32-bit version of x64Debug. 
+
+> [!WARNING] 
+> Do not forget to run `PluginDevServer.exe` and the appropiate version of x64Debug to properly debug x64Sync. 
 # Software Architecture
 
 # Extending the functionaliy of the plugins
