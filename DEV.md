@@ -32,7 +32,7 @@
     Click Trust Selected
     Click Restart Now
 ```
-2. In Eclipse under `File`->`Open Prjects from File System...` select the `Gx64Sync\GSync` directory and import it.
+2. In Eclipse under `File`->`Open Projects from File System...` select the `Gx64Sync\GSync` directory and import it.
 3. In Eclipse select `GhidraDev`->`Link Ghidra...` and follow the instructions. 
 
 There should now be a GSync Run Configuration and GSync Debug Configuration in Eclipse that you can use to debug GSync.
@@ -56,7 +56,7 @@ exists and is selected. If that is the case ``Window``->``GSyncPlugin`` menu opt
    mklink x64Sync.dp64 x64DBG_INSTALL_DIR\release\x64\plugins\x64Sync
    ``
    Once again ``x64DBG_INSTALL_DIR`` is the installation directory of x64Dbg.
-4. In Visual Studio select `Debug`-> `x64Sync Debug Properties`. Verify that ``Coniguration:`` is set to ``Debug`` and ``Platform:`` to ``x64``. Under ``Configuration Properties``->``Debugging`` change the command property to ``x64DBG_INSTALL_DIR\release\x64\x64dbg.exe``. 
+4. In Visual Studio select `Debug`-> `x64Sync Debug Properties`. Verify that ``Configuration:`` is set to ``Debug`` and ``Platform:`` to ``x64``. Under ``Configuration Properties``->``Debugging`` change the command property to ``x64DBG_INSTALL_DIR\release\x64\x64dbg.exe``. 
 5. Run the `PluginDevServer.exe`.
 6. Start the 64-bit version of x64Debug. 
 Your debug configuration is complete, and it should be possible to debug x64Sync from inside Visual Studio.
@@ -69,15 +69,15 @@ Your debug configuration is complete, and it should be possible to debug x64Sync
    mklink x64Sync.dp32 x64DBG_INSTALL_DIR\release\x32\plugins\x64Sync
    ``
    Once again ``x64DBG_INSTALL_DIR`` is the installation directory of x64Dbg.
-4. In Visual Studio select `Debug`-> `x64Sync Debug Properties`. Verify that ``Coniguration:`` is set to ``Debug`` and ``Platform:`` to ``x32``. Under ``Configuration Properties``->``Debugging`` change the command property to ``x64DBG_INSTALL_DIR\release\x32\x32dbg.exe``. 
+4. In Visual Studio select `Debug`-> `x64Sync Debug Properties`. Verify that ``Configuration:`` is set to ``Debug`` and ``Platform:`` to ``x32``. Under ``Configuration Properties``->``Debugging`` change the command property to ``x64DBG_INSTALL_DIR\release\x32\x32dbg.exe``. 
 5. Run the `PluginDevServer.exe`.
 6. Start the 32-bit version of x64Debug. 
 
 ### Troubleshooting
 > [!WARNING] 
-> Do not forget to run `PluginDevServer.exe` and the appropiate version of x64Debug to properly debug x64Sync. 
+> Do not forget to run `PluginDevServer.exe` and the appropriate version of x64Debug to properly debug x64Sync. 
 # Software Architecture
 
-# Extending the functionaliy of the plugins
+# Extending the functionality of the plugins
 
 # Creating similar plugins for other tools
