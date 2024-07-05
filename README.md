@@ -37,7 +37,7 @@ details.
 
 # Features
 * Fast and fully asynchronous
-* Allows for synchronization of adresses in both ways (sync addresses from Ghidra to x64Dbg and from x64Dbg to Ghidra)
+* Allows for synchronization of addresses in both ways (sync addresses from Ghidra to x64Dbg and from x64Dbg to Ghidra)
 * Easily extensible, see [DEV.md](/DEV.md)
 * and much more...
     
@@ -102,7 +102,7 @@ This plugin has a 32-bit and 64-bit version.
 1. Copy `Gx64Sync\x64Sync\Release\x64Sync.dp32` to the plugins folder of the 32-bit version of x64Dbg (usually under `x64Dbg\release\x32\plugins`).
 
 ### Troubleshooting
-The plugin should work righ out of the box. If it was installed correctly something similar to 
+The plugin should work right out of the box. If it was installed correctly something similar to 
 ```
 [pluginload] x64Sync
 [x64Sync] pluginInit(pluginHandle: 2)
@@ -142,7 +142,7 @@ Conflict(s):
 - Logitech Updater software is known to use the same default port (9100).
 
 # Acknowledgments
-Gx64Sync is powered by and would not be possible without the amazing open sourse projects:
+Gx64Sync is powered by and would not be possible without the amazing open source projects:
 - [ret-sync](https://github.com/bootleg/ret-sync) (provided huge inspiration and innumerous code examples for this project)  
 - [asio](https://think-async.com/Asio/asio-1.30.2/doc/) 
 - [glaze](https://github.com/stephenberry/glaze)
