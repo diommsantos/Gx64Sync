@@ -82,6 +82,8 @@ Your debug configuration is complete, and it should be possible to debug x64Sync
 This software was built to be as modular (and therefore easily extensible) as possible. 
 It is composed of two plugins: a Ghidra plugin (GSync) and an x64Dbg plugin (x64Sync). 
 To best understand how this software works we will use the common analogy of a "layered cake" where each layer depends only on the layers below:
+
+
 ![Gx64Sync Image](/docs/Gx64SyncDiagram.png)
 
 # Extending the functionality of the plugins
