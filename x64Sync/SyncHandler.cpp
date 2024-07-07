@@ -78,16 +78,3 @@ void SyncHandler::unsubscribe(int subscriberHandle) {
     std::string_view id{ ids[subscriberHandle % ids.size()] };
     subscribers[id].erase(subscribers[id].begin() + subscriberHandle / ids.size());
 }
-
-/*template <typename SubscriberType>
-void SyncHandler::subscribe(const std::string_view id, SubscriberType subscriber) {
-    subscribers[id].push_back(static_cast<Subscriber>(subscriber));
-}
-*/
-/*template <typename MessageType>
-void SyncHandler::send(const MessageType& message){
-    std::string encMessage{};
-    glz::write_json(message, encMessage);
-    session.send(encMessage);
-}
-*/
