@@ -32,7 +32,7 @@ public:
             [subscriber](const Messages::Message& message) { subscriber(std::get<MessageType>(message)); }
         );
 
-        //get subsceiberHandle
+        //get subscriberHandle
         auto it = std::find(ids.begin(), ids.end(), MessageType::id);
         int index = std::distance(ids.begin(), it);
         return (subscribers[MessageType::id].size() - 1) * ids.size() + index;

@@ -2,7 +2,21 @@
 
 using namespace Messages;
 
-std::vector<std::string_view> SyncHandler::ids{ std::views::keys(Messages::decoders).begin(), std::views::keys(Messages::decoders).end() };
+template <std::size_t index = 0>
+requires (index == std::variant_size_v<Message> )
+std::vector<std::string_view> getMessageIds() {
+    return {};
+}
+
+template <std::size_t index = 0>
+requires (index < std::variant_size_v<Message> )
+std::vector<std::string_view> getMessageIds() {
+    std::vector<std::string_view> ids = getMessageIds<index + 1>();
+    ids.push_back(std::variant_alternative_t<index, Message>::id);
+    return ids;
+}
+
+std::vector<std::string_view> SyncHandler::ids{ getMessageIds() };
 
 SyncHandler::SyncHandler(SyncHandler::Logger callback):
 loggerCallback_{callback}, 
@@ -45,7 +59,7 @@ void SyncHandler::MessageHandler(const std::string_view encMessage){
         Messages::MessageHeader header;
         glz::read < glz::opts{ .error_on_unknown_keys = false } > (header, encMessage.data());
         Message* message = new Message;
-        (Messages::decoders[header.id])(*message, encMessage);
+        glz::read < glz::opts{ .error_on_unknown_keys = false } > (*message, encMessage);
         for (Subscriber& subscriber : subscribers[header.id]){
             subscriber(*message);
         }

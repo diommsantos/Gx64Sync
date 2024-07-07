@@ -200,7 +200,6 @@
     <ClCompile Include="LocationSync.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Messages.cpp" />
     <ClCompile Include="plugin.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
     </ClCompile>

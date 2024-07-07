@@ -53,9 +53,6 @@
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Messages.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SyncHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

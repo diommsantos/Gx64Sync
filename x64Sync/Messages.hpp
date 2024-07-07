@@ -40,8 +40,6 @@ namespace Messages {
     };
 
     using Message = std::variant<Location, Test, Base>;
-    using Decoder = std::function<glz::error_ctx(Message&, const std::string_view)>;
-    extern std::unordered_map<std::string_view, Decoder> decoders;
 }
 
 #endif
