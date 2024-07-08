@@ -1,5 +1,6 @@
 #include "SyncHandler.hpp"
 #include "LocationSync.hpp"
+#include "CommentSync.hpp"
 #include "plugin.h"
 
 //x64Sync Plugin Specific variables/functions
@@ -28,6 +29,7 @@ namespace x64Sync {
     }
 
     LocationSync ls{ sh };
+    CommentSync cs{ sh };
 
 }
 
@@ -94,6 +96,7 @@ bool pluginInit(PLUG_INITSTRUCT* initStruct)
     _plugin_registercommand(pluginHandle, "x64SyncConnect", x64Sync::syncHandlerStart, false);
     _plugin_registercommand(pluginHandle, "x64SyncStop", x64Sync::syncHandlerStop, false);
     registerLocationSyncCommands();
+    registerCommentSyncCommands();
     _plugin_registercommand(pluginHandle, "Funciona", cbExampleCommand, true);
 
     // Return false to cancel loading the plugin.

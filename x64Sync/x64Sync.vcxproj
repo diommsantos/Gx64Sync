@@ -183,6 +183,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Client.hpp" />
+    <ClInclude Include="CommentSync.hpp" />
     <ClInclude Include="LocationSync.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -197,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="CommentSync.cpp" />
     <ClCompile Include="LocationSync.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
     </ClCompile>

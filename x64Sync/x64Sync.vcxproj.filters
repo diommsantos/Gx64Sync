@@ -42,6 +42,9 @@
     <ClInclude Include="LocationSync.hpp">
       <Filter>Header Files\Features</Filter>
     </ClInclude>
+    <ClInclude Include="CommentSync.hpp">
+      <Filter>Header Files\Features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="plugin.cpp">
@@ -61,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="SyncHandlerTest.cpp">
       <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="CommentSync.cpp">
+      <Filter>Source Files\Features</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

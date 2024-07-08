@@ -39,7 +39,15 @@ namespace Messages {
         address base;
     };
 
-    using Message = std::variant<Location, Test, Base>;
+    struct Comment
+    {
+        static constexpr std::string_view id{ "cmmt" };
+        std::string modname;
+        address rva;
+        std::string comment;
+    };
+
+    using Message = std::variant<Location, Test, Base, Comment>;
 }
 
 #endif
