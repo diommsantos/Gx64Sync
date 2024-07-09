@@ -48,6 +48,7 @@ public class GSyncProvider extends ComponentProvider{
 	private void createActions() {
 		
 		actions.addAll(gsp.locs.getActions(getName()));
+		actions.addAll(gsp.cmmts.getActions(getName()));
 		
 		for(DockingAction action : actions) {
 			dockingTool.addLocalAction(this, action);

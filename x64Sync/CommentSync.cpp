@@ -42,3 +42,14 @@ static bool csSendx64DbgCommentCommand(int argc, char** argv) { x64Sync::cs.send
 void registerCommentSyncCommands() {
 	_plugin_registercommand(pluginHandle, "SyncComment", csSendx64DbgCommentCommand, true);
 }
+
+void menuAddCommentSync() {
+	_plugin_menuaddentry(hMenu, COMMENT_SYNC_MENU_IDENTIFIERS::SYNC, "Sync Comment");
+}
+
+void menuEntryCommentSync(int hEntry) {
+	switch (hEntry) 
+	{
+	case COMMENT_SYNC_MENU_IDENTIFIERS::SYNC: csSendx64DbgCommentCommand(0, nullptr); break;
+	}
+}

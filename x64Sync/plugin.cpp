@@ -121,11 +121,12 @@ void pluginSetup()
 {
     // Prefix of the functions to call here: _plugin_menu
     menuAddLocationSync();
+    menuAddCommentSync();
     dprintf("pluginSetup(pluginHandle: %d)\n", pluginHandle);
 }
 
 //Register here the menu actions
 extern "C" __declspec(dllexport) void CBMENUENTRY(CBTYPE cbType, PLUG_CB_MENUENTRY * info) {
-    if (0 <= info->hEntry <= 4)
-        menuEntryLocationSync(info->hEntry);
+    menuEntryLocationSync(info->hEntry);
+    menuEntryCommentSync(info->hEntry);
 }

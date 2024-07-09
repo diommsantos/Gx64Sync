@@ -24,4 +24,13 @@ public class Messages {
 		
 		public Base() {} public Base(long base) {this.base = base;}
 	}
+	
+	public static class Comment extends Message{
+		public static String id = "cmmt";
+		public String modname;
+		public long rva;
+		public String comment;
+		
+		public Comment() {} public Comment(String modname, long rva, String cmmt) {this.modname = modname; this.rva = rva; this.comment = cmmt;}
+	}
 }
