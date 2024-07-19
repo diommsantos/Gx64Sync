@@ -119,12 +119,13 @@ The plugin should work right out of the box. If it was installed correctly somet
 should appear in the log tab of x64Dbg.
 
 # TODO
+- [x] Support Comment migration (CommentSync)
+- [ ] Implement all the features of [ret-sync](https://github.com/bootleg/ret-sync) (debugger commands in Ghidra...) 
 - [ ] Add pre-built GSync plugins for the latest Ghidra versions
 - [ ] Improve README.md and DEV.md
 - [ ] Get a cooler name than Gx64Sync ;)
 - [ ] make a GUI for GSync similar to ret-sync
 - [ ] fix x64Dbg closing crash
-- [ ] Implement all the features of [ret-sync](https://github.com/bootleg/ret-sync) (comment migration, debugger commands in Ghidra...)
 - [ ] Improve logging in GSync and x64Sync
 - [ ] Implement HyperSync (fully automatic syncing, that is once an address is highlited,
 both in Ghidra or x64Sync, it is synced in the other tool + automatic loading and change of modules in both tools)
