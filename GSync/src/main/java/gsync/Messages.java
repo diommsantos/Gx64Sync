@@ -33,4 +33,12 @@ public class Messages {
 		
 		public Comment() {} public Comment(String modname, long rva, String cmmt) {this.modname = modname; this.rva = rva; this.comment = cmmt;}
 	}
+	
+	public static class Session extends Message{
+		public static String id = "session";
+		public String sessionName;
+		public String programName;
+		
+		public Session(){} public Session(String sessionName, String programName) {this.sessionName = sessionName; this.programName = programName;}
+	}
 }

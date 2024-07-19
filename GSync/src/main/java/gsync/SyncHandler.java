@@ -22,6 +22,14 @@ public class SyncHandler {
 	
 	protected Consumer<String> logger;
 	
+	//SyncHandler State callback
+	protected List<Runnable> startCallbacks = new ArrayList<Runnable>();
+	protected List<Runnable> stopCallbacks = new ArrayList<Runnable>();
+	protected List<Runnable> errorCallbacks = new ArrayList<Runnable>();
+	protected List<Consumer<Integer>> clientHandlerErrorsCallbacks = new ArrayList<Consumer<Integer>>();
+	protected List<Consumer<Integer>> sessionStartCallbacks = new ArrayList<Consumer<Integer>>();
+	protected List<Consumer<Integer>> sessionStopCallbacks = new ArrayList<Consumer<Integer>>();
+	
 	protected Listener listener;
 	protected List<ClientHandler> sessions = new ArrayList<ClientHandler>();
 	protected Lock sessionLock = new ReentrantLock(true);
@@ -55,6 +63,30 @@ public class SyncHandler {
 		}
 	}
 	
+	public void installStartCallback(Runnable callback) {
+		startCallbacks.add(callback);
+	}
+	
+	public void installStopCallbacks(Runnable callback) {
+		stopCallbacks.add(callback);
+	}
+	
+	public void installErrorCallbacks(Runnable callback) {
+		errorCallbacks.add(callback);
+	}
+	
+	public void installClientHandlerErrorsCallbacks(Consumer<Integer> callback) {
+		clientHandlerErrorsCallbacks.add(callback);
+	}
+	
+	public void installSessionStartCallbacks(Consumer<Integer> callback) {
+		sessionStartCallbacks.add(callback);
+	}
+	
+	public void installSessionStopCallbacks(Consumer<Integer> callback) {
+		sessionStopCallbacks.add(callback);
+	}
+	
 	protected void receiver(String data, ClientHandler session){
 		try {
 			JSONObject jsonObj = new JSONObject(data);
@@ -85,16 +117,30 @@ public class SyncHandler {
 		return JSON.std.with(Feature.INCLUDE_STATIC_FIELDS).asString(message); //Feature.PRESERVE_FIELD_ORDERING doesn't work with static fields -.-' 
 	}
 	
+	protected void sessionStopper(ClientHandler session) {
+		int index = sessions.indexOf(session);
+		sessions.remove(session);
+		session.stop();
+		for(Consumer<Integer> callback : sessionStopCallbacks)
+			callback.accept(index);
+	}
+	
 	protected void errorRecuperator(ClientHandler session, IOException e) {
+		int index = sessions.indexOf(session);
+		for(Consumer<Integer> callback : clientHandlerErrorsCallbacks)
+			callback.accept(index);
 		sessions.remove(session);
 		session.stop();
 	}
 	
 	protected void onConnectionAccept(Socket sessionSocket) {
-		ClientHandler clientSession = new ClientHandler(sessionSocket, logger, this::errorRecuperator);
+		ClientHandler clientSession = new ClientHandler(sessionSocket, logger, this::sessionStopper, this::errorRecuperator);
 		clientSession.installReceiver(this::receiver);
 		sessions.add(clientSession);
 		clientSession.start();
+		for(Consumer<Integer> callback : sessionStartCallbacks) {
+			callback.accept(sessions.size()-1);
+		}
 	}
 	
 	public void start() {
@@ -103,17 +149,24 @@ public class SyncHandler {
 		listener.installOnConnectionAccept(this::onConnectionAccept);
 		listener.start();
 		active = true;
+		for(Runnable callback : startCallbacks)
+			callback.run();
 	}
 	
 	public void stop() {
 		if(!active)
 			return;
 		listener.stop();
-		for(ClientHandler session: sessions) {
-			session.stop();
+		for(int index = 0; index < sessions.size(); index++) {
+			sessions.get(index).stop();
+			for(Consumer<Integer> callback : sessionStopCallbacks) {
+				callback.accept(index);
+			}
+			sessions.remove(index);
 		}
 		active = false;
-		
+		for(Runnable callback : stopCallbacks)
+			callback.run();	
 	}
 	
 	@SuppressWarnings("unchecked")

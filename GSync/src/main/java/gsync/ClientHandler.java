@@ -12,6 +12,7 @@ public class ClientHandler {
 	
 	protected Consumer<String> logger;
 	protected BiConsumer<String, ClientHandler> receiver;
+	protected Consumer<ClientHandler> sessionStopper;
 	protected BiConsumer<ClientHandler, IOException> errorRecuperator;
 	protected Object receiverArg;
 	
@@ -21,9 +22,10 @@ public class ClientHandler {
     
     private Thread clientThread = null;
 	
-	ClientHandler(Socket client, Consumer<String> logger, BiConsumer<ClientHandler, IOException> errorRecuperator){
+	ClientHandler(Socket client, Consumer<String> logger, Consumer<ClientHandler> sessionStopper, BiConsumer<ClientHandler, IOException> errorRecuperator){
 		this.clientSocket = client;
 		this.logger= logger;
+		this.sessionStopper = sessionStopper;
 		this.errorRecuperator = errorRecuperator;
 	}
 	
@@ -53,7 +55,7 @@ public class ClientHandler {
 		            
 		            in.close();
 		            out.close();
-		            errorRecuperator.accept(self, null);
+		            sessionStopper.accept(self);
 		        } catch (IOException e) {
 		            logln(String.format("[!] ClientHandler error: %s", e.getMessage()));
 		            errorRecuperator.accept(self, e);
