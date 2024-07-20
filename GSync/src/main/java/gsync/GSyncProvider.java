@@ -3,12 +3,14 @@ package gsync;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,15 +29,25 @@ import resources.ResourceManager;
 
 public class GSyncProvider extends ComponentProvider{
 	
+	private enum STATUS{
+		IDLE,
+		WAITING_CONNECTION,
+		CONNECTED
+	};
+	
 	private JPanel panel;
 	private JLabel statusArea;
     private JLabel debuggerArea;
     private JLabel programArea;
+    
+    static Icon idleIcon = new ImageIcon(ResourceManager.loadImage("images/idle_status.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+    static Icon waitingConnectionIcon = new ImageIcon(ResourceManager.loadImage("images/waiting_connection_status.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+    static Icon connectedIcon = new ImageIcon(ResourceManager.loadImage("images/connected_status.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
 	
 	private List<DockingAction> actions = new ArrayList<DockingAction>(20);
 	
 	GSyncPlugin gsp;
-
+	
 
 	public GSyncProvider(Plugin plugin, String owner) {
 		super(plugin.getTool(), owner, owner);
@@ -45,10 +57,10 @@ public class GSyncProvider extends ComponentProvider{
 	
 	public void init() {
 		createActions();
-		gsp.sh.installClientHandlerErrorsCallbacks((sessionHandle) -> {resetUI();});
-		gsp.sh.installStartCallback(()->{statusArea.setText(String.format("Status: %s", "Waiting Connection..."));});
-		gsp.sh.installSessionStartCallbacks((sessionHandle) -> {statusArea.setText(String.format("Status: %s", "Connected"));});
-		gsp.sh.installSessionStopCallbacks((sessionHandle) -> {statusArea.setText(String.format("Status: %s", "Waiting Connection..."));});
+		gsp.sh.installClientHandlerErrorsCallbacks((sessionHandle) -> {setStatus(STATUS.WAITING_CONNECTION);});
+		gsp.sh.installStartCallback(()->{setStatus(STATUS.WAITING_CONNECTION);});
+		gsp.sh.installSessionStartCallbacks((sessionHandle) -> {setStatus(STATUS.CONNECTED);});
+		gsp.sh.installSessionStopCallbacks((sessionHandle) -> {setStatus(STATUS.WAITING_CONNECTION);});
 		gsp.sh.subscribe(Messages.Session.class, this::remoteSession);
 	}
 	
@@ -67,21 +79,39 @@ public class GSyncProvider extends ComponentProvider{
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
 
-        Icon BROWSER_ICON = ResourceManager.loadImage("images/browser.png");
-        statusArea = new JLabel(BROWSER_ICON, SwingConstants.LEFT);
-        statusArea.setText(String.format("Status: %s", "idle"));
+        statusArea = new JLabel(idleIcon, SwingConstants.LEFT);
+        setStatus(STATUS.IDLE);
         panel.add(statusArea, gbc);
 
-        Icon MEMORY_ICON = ResourceManager.loadImage("images/memory16.gif");
-        debuggerArea = new JLabel(MEMORY_ICON, SwingConstants.LEFT);
+        Icon bugIcon = new ImageIcon(ResourceManager.loadImage("images/bug.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        debuggerArea = new JLabel(bugIcon, SwingConstants.LEFT);
         debuggerArea.setText(String.format("Debugger session: %s", "none"));
         panel.add(debuggerArea, gbc);
 
-        Icon CODE_ICON = ResourceManager.loadImage("images/viewedCode.gif");
-        programArea = new JLabel(CODE_ICON, SwingConstants.LEFT);
+        Icon programIcon = ResourceManager.loadImage("images/memory16.gif");
+        programArea = new JLabel(programIcon, SwingConstants.LEFT);
         panel.add(programArea, gbc);
         programArea.setText(String.format("Debugger program: %s", "none"));
 		setVisible(true);
+	}
+	
+	private void setStatus(STATUS status) {
+		String s = "";
+		switch(status) {
+		case IDLE:
+			s = "Idle";
+			statusArea.setIcon(idleIcon);
+			break;
+		case WAITING_CONNECTION:
+			s = "Waiting Connection...";
+			statusArea.setIcon(waitingConnectionIcon);
+			break;
+		case CONNECTED:
+			s = "Connected";
+			statusArea.setIcon(connectedIcon);
+			break;
+		}
+		statusArea.setText(String.format("Status: %s", s));
 	}
 	
 	private void remoteSession(Messages.Session mSession, int session) {
@@ -90,11 +120,6 @@ public class GSyncProvider extends ComponentProvider{
 		programArea.setText(String.format("Debugger program: %s", mSession.programName));
 	}
 	
-	private void resetUI() {
-		statusArea.setText(String.format("Status: %s", "idle"));
-		debuggerArea.setText(String.format("Debugger session: %s", "none"));
-		programArea.setText(String.format("Debugger program: %s", "none"));
-	}
 
 	// TODO: Customize actions
 	private void createActions() {
