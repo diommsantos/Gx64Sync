@@ -34,7 +34,7 @@ public class SyncHandler {
 	protected List<Consumer<Integer>> sessionStopCallbacks = new ArrayList<Consumer<Integer>>();
 	
 	protected Listener listener;
-	protected int nextSessionHandle = 0;
+	
 	protected SortedMap<Integer, ClientHandler> sessions = new TreeMap<Integer, ClientHandler>();
 	protected Lock sessionLock = new ReentrantLock(true);
 	
@@ -43,7 +43,7 @@ public class SyncHandler {
 	List<String> ids = new ArrayList<String>();
 	Map<String, Class<?>> messages;
 	
-	Map<String, List<BiConsumer<Message, Integer>>> subscribers;
+	Map<String, SortedMap<Integer, BiConsumer<Message, Integer>>> subscribers;
 	
 	public SyncHandler(Consumer<String> logger){
 		this.logger = logger;
@@ -53,13 +53,13 @@ public class SyncHandler {
 		Class<?>[] decMessagesClasses = Messages.class.getDeclaredClasses();
 		String id = "";
 		messages = new HashMap<String, Class<?>>(decMessagesClasses.length);
-		subscribers = new HashMap<String, List<BiConsumer<Message, Integer>>>(decMessagesClasses.length);
+		subscribers = new HashMap<String, SortedMap<Integer, BiConsumer<Message, Integer>>>(decMessagesClasses.length);
 		for(int i = 0; i < decMessagesClasses.length; i++ ) {
 			try {
 				id = (String) decMessagesClasses[i].getDeclaredField("id").get(null);
 				ids.add(id);				
 				messages.put(id, decMessagesClasses[i]);
-				subscribers.put(id, new ArrayList<BiConsumer<Message, Integer>>(5));
+				subscribers.put(id, new TreeMap<Integer, BiConsumer<Message, Integer>>());
 			} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
 					| SecurityException e) {
 				e.printStackTrace();
@@ -103,13 +103,14 @@ public class SyncHandler {
 		return null;
 	}
 	
+	
 	protected void receiver(String data, ClientHandler session){
 		try {
 			JSONObject jsonObj = new JSONObject(data);
 			String id = jsonObj.getString("id");
 			Message messageObj = decode(data, id);
 			sessionLock.lock();
-			for(BiConsumer<Message, Integer> subscriber: subscribers.get(id))
+			for(BiConsumer<Message, Integer> subscriber: subscribers.get(id).values())
 				subscriber.accept(messageObj, getSessionHandle(session));
 			sessionLock.unlock();
 		}catch(RuntimeException  e){
@@ -152,12 +153,11 @@ public class SyncHandler {
 	protected void onConnectionAccept(Socket sessionSocket) {
 		ClientHandler clientSession = new ClientHandler(sessionSocket, logger, this::sessionStopper, this::errorRecuperator);
 		clientSession.installReceiver(this::receiver);
-		sessions.put(nextSessionHandle, clientSession);
+		sessions.put(sessions.lastKey()+1, clientSession);
 		clientSession.start();
 		for(Consumer<Integer> callback : sessionStartCallbacks) {
-			callback.accept(nextSessionHandle);
+			callback.accept(sessions.lastKey()+1);
 		}
-		 nextSessionHandle++;
 	}
 	
 	public void start() {
@@ -191,8 +191,9 @@ public class SyncHandler {
 		String id = "";
 		try {
 			id = (String) messageClass.getDeclaredField("id").get(null);
-			subscribers.get(id).add((BiConsumer<Message, Integer>) callback);
-			return (subscribers.get(id).size()-1) * ids.size() + ids.indexOf(id); //returns unique subscriber handler
+			int subscriberHandle = subscribers.get(id).isEmpty() ? ids.indexOf(id) : subscribers.get(id).lastKey()+ids.size();
+			subscribers.get(id).put(subscriberHandle, (BiConsumer<Message, Integer>) callback);
+			return subscriberHandle; //returns unique subscriber handler
 		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -209,7 +210,7 @@ public class SyncHandler {
 
 	public <MessageType extends Message> void unsubscribe(int subscriberHandle) {
 		String id = ids.get(subscriberHandle % ids.size());
-		subscribers.get(id).remove(subscriberHandle / ids.size());
+		subscribers.get(id).remove(subscriberHandle);
 	}
 		
 	public void send(Object message, int sessionHandle){

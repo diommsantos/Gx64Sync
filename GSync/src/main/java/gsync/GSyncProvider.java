@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 
 import javax.swing.Icon;
@@ -33,7 +35,7 @@ public class GSyncProvider extends ComponentProvider{
 		IDLE,
 		WAITING_CONNECTION,
 		CONNECTED
-	};
+	}
 	
 	private JPanel panel;
 	private JLabel statusArea;
@@ -46,22 +48,42 @@ public class GSyncProvider extends ComponentProvider{
 	
 	private List<DockingAction> actions = new ArrayList<DockingAction>(20);
 	
+	protected SortedMap<Integer, Messages.Session> sessionStatus = new TreeMap<Integer, Messages.Session>();
+	
 	GSyncPlugin gsp;
 	
 
 	public GSyncProvider(Plugin plugin, String owner) {
 		super(plugin.getTool(), owner, owner);
 		gsp = (GSyncPlugin) plugin;
+		sessionStatus.put(-1, new Messages.Session("none", "none"));
 		buildPanel();
 	}
 	
 	public void init() {
 		createActions();
-		gsp.sh.installClientHandlerErrorsCallbacks((sessionHandle) -> {setStatus(STATUS.WAITING_CONNECTION);});
-		gsp.sh.installStartCallback(()->{setStatus(STATUS.WAITING_CONNECTION);});
-		gsp.sh.installSessionStartCallbacks((sessionHandle) -> {setStatus(STATUS.CONNECTED);});
-		gsp.sh.installSessionStopCallbacks((sessionHandle) -> {setStatus(STATUS.WAITING_CONNECTION);});
-		gsp.sh.subscribe(Messages.Session.class, this::remoteSession);
+		gsp.sh.installClientHandlerErrorsCallbacks((sessionHandle) -> {
+			sessionStatus.remove(sessionHandle);
+			Messages.Session lastSession = sessionStatus.lastEntry().getValue();
+			updateSessionArea(lastSession.sessionName, lastSession.programName);
+			setStatus(STATUS.WAITING_CONNECTION);
+		});
+		gsp.sh.installStartCallback(() -> {
+			setStatus(STATUS.WAITING_CONNECTION);
+		});
+		gsp.sh.installSessionStartCallbacks((sessionHandle) -> {
+			sessionStatus.put(sessionHandle, new Messages.Session("Waiting for debugger session info...", "Waiting for program info..."));
+			updateSessionArea("Waiting for debugger session info...", "Waiting for program info...");
+			setStatus(STATUS.CONNECTED);
+			gsp.sh.send(new Messages.Session("Ghidra", gsp.pm.getCurrentProgram().toString()), sessionHandle);
+		});
+		gsp.sh.installSessionStopCallbacks((sessionHandle) -> {
+			sessionStatus.remove(sessionHandle);
+			Messages.Session lastSession = sessionStatus.lastEntry().getValue();
+			updateSessionArea(lastSession.sessionName, lastSession.programName);
+			setStatus(STATUS.WAITING_CONNECTION);
+		});
+		gsp.sh.subscribe(Messages.Session.class, this::remoteSessionInfoHandler);
 	}
 	
 	// Customize GUI
@@ -114,10 +136,14 @@ public class GSyncProvider extends ComponentProvider{
 		statusArea.setText(String.format("Status: %s", s));
 	}
 	
-	private void remoteSession(Messages.Session mSession, int session) {
-		statusArea.setText(String.format("Status: %s", "Connected"));
-		debuggerArea.setText(String.format("Debugger session: %s", mSession.sessionName));
-		programArea.setText(String.format("Debugger program: %s", mSession.programName));
+	private void updateSessionArea(String sessionName, String programName) {
+		debuggerArea.setText(String.format("Debugger session: %s", sessionName));
+		programArea.setText(String.format("Debugger program: %s", programName));
+	}
+	
+	private void remoteSessionInfoHandler(Messages.Session mSession, int session) {
+		sessionStatus.put(session, mSession); 
+		updateSessionArea(mSession.sessionName, mSession.programName);
 	}
 	
 
