@@ -47,7 +47,24 @@ namespace Messages {
         std::string comment;
     };
 
-    using Message = std::variant<Location, Test, Base, Comment>;
+    struct Session
+    {
+        static constexpr std::string_view id{ "session" };
+        std::string sessionName;
+        std::string programName;
+    };
+
+    struct DebbuggerCmd
+    {
+        enum class CMDTYPE { RUN, PAUSE, STEPINTO, STEPOVER, BREAKPOINT };
+        static constexpr std::string_view id{ "dbgcmd" };
+        CMDTYPE cmdType;
+        std::string modPath;
+        address rva;
+
+    };
+
+    using Message = std::variant<Location, Test, Base, Comment, Session, DebbuggerCmd>;
 }
 
 #endif
