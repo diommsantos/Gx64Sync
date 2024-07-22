@@ -81,7 +81,8 @@ public class GSyncProvider extends ComponentProvider{
 			sessionStatus.remove(sessionHandle);
 			Messages.Session lastSession = sessionStatus.lastEntry().getValue();
 			updateSessionArea(lastSession.sessionName, lastSession.programName);
-			setStatus(STATUS.WAITING_CONNECTION);
+			if(sessionStatus.size() == 1) 
+				setStatus(STATUS.WAITING_CONNECTION);
 		});
 		gsp.sh.subscribe(Messages.Session.class, this::remoteSessionInfoHandler);
 	}
@@ -143,7 +144,7 @@ public class GSyncProvider extends ComponentProvider{
 	
 	private void remoteSessionInfoHandler(Messages.Session mSession, int session) {
 		sessionStatus.put(session, mSession); 
-		updateSessionArea(mSession.sessionName, mSession.programName);
+		updateSessionArea(sessionStatus.lastEntry().getValue().sessionName, sessionStatus.lastEntry().getValue().programName);
 	}
 	
 
@@ -152,6 +153,7 @@ public class GSyncProvider extends ComponentProvider{
 		
 		actions.addAll(gsp.locs.getActions(getName()));
 		actions.addAll(gsp.cmmts.getActions(getName()));
+		actions.addAll(gsp.dbgs.getActions(getName()));
 		
 		for(DockingAction action : actions) {
 			dockingTool.addLocalAction(this, action);
