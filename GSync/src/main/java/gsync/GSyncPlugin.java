@@ -71,6 +71,7 @@ public class GSyncPlugin extends ProgramPlugin {
 	public TestSender TS;
 	public LocationSync locs;
 	public CommentSync cmmts;
+	public DebuggerSync dbgs;
 	
 	/**
 	 * Plugin constructor.
@@ -106,6 +107,7 @@ public class GSyncPlugin extends ProgramPlugin {
 		TS = new TestSender(sh, (s)->cs.print(s));
         locs = new LocationSync(sh, (s)->cs.print(s), pm, cvs, gts);
         cmmts = new CommentSync(sh, cvs, pm);
+        dbgs = new DebuggerSync(sh, pm, cvs);
         
         provider.init();
 	}

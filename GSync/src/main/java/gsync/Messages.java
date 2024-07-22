@@ -41,4 +41,24 @@ public class Messages {
 		
 		public Session(){} public Session(String sessionName, String programName) {this.sessionName = sessionName; this.programName = programName;}
 	}
+	
+	public static class DebuggerCmd extends Message{
+		public enum CMDTYPE{RUN, PAUSE, STEPINTO, STEPOVER, BREAKPOINT}
+		public static String id = "dbgcmd";
+		public CMDTYPE cmdType;
+		public String modPath;
+		public long rva;
+		
+		public DebuggerCmd(){} public DebuggerCmd(CMDTYPE cmdType, String modPath, long rva){this.cmdType = cmdType; this.modPath = modPath; this.rva = rva;}
+		
+	}
+	
+	public static class SessionStatus extends Message{
+		public enum SESSIONSTATUS{RUNNING, PAUSED, NOPROGRAM}
+		public static String id = "dbgsession";
+		SESSIONSTATUS status;
+		public String programPath;
+		
+		public SessionStatus(){} public SessionStatus(SESSIONSTATUS status, String modPath) {this.status = status; this.programPath = modPath;}
+	}
 }

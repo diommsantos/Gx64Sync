@@ -153,10 +153,11 @@ public class SyncHandler {
 	protected void onConnectionAccept(Socket sessionSocket) {
 		ClientHandler clientSession = new ClientHandler(sessionSocket, logger, this::sessionStopper, this::errorRecuperator);
 		clientSession.installReceiver(this::receiver);
-		sessions.put(sessions.lastKey()+1, clientSession);
+		int sessionHandle = sessions.isEmpty() ? 0 : sessions.lastKey()+1; 
+ 		sessions.put(sessionHandle, clientSession);
 		clientSession.start();
 		for(Consumer<Integer> callback : sessionStartCallbacks) {
-			callback.accept(sessions.lastKey()+1);
+			callback.accept(sessionHandle);
 		}
 	}
 	
