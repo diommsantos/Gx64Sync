@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -31,7 +34,8 @@ public class SyncHandler {
 	protected List<Consumer<Integer>> sessionStopCallbacks = new ArrayList<Consumer<Integer>>();
 	
 	protected Listener listener;
-	protected List<ClientHandler> sessions = new ArrayList<ClientHandler>();
+	protected int nextSessionHandle = 0;
+	protected SortedMap<Integer, ClientHandler> sessions = new TreeMap<Integer, ClientHandler>();
 	protected Lock sessionLock = new ReentrantLock(true);
 	
 	boolean active = false;
@@ -87,6 +91,18 @@ public class SyncHandler {
 		sessionStopCallbacks.add(callback);
 	}
 	
+	public Set<Integer> getAllSessionHandles(){
+		return sessions.keySet();
+	}
+	
+	private Integer getSessionHandle(ClientHandler session) {
+		for(Integer key : sessions.keySet()) {
+			if(sessions.get(key) == session)
+				return key;
+		}
+		return null;
+	}
+	
 	protected void receiver(String data, ClientHandler session){
 		try {
 			JSONObject jsonObj = new JSONObject(data);
@@ -94,7 +110,7 @@ public class SyncHandler {
 			Message messageObj = decode(data, id);
 			sessionLock.lock();
 			for(BiConsumer<Message, Integer> subscriber: subscribers.get(id))
-				subscriber.accept(messageObj, sessions.indexOf(session));
+				subscriber.accept(messageObj, getSessionHandle(session));
 			sessionLock.unlock();
 		}catch(RuntimeException  e){
 			e.printStackTrace();
@@ -118,29 +134,30 @@ public class SyncHandler {
 	}
 	
 	protected void sessionStopper(ClientHandler session) {
-		int index = sessions.indexOf(session);
-		sessions.remove(session);
+		int index = getSessionHandle(session);
+		sessions.remove(index);
 		session.stop();
 		for(Consumer<Integer> callback : sessionStopCallbacks)
 			callback.accept(index);
 	}
 	
 	protected void errorRecuperator(ClientHandler session, IOException e) {
-		int index = sessions.indexOf(session);
+		int index = getSessionHandle(session);
 		for(Consumer<Integer> callback : clientHandlerErrorsCallbacks)
 			callback.accept(index);
-		sessions.remove(session);
+		sessions.remove(index);
 		session.stop();
 	}
 	
 	protected void onConnectionAccept(Socket sessionSocket) {
 		ClientHandler clientSession = new ClientHandler(sessionSocket, logger, this::sessionStopper, this::errorRecuperator);
 		clientSession.installReceiver(this::receiver);
-		sessions.add(clientSession);
+		sessions.put(nextSessionHandle, clientSession);
 		clientSession.start();
 		for(Consumer<Integer> callback : sessionStartCallbacks) {
-			callback.accept(sessions.size()-1);
+			callback.accept(nextSessionHandle);
 		}
+		 nextSessionHandle++;
 	}
 	
 	public void start() {
@@ -157,7 +174,7 @@ public class SyncHandler {
 		if(!active)
 			return;
 		listener.stop();
-		for(int index = 0; index < sessions.size(); index++) {
+		for(int index : sessions.keySet()) {
 			sessions.get(index).stop();
 			for(Consumer<Integer> callback : sessionStopCallbacks) {
 				callback.accept(index);
@@ -207,7 +224,7 @@ public class SyncHandler {
 	
 	public void send(Object message){
 		try {
-			sessions.get(0).send(this.encode(message));
+			sessions.firstEntry().getValue().send(this.encode(message));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
