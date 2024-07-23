@@ -64,7 +64,15 @@ namespace Messages {
 
     };
 
+    
+
     using Message = std::variant<Location, Test, Base, Comment, Session, DebbuggerCmd>;
 }
+
+template <>
+struct glz::meta<Messages::DebbuggerCmd::CMDTYPE> {
+    using enum Messages::DebbuggerCmd::CMDTYPE;
+    static constexpr auto value = enumerate(RUN, PAUSE, STEPINTO, STEPOVER, BREAKPOINT);
+};
 
 #endif

@@ -1,6 +1,7 @@
 #include "SyncHandler.hpp"
 #include "LocationSync.hpp"
 #include "CommentSync.hpp"
+#include "DebuggerSync.hpp"
 #include "plugin.h"
 
 //x64Sync Plugin Specific variables/functions
@@ -30,6 +31,7 @@ namespace x64Sync {
 
     LocationSync ls{ sh };
     CommentSync cs{ sh };
+    DebbugerSync ds{ sh };
 
 }
 
