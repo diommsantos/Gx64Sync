@@ -60,7 +60,7 @@ void SyncHandler::MessageHandler(const std::string_view encMessage){
         glz::read < glz::opts{ .error_on_unknown_keys = false } > (header, encMessage.data());
         Message* message = new Message;
         glz::read < glz::opts{ .error_on_unknown_keys = false } > (*message, encMessage);
-        for (Subscriber& subscriber : subscribers[header.id]){
+        for (Subscriber& subscriber : std::views::values(subscribers[header.id])){
             subscriber(*message);
         }
     }catch(const std::exception& e){
@@ -76,5 +76,5 @@ void SyncHandler::MessageErrorHandler(Client* session, asio::error_code) {
 
 void SyncHandler::unsubscribe(int subscriberHandle) {
     std::string_view id{ ids[subscriberHandle % ids.size()] };
-    subscribers[id].erase(subscribers[id].begin() + subscriberHandle / ids.size());
+    subscribers[id].erase(subscriberHandle);
 }

@@ -20,7 +20,7 @@ private:
     void MessageHandler(const std::string_view);
     void MessageErrorHandler(Client* session, asio::error_code);
     static std::vector<std::string_view> ids;
-    std::map<std::string_view, std::vector<Subscriber>> subscribers;
+    std::map<std::string_view, std::map<int, Subscriber>> subscribers;
 public:
     SyncHandler(Logger callback);
     ~SyncHandler();
@@ -28,14 +28,14 @@ public:
     void stop();
     template <typename MessageType>
     int subscribe(std::function<void(const MessageType&)> subscriber) {
-        subscribers[MessageType::id].push_back(
-            [subscriber](const Messages::Message& message) { subscriber(std::get<MessageType>(message)); }
-        );
-
         //get subscriberHandle
         auto it = std::find(ids.begin(), ids.end(), MessageType::id);
         int index = std::distance(ids.begin(), it);
-        return (subscribers[MessageType::id].size() - 1) * ids.size() + index;
+        int subscriberHandle = subscribers[MessageType::id].empty() ? index : subscribers[MessageType::id].rbegin()->first + index;
+
+        subscribers[MessageType::id][subscriberHandle] = 
+            [subscriber](const Messages::Message& message) { subscriber(std::get<MessageType>(message)); };
+        return subscriberHandle;
     };
     void unsubscribe(int subscriberHandle);
     template <typename MessageType>
