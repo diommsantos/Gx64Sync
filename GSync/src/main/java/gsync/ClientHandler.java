@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.function.Consumer;
+import java.util.concurrent.CountDownLatch;
 import java.util.function.BiConsumer;
 
 public class ClientHandler {
@@ -16,6 +17,7 @@ public class ClientHandler {
 	protected BiConsumer<ClientHandler, IOException> errorRecuperator;
 	protected Object receiverArg;
 	
+	private CountDownLatch active;
 	private Socket clientSocket;
 	PrintWriter out;
     BufferedReader in;
@@ -38,6 +40,7 @@ public class ClientHandler {
 	}
 	
 	public void start() {
+		active = new CountDownLatch(1);
 		final ClientHandler self = this;
 		this.clientThread = new Thread(new Runnable() {
 			
@@ -48,7 +51,7 @@ public class ClientHandler {
 		        try {
 		            out = new PrintWriter(clientSocket.getOutputStream(), true);
 		            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
+		            active.countDown();
 		            while ((inputLine = in.readLine()) != null && !Thread.currentThread().isInterrupted()) {
 		                receiver.accept(inputLine, self);
 		            }
@@ -63,6 +66,13 @@ public class ClientHandler {
 			}
 		});
 		clientThread.start();
+		
+		try {
+			active.await();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void stop() {
