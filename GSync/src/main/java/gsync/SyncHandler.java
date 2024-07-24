@@ -136,10 +136,10 @@ public class SyncHandler {
 	
 	protected void sessionStopper(ClientHandler session) {
 		int index = getSessionHandle(session);
-		sessions.remove(index);
-		session.stop();
 		for(Consumer<Integer> callback : sessionStopCallbacks)
 			callback.accept(index);
+		sessions.remove(index);
+		session.stop();
 	}
 	
 	protected void errorRecuperator(ClientHandler session, IOException e) {
