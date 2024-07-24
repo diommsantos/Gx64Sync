@@ -121,7 +121,7 @@ should appear in the log tab of x64Dbg.
 # TODO
 - [x] Support Comment migration (CommentSync)
 - [x] make a GUI for GSync similar to ret-sync
-- [ ] Implement all the features of [ret-sync](https://github.com/bootleg/ret-sync) (debugger commands in Ghidra...) 
+- [x] Implement all the features of [ret-sync](https://github.com/bootleg/ret-sync) (debugger commands in Ghidra...) 
 - [ ] Add pre-built GSync plugins for the latest Ghidra versions
 - [ ] Improve README.md and DEV.md
 - [ ] Get a cooler name than Gx64Sync ;)
