@@ -28,6 +28,22 @@ SyncHandler::~SyncHandler(){
     stop();
 }
 
+void SyncHandler::installStartCallback(std::function<void(void)> callback) {
+    startCallbacks.push_back(callback);
+}
+
+void SyncHandler::installStopCallback(std::function<void(void)> callback) {
+    stopCallbacks.push_back(callback);
+}
+
+void SyncHandler::installErrorCallback(std::function<void(void)> callback) {
+    errorCallbacks.push_back(callback);
+}
+
+void SyncHandler::installClientErrorsCallback(std::function<void(void)> callback) {
+    clientErrorsCallbacks.push_back(callback);
+}
+
 bool SyncHandler::start(){
     if (active)
         return true;
@@ -42,6 +58,11 @@ bool SyncHandler::start(){
                                             std::placeholders::_1));
     if (!(active = session.start()))
         error = true;
+    else 
+    {
+        for (std::function<void(void)> callback : startCallbacks)
+            callback();
+    }
     return active;
 }
 
@@ -52,6 +73,8 @@ void SyncHandler::stop(){
     session.~Client();
     new (&session) Client(loggerCallback_, std::bind(&SyncHandler::MessageErrorHandler, this, std::placeholders::_1, std::placeholders::_2));
     active = false;
+    for (std::function<void(void)> callback : stopCallbacks)
+        callback();
 }
 
 void SyncHandler::MessageHandler(const std::string_view encMessage){
@@ -72,6 +95,8 @@ void SyncHandler::MessageHandler(const std::string_view encMessage){
 void SyncHandler::MessageErrorHandler(Client* session, asio::error_code) {
     error = true;
     active = false;
+    for (std::function<void(void)> callback : clientErrorsCallbacks)
+        callback();
 }
 
 void SyncHandler::unsubscribe(int subscriberHandle) {

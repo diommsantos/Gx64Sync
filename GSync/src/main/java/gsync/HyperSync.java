@@ -35,6 +35,21 @@ public class HyperSync {
 		this.pm = pm;
 		this.gts = gts;
 		sh.subscribe(Messages.HyperSyncState.class, this::syncHyperSyncState);
+		sh.installSessionStopCallbacks((hsSession) ->{
+			if(hsSession == sessionHandle) {
+				sh.unsubscribe(subscriberHandle);
+				active = false;
+				cs.println("HyperSync: HyperSync stopped!");
+			}
+		});
+		sh.installClientHandlerErrorsCallbacks((hsSession) ->{
+			if(hsSession == sessionHandle) {
+				sh.unsubscribe(subscriberHandle);
+				active = false;
+				cs.println("HyperSync: HyperSync stopped!");
+			}
+				
+		});
 	}
 	
 	public void start() {

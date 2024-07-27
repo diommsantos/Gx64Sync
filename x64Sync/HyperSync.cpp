@@ -5,6 +5,8 @@ HyperSync::HyperSync(SyncHandler& sh):
 sh{ sh }
 {
 	subscriberHandles[0] = sh.subscribe<Messages::HyperSyncState>(std::bind(&HyperSync::syncHyperSyncState, this, std::placeholders::_1));
+	sh.installStopCallback([this]() { active = false; dputs("HyperSync: HyperSync stopped!"); });
+	sh.installClientErrorsCallback([this]() { active = false; dputs("HyperSync: HyperSync stopped!"); });
 }
 
 void HyperSync::start() {
@@ -41,6 +43,7 @@ void HyperSync::remoteRVAHandler(const Messages::RelativeAddress& ra){
 	Script::Module::GetList(&modList);
 	for (int i = 0; i < modList.Count(); i++) {
 		if (strcmp(modList[i].path, ra.modPath.data()) == 0) {
+			remoteLocationChange = true;
 			GuiDisasmAt(modList[i].base + ra.modRVA, modList[i].base + ra.modRVA);
 			return;
 		}
@@ -52,7 +55,10 @@ void HyperSync::remoteRVAHandler(const Messages::RelativeAddress& ra){
 void HyperSync::x64DbgRVAHandler(PLUG_CB_SELCHANGED* sel){
 	if (!active || sel->hWindow != Script::Gui::DisassemblyWindow)
 		return;
-
+	if (remoteLocationChange) {
+		remoteLocationChange = false;
+		return;
+	}
 	char modPath[300];
 
 	DbgFunctions()->ModPathFromAddr(sel->VA, modPath, 300);

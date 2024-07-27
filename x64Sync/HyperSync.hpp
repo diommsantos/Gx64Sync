@@ -17,6 +17,7 @@ public:
 private:
 	SyncHandler& sh;
 	bool active{ false };
+	bool remoteLocationChange{ false };
 	int subscriberHandles[2];
 	void syncHyperSyncState(const Messages::HyperSyncState& hss);
 	void remoteRVAHandler(const Messages::RelativeAddress& ra);

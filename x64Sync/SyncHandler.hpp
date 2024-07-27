@@ -21,9 +21,20 @@ private:
     void MessageErrorHandler(Client* session, asio::error_code);
     static std::vector<std::string_view> ids;
     std::map<std::string_view, std::map<int, Subscriber>> subscribers;
+
+    //SyncHandler State callbacks
+    std::vector<std::function<void(void)>> startCallbacks;
+    std::vector<std::function<void(void)>> stopCallbacks;
+    std::vector<std::function<void(void)>> errorCallbacks;
+    std::vector<std::function<void(void)>> clientErrorsCallbacks;
+
 public:
     SyncHandler(Logger callback);
     ~SyncHandler();
+    void installStartCallback(std::function<void(void)> callback);
+    void installStopCallback(std::function<void(void)> callback);
+    void installErrorCallback(std::function<void(void)> callback);
+    void installClientErrorsCallback(std::function<void(void)> callback);
     bool start();
     void stop();
     template <typename MessageType>
