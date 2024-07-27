@@ -127,8 +127,8 @@ should appear in the log tab of x64Dbg.
 - [ ] Get a cooler name than Gx64Sync ;)
 - [ ] fix x64Dbg closing crash
 - [ ] Improve logging in GSync and x64Sync
-- [ ] Implement HyperSync (fully automatic syncing, that is once an address is highlited,
-both in Ghidra or x64Sync, it is synced in the other tool + automatic loading and change of modules in both tools)
+- [x] Implement HyperSync (fully automatic syncing, that is once an address is highlited,
+both in Ghidra or x64Sync, it is synced in the other tool)
 - [ ] Automatic C++ virtual methods shenanigans?
 
 Have suggestions? Open an issue or contact me at diommsantos@gmail.com!
