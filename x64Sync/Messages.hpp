@@ -64,9 +64,21 @@ namespace Messages {
 
     };
 
+    struct HyperSyncState
+    {
+        static constexpr std::string_view id{ "hysyncstate" };
+        bool state;
+    };
+
+    struct RelativeAddress
+    {
+        static constexpr std::string_view id{ "rva" };
+        std::string modPath;
+        address modRVA;
+    };
     
 
-    using Message = std::variant<Location, Test, Base, Comment, Session, DebbuggerCmd>;
+    using Message = std::variant<Location, Test, Base, Comment, Session, DebbuggerCmd, HyperSyncState, RelativeAddress>;
 }
 
 template <>

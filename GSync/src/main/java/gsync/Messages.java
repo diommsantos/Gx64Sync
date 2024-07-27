@@ -61,4 +61,19 @@ public class Messages {
 		
 		public SessionStatus(){} public SessionStatus(SESSIONSTATUS status, String modPath) {this.status = status; this.programPath = modPath;}
 	}
+	
+	public static class HyperSyncState extends Message{
+	    public static String id = "hysyncstate";
+	    public boolean state;
+	    
+	    public HyperSyncState(){} public HyperSyncState(boolean state) {this.state = state;}
+	};
+	
+	public static class RelativeAddress extends Message{
+		public static String id = "rva";
+		public String modPath;
+		public long modRVA;
+		
+		public RelativeAddress() {} public RelativeAddress(String modPath, long rva) {this.modPath = modPath; this.modRVA = rva;} 
+	}
 }

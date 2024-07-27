@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableSet;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -35,7 +37,7 @@ public class SyncHandler {
 	
 	protected Listener listener;
 	
-	protected SortedMap<Integer, ClientHandler> sessions = new TreeMap<Integer, ClientHandler>();
+	protected TreeMap<Integer, ClientHandler> sessions = new TreeMap<Integer, ClientHandler>();
 	protected Lock sessionLock = new ReentrantLock(true);
 	
 	boolean active = false;
@@ -91,8 +93,8 @@ public class SyncHandler {
 		sessionStopCallbacks.add(callback);
 	}
 	
-	public Set<Integer> getAllSessionHandles(){
-		return sessions.keySet();
+	public NavigableSet<Integer> getAllSessionHandles(){
+		return new TreeSet<Integer>(sessions.navigableKeySet());
 	}
 	
 	private Integer getSessionHandle(ClientHandler session) {

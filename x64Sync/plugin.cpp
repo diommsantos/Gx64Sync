@@ -2,6 +2,7 @@
 #include "LocationSync.hpp"
 #include "CommentSync.hpp"
 #include "DebuggerSync.hpp"
+#include "HyperSync.hpp"
 #include "plugin.h"
 
 //x64Sync Plugin Specific variables/functions
@@ -32,6 +33,7 @@ namespace x64Sync {
     LocationSync ls{ sh };
     CommentSync cs{ sh };
     DebbugerSync ds{ sh };
+    HyperSync hs{ sh };
 
 }
 
@@ -53,6 +55,7 @@ bool pluginInit(PLUG_INITSTRUCT* initStruct)
     _plugin_registercommand(pluginHandle, "x64SyncStop", x64Sync::syncHandlerStop, false);
     registerLocationSyncCommands();
     registerCommentSyncCommands();
+    registerHyperSyncCommands();
 
     x64Sync::sh.subscribe<Messages::Session>(
         [](const Messages::Session& session) {
@@ -83,6 +86,7 @@ void pluginSetup()
     // Prefix of the functions to call here: _plugin_menu
     menuAddLocationSync();
     menuAddCommentSync();
+    menuAddHyperSync();
     dprintf("pluginSetup(pluginHandle: %d)\n", pluginHandle);
 }
 
@@ -90,4 +94,9 @@ void pluginSetup()
 extern "C" __declspec(dllexport) void CBMENUENTRY(CBTYPE cbType, PLUG_CB_MENUENTRY * info) {
     menuEntryLocationSync(info->hEntry);
     menuEntryCommentSync(info->hEntry);
+    menuEntryHyperSync(info->hEntry);
+}
+
+extern "C" __declspec(dllexport) void CBSELCHANGED(CBTYPE cbType, PLUG_CB_SELCHANGED * sel) {
+    x64Sync::hs.x64DbgRVAHandler(sel);
 }

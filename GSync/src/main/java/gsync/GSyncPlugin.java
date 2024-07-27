@@ -72,6 +72,7 @@ public class GSyncPlugin extends ProgramPlugin {
 	public LocationSync locs;
 	public CommentSync cmmts;
 	public DebuggerSync dbgs;
+	public HyperSync hs;
 	
 	/**
 	 * Plugin constructor.
@@ -108,12 +109,14 @@ public class GSyncPlugin extends ProgramPlugin {
         locs = new LocationSync(sh, (s)->cs.print(s), pm, cvs, gts);
         cmmts = new CommentSync(sh, cvs, pm);
         dbgs = new DebuggerSync(sh, pm, cvs);
+        hs = new HyperSync(sh, cs, cvs, pm, gts);
         
         provider.init();
 	}
 	
 	@Override
 	protected void locationChanged(ProgramLocation loc) {
+		hs.GhidraRVAHandler(loc);
 	}
 		
 }

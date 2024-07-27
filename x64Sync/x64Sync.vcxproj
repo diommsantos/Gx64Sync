@@ -185,6 +185,7 @@
     <ClInclude Include="Client.hpp" />
     <ClInclude Include="CommentSync.hpp" />
     <ClInclude Include="DebuggerSync.hpp" />
+    <ClInclude Include="HyperSync.hpp" />
     <ClInclude Include="LocationSync.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -201,6 +202,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="CommentSync.cpp" />
     <ClCompile Include="DebuggerSync.cpp" />
+    <ClCompile Include="HyperSync.cpp" />
     <ClCompile Include="LocationSync.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
     </ClCompile>

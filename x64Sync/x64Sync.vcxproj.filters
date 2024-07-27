@@ -48,6 +48,9 @@
     <ClInclude Include="DebuggerSync.hpp">
       <Filter>Header Files\Features</Filter>
     </ClInclude>
+    <ClInclude Include="HyperSync.hpp">
+      <Filter>Header Files\Features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="plugin.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files\Features</Filter>
     </ClCompile>
     <ClCompile Include="DebuggerSync.cpp">
+      <Filter>Source Files\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="HyperSync.cpp">
       <Filter>Source Files\Features</Filter>
     </ClCompile>
   </ItemGroup>

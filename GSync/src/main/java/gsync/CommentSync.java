@@ -71,7 +71,6 @@ public class CommentSync {
 				}
 			});
 			actions.get(0).setMenuBarData(new MenuData(new String[]{"Sync Comment"}, null, "CommentSync"));
-			actions.get(0).setPopupMenuData(new MenuData(new String[]{"Syncaaaa Comment"}));
 			actions.get(0).setEnabled(true);
 			actions.get(0).markHelpUnnecessary();
 			
