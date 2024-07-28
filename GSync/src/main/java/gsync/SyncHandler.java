@@ -162,7 +162,6 @@ public class SyncHandler {
 		for(Consumer<Integer> callback : sessionStopCallbacks)
 			callback.accept(index);
 		sessions.remove(index);
-		session.stop();
 	}
 	
 	protected void errorRecuperator(ClientHandler session, IOException e) {
@@ -200,9 +199,6 @@ public class SyncHandler {
 		listener.stop();
 		for(int index : sessions.keySet()) {
 			sessions.get(index).stop();
-			for(Consumer<Integer> callback : sessionStopCallbacks) {
-				callback.accept(index);
-			}
 			sessions.remove(index);
 		}
 		active = false;

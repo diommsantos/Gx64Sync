@@ -65,7 +65,7 @@ public class ClientHandler {
 		            out = new PrintWriter(clientSocket.getOutputStream(), true);
 		            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		            active.countDown();
-		            while ((inputLine = in.readLine()) != null && !Thread.currentThread().isInterrupted()) {
+		            while ((inputLine = in.readLine()) != null) {
 		                receiver.accept(inputLine, self);
 		            }
 		            
@@ -73,6 +73,10 @@ public class ClientHandler {
 		            out.close();
 		            sessionStopper.accept(self);
 		        } catch (IOException e) {
+		        	if(e.getMessage().equals("Socket closed")) {
+		        		sessionStopper.accept(self);
+		        		return;
+		        	}
 		            logger.loglnError(e.getMessage());
 		            errorRecuperator.accept(self, e);
 		        }
@@ -91,10 +95,10 @@ public class ClientHandler {
 	public void stop() {
 		try {
 			clientSocket.close();
-		} catch (IOException e) {
+			clientThread.join();
+		} catch (IOException | InterruptedException e) {
             logger.loglnError(e.getMessage());
         }
-		clientThread.interrupt();
 	}
 	
 	public void send(String data) {
