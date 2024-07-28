@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.function.Consumer;
 
 public class Listener {
@@ -65,6 +66,8 @@ public class Listener {
 		                onConnectionAccept.accept(client);
 		            }
 		        } catch (IOException e) {
+					if(e.getMessage().equals("Socket closed"))
+		        		return;
 		            logger.loglnError(e.getMessage());
 		        }
 			}
@@ -74,14 +77,12 @@ public class Listener {
 	
     public void stop() {
     	listenerThread.interrupt();
-        if (serverSocket != null) {
-            try {
-                serverSocket.close();
-            } catch (IOException e) {
-                logger.loglnError(e.getMessage());
-            }
+        try {
+            serverSocket.close();
+            listenerThread.join();
+        } catch (IOException | InterruptedException e) {
+            logger.loglnError(e.getMessage());
         }
-    	serverSocket = null;
     }
 
 }
