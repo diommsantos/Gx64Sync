@@ -240,7 +240,11 @@ public class SyncHandler {
 	public void send(Object message, int sessionHandle){
 		try {
 			sessions.get(sessionHandle).send(this.encode(message));
-		} catch (IOException e) {
+		} catch(NullPointerException e) {
+			logger.loglnError("The provided sessionHandle is not a valid handle. "+
+							  "Please verify if you are connected to an active debugging session.");
+		}
+		catch (IOException e) {
 			logger.loglnError(e.getMessage());
 		}
 		
