@@ -15,8 +15,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import docking.ActionContext;
 import docking.ComponentProvider;
 import docking.action.DockingAction;
+import docking.action.MenuData;
+import docking.action.ToolBarData;
 import ghidra.framework.plugintool.Plugin;
 import resources.ResourceManager;
 
@@ -28,6 +31,8 @@ public class GSyncProvider extends ComponentProvider{
 		CONNECTED
 	}
 	
+	STATUS status = STATUS.IDLE;
+	
 	private JPanel panel;
 	private JLabel statusArea;
     private JLabel debuggerArea;
@@ -36,7 +41,9 @@ public class GSyncProvider extends ComponentProvider{
     static Icon idleIcon = new ImageIcon(ResourceManager.loadImage("images/idle_status.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
     static Icon waitingConnectionIcon = new ImageIcon(ResourceManager.loadImage("images/waiting_connection_status.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
     static Icon connectedIcon = new ImageIcon(ResourceManager.loadImage("images/connected_status.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-	
+	static Icon startIcon = new ImageIcon(ResourceManager.loadImage("images/start.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+	static Icon stopIcon = new ImageIcon(ResourceManager.loadImage("images/stop.png").getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+    
 	private List<DockingAction> actions = new ArrayList<DockingAction>(20);
 	
 	protected SortedMap<Integer, Messages.Session> sessionStatus = new TreeMap<Integer, Messages.Session>();
@@ -61,6 +68,11 @@ public class GSyncProvider extends ComponentProvider{
 		});
 		gsp.sh.installStartCallback(() -> {
 			setStatus(STATUS.WAITING_CONNECTION);
+			actions.get(0).setToolBarData(new ToolBarData(stopIcon));
+		});
+		gsp.sh.installStopCallbacks(() -> {
+			setStatus(STATUS.IDLE);
+			actions.get(0).setToolBarData(new ToolBarData(startIcon));
 		});
 		gsp.sh.installSessionStartCallbacks((sessionHandle) -> {
 			sessionStatus.put(sessionHandle, new Messages.Session("Waiting for debugger session info...", "Waiting for program info..."));
@@ -126,6 +138,7 @@ public class GSyncProvider extends ComponentProvider{
 			break;
 		}
 		statusArea.setText(String.format("Status: %s", s));
+		this.status = status;
 	}
 	
 	private void updateSessionArea(String sessionName, String programName) {
@@ -141,6 +154,18 @@ public class GSyncProvider extends ComponentProvider{
 
 	// TODO: Customize actions
 	private void createActions() {
+		actions.add(new DockingAction("Start/Stop SyncHandler", getName()) {
+			@Override
+			public void actionPerformed(ActionContext context) {
+				if(status == STATUS.IDLE)
+					gsp.sh.start();
+				else
+					gsp.sh.stop();
+			}
+		});
+		actions.get(0).setToolBarData(new ToolBarData(startIcon));
+		actions.get(0).setEnabled(true);
+		actions.get(0).markHelpUnnecessary();
 		
 		actions.addAll(gsp.locs.getActions(getName()));
 		actions.addAll(gsp.cmmts.getActions(getName()));

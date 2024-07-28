@@ -25,115 +25,115 @@
                                 <SPLIT_NODE WIDTH="109" HEIGHT="684" DIVIDER_LOCATION="547" ORIENTATION="VERTICAL">
                                     <SPLIT_NODE WIDTH="109" HEIGHT="372" DIVIDER_LOCATION="505" ORIENTATION="VERTICAL">
                                         <COMPONENT_NODE TOP_INFO="0">
-                                            <COMPONENT_INFO NAME="Program Tree" OWNER="ProgramTreePlugin" TITLE="Program Trees" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611667298724891798" />
+                                            <COMPONENT_INFO NAME="Program Tree" OWNER="ProgramTreePlugin" TITLE="Program Trees" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611675083364734166" />
                                         </COMPONENT_NODE>
                                         <COMPONENT_NODE TOP_INFO="0">
-                                            <COMPONENT_INFO NAME="Symbol Tree" OWNER="SymbolTreePlugin" TITLE="Symbol Tree" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611667298724891792" />
+                                            <COMPONENT_INFO NAME="Symbol Tree" OWNER="SymbolTreePlugin" TITLE="Symbol Tree" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611675083364734160" />
                                         </COMPONENT_NODE>
                                     </SPLIT_NODE>
                                     <COMPONENT_NODE TOP_INFO="0">
-                                        <COMPONENT_INFO NAME="DataTypes Provider" OWNER="DataTypeManagerPlugin" TITLE="Data Type Manager" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611667306480159888" />
+                                        <COMPONENT_INFO NAME="DataTypes Provider" OWNER="DataTypeManagerPlugin" TITLE="Data Type Manager" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611675091136779472" />
                                     </COMPONENT_NODE>
                                 </SPLIT_NODE>
                                 <SPLIT_NODE WIDTH="654" HEIGHT="684" DIVIDER_LOCATION="738" ORIENTATION="VERTICAL">
                                     <SPLIT_NODE WIDTH="1386" HEIGHT="638" DIVIDER_LOCATION="705" ORIENTATION="VERTICAL">
                                         <SPLIT_NODE WIDTH="654" HEIGHT="534" DIVIDER_LOCATION="537" ORIENTATION="HORIZONTAL">
                                             <COMPONENT_NODE TOP_INFO="0">
-                                                <COMPONENT_INFO NAME="Listing" OWNER="CodeBrowserPlugin" TITLE="Listing:  calculator.exe" ACTIVE="true" GROUP="Core" INSTANCE_ID="3611667298724891806" />
+                                                <COMPONENT_INFO NAME="Listing" OWNER="CodeBrowserPlugin" TITLE="Listing:  calculator.exe" ACTIVE="true" GROUP="Core" INSTANCE_ID="3611675083364734174" />
                                             </COMPONENT_NODE>
                                             <COMPONENT_NODE TOP_INFO="0">
-                                                <COMPONENT_INFO NAME="Decompiler" OWNER="DecompilePlugin" TITLE="Decompiler" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667298724891799" />
-                                                <COMPONENT_INFO NAME="Bytes" OWNER="ByteViewerPlugin" TITLE="Bytes: calculator.exe" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667298724891801" />
-                                                <COMPONENT_INFO NAME="Data Window" OWNER="DataWindowPlugin" TITLE="Defined Data" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667306480159901" />
-                                                <COMPONENT_INFO NAME="Equates Table" OWNER="EquateTablePlugin" TITLE="Equates Table" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667298724891804" />
-                                                <COMPONENT_INFO NAME="External Programs" OWNER="ReferencesPlugin" TITLE="External Programs" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667298724891807" />
-                                                <COMPONENT_INFO NAME="Functions Window" OWNER="FunctionWindowPlugin" TITLE="Functions" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667306230598785" />
-                                                <COMPONENT_INFO NAME="Relocation Table" OWNER="RelocationTablePlugin" TITLE="Relocation Table" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667307442752640" />
+                                                <COMPONENT_INFO NAME="Decompiler" OWNER="DecompilePlugin" TITLE="Decompiler" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675083364734167" />
+                                                <COMPONENT_INFO NAME="Bytes" OWNER="ByteViewerPlugin" TITLE="Bytes: calculator.exe" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675083364734169" />
+                                                <COMPONENT_INFO NAME="Data Window" OWNER="DataWindowPlugin" TITLE="Defined Data" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675091136779485" />
+                                                <COMPONENT_INFO NAME="Equates Table" OWNER="EquateTablePlugin" TITLE="Equates Table" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675083364734172" />
+                                                <COMPONENT_INFO NAME="External Programs" OWNER="ReferencesPlugin" TITLE="External Programs" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675083364734175" />
+                                                <COMPONENT_INFO NAME="Functions Window" OWNER="FunctionWindowPlugin" TITLE="Functions" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675090895606977" />
+                                                <COMPONENT_INFO NAME="Relocation Table" OWNER="RelocationTablePlugin" TITLE="Relocation Table" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675092107760832" />
                                             </COMPONENT_NODE>
                                         </SPLIT_NODE>
                                         <SPLIT_NODE WIDTH="1386" HEIGHT="189" DIVIDER_LOCATION="495" ORIENTATION="HORIZONTAL">
                                             <COMPONENT_NODE TOP_INFO="0">
-                                                <COMPONENT_INFO NAME="Data Type Preview" OWNER="DataTypePreviewPlugin" TITLE="Data Type Preview" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667306230598814" />
+                                                <COMPONENT_INFO NAME="Data Type Preview" OWNER="DataTypePreviewPlugin" TITLE="Data Type Preview" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675090895607006" />
                                             </COMPONENT_NODE>
                                             <COMPONENT_NODE TOP_INFO="0">
-                                                <COMPONENT_INFO NAME="Virtual Disassembler - Current Instruction" OWNER="DisassembledViewPlugin" TITLE="Disassembled View" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667298724891803" />
+                                                <COMPONENT_INFO NAME="Virtual Disassembler - Current Instruction" OWNER="DisassembledViewPlugin" TITLE="Disassembled View" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675083364734171" />
                                             </COMPONENT_NODE>
                                         </SPLIT_NODE>
                                     </SPLIT_NODE>
                                     <SPLIT_NODE WIDTH="752" HEIGHT="132" DIVIDER_LOCATION="500" ORIENTATION="HORIZONTAL">
                                         <SPLIT_NODE WIDTH="654" HEIGHT="178" DIVIDER_LOCATION="500" ORIENTATION="HORIZONTAL">
                                             <COMPONENT_NODE TOP_INFO="0">
-                                                <COMPONENT_INFO NAME="Console" OWNER="ConsolePlugin" TITLE="Console" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611667298724891800" />
-                                                <COMPONENT_INFO NAME="Bookmarks" OWNER="BookmarkPlugin" TITLE="Bookmarks" ACTIVE="false" GROUP="Core.Bookmarks" INSTANCE_ID="3611667298724891797" />
+                                                <COMPONENT_INFO NAME="Console" OWNER="ConsolePlugin" TITLE="Console" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611675083364734168" />
+                                                <COMPONENT_INFO NAME="Bookmarks" OWNER="BookmarkPlugin" TITLE="Bookmarks" ACTIVE="false" GROUP="Core.Bookmarks" INSTANCE_ID="3611675083364734165" />
                                             </COMPONENT_NODE>
                                             <COMPONENT_NODE TOP_INFO="0">
-                                                <COMPONENT_INFO NAME="GSyncPlugin" OWNER="GSyncPlugin" TITLE="GSyncPlugin" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611667298724891794" />
+                                                <COMPONENT_INFO NAME="GSyncPlugin" OWNER="GSyncPlugin" TITLE="GSyncPlugin" ACTIVE="true" GROUP="Default" INSTANCE_ID="3611675083364734162" />
                                             </COMPONENT_NODE>
                                         </SPLIT_NODE>
                                         <COMPONENT_NODE TOP_INFO="0">
-                                            <COMPONENT_INFO NAME="Memory Map" OWNER="MemoryMapPlugin" TITLE="Memory Map" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667298724891783" />
+                                            <COMPONENT_INFO NAME="Memory Map" OWNER="MemoryMapPlugin" TITLE="Memory Map" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675083364734151" />
                                         </COMPONENT_NODE>
                                     </SPLIT_NODE>
                                 </SPLIT_NODE>
                             </SPLIT_NODE>
                         </SPLIT_NODE>
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Function Call Trees" OWNER="CallTreePlugin" TITLE="Function Call Trees" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667298724891793" />
+                            <COMPONENT_INFO NAME="Function Call Trees" OWNER="CallTreePlugin" TITLE="Function Call Trees" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675083364734161" />
                         </COMPONENT_NODE>
                     </SPLIT_NODE>
                     <WINDOW_NODE X_POS="426" Y_POS="178" WIDTH="1033" HEIGHT="689">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Script Manager" OWNER="GhidraScriptMgrPlugin" TITLE="Script Manager" ACTIVE="false" GROUP="Script Group" INSTANCE_ID="3611667298724891795" />
+                            <COMPONENT_INFO NAME="Script Manager" OWNER="GhidraScriptMgrPlugin" TITLE="Script Manager" ACTIVE="false" GROUP="Script Group" INSTANCE_ID="3611675083364734163" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="383" Y_POS="7" WIDTH="1020" HEIGHT="882">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Function Graph" OWNER="FunctionGraphPlugin" TITLE="Function Graph" ACTIVE="false" GROUP="Function Graph" INSTANCE_ID="3611667307442752642" />
+                            <COMPONENT_INFO NAME="Function Graph" OWNER="FunctionGraphPlugin" TITLE="Function Graph" ACTIVE="false" GROUP="Function Graph" INSTANCE_ID="3611675092107760834" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="550" Y_POS="206" WIDTH="655" HEIGHT="509">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Register Manager" OWNER="RegisterPlugin" TITLE="Register Manager" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667306230598784" />
+                            <COMPONENT_INFO NAME="Register Manager" OWNER="RegisterPlugin" TITLE="Register Manager" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675090895606976" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="287" Y_POS="186" WIDTH="1424" HEIGHT="666">
                         <SPLIT_NODE WIDTH="1408" HEIGHT="559" DIVIDER_LOCATION="573" ORIENTATION="HORIZONTAL">
                             <COMPONENT_NODE TOP_INFO="0">
-                                <COMPONENT_INFO NAME="Symbol Table" OWNER="SymbolTablePlugin" TITLE="Symbol Table" ACTIVE="false" GROUP="symbolTable" INSTANCE_ID="3611667306480159902" />
+                                <COMPONENT_INFO NAME="Symbol Table" OWNER="SymbolTablePlugin" TITLE="Symbol Table" ACTIVE="false" GROUP="symbolTable" INSTANCE_ID="3611675091136779486" />
                             </COMPONENT_NODE>
                             <COMPONENT_NODE TOP_INFO="0">
-                                <COMPONENT_INFO NAME="Symbol References" OWNER="SymbolTablePlugin" TITLE="Symbol References" ACTIVE="false" GROUP="symbolTable" INSTANCE_ID="3611667306480159903" />
+                                <COMPONENT_INFO NAME="Symbol References" OWNER="SymbolTablePlugin" TITLE="Symbol References" ACTIVE="false" GROUP="symbolTable" INSTANCE_ID="3611675091136779487" />
                             </COMPONENT_NODE>
                         </SPLIT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="-1" Y_POS="-1" WIDTH="0" HEIGHT="0">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Checksum Generator" OWNER="ComputeChecksumsPlugin" TITLE="Checksum Generator" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667298724891805" />
+                            <COMPONENT_INFO NAME="Checksum Generator" OWNER="ComputeChecksumsPlugin" TITLE="Checksum Generator" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675083364734173" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="-1" Y_POS="-1" WIDTH="0" HEIGHT="0">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Function Tags" OWNER="FunctionTagPlugin" TITLE="Function Tags" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667306480159889" />
+                            <COMPONENT_INFO NAME="Function Tags" OWNER="FunctionTagPlugin" TITLE="Function Tags" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675091136779473" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="-1" Y_POS="-1" WIDTH="0" HEIGHT="0">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Comment Window" OWNER="CommentWindowPlugin" TITLE="Comments" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667306480159900" />
+                            <COMPONENT_INFO NAME="Comment Window" OWNER="CommentWindowPlugin" TITLE="Comments" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675091136779484" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="-1" Y_POS="-1" WIDTH="0" HEIGHT="0">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Python" OWNER="InterpreterPanelPlugin" TITLE="Python" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667306480159890" />
+                            <COMPONENT_INFO NAME="Python" OWNER="InterpreterPanelPlugin" TITLE="Python" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675091136779474" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="0" Y_POS="0" WIDTH="0" HEIGHT="0">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="BundleManager" OWNER="GhidraScriptMgrPlugin" TITLE="Bundle Manager" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667298724891796" />
+                            <COMPONENT_INFO NAME="BundleManager" OWNER="GhidraScriptMgrPlugin" TITLE="Bundle Manager" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675083364734164" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="0" Y_POS="0" WIDTH="0" HEIGHT="0">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Function Call Graph" OWNER="FunctionCallGraphPlugin" TITLE="Function Call Graph" ACTIVE="false" GROUP="Function Call Graph" INSTANCE_ID="3611667306230598815" />
+                            <COMPONENT_INFO NAME="Function Call Graph" OWNER="FunctionCallGraphPlugin" TITLE="Function Call Graph" ACTIVE="false" GROUP="Function Call Graph" INSTANCE_ID="3611675090895607007" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="561" Y_POS="321" WIDTH="414" HEIGHT="174">
@@ -148,7 +148,7 @@
                     </WINDOW_NODE>
                     <WINDOW_NODE X_POS="483" Y_POS="246" WIDTH="414" HEIGHT="334">
                         <COMPONENT_NODE TOP_INFO="0">
-                            <COMPONENT_INFO NAME="Defined Strings" OWNER="ViewStringsPlugin" TITLE="Defined Strings" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611667307442752641" />
+                            <COMPONENT_INFO NAME="Defined Strings" OWNER="ViewStringsPlugin" TITLE="Defined Strings" ACTIVE="false" GROUP="Default" INSTANCE_ID="3611675092107760833" />
                         </COMPONENT_NODE>
                     </WINDOW_NODE>
                 </ROOT_NODE>
