@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.function.Consumer;
 
 public class Listener {
@@ -76,7 +75,6 @@ public class Listener {
     }
 	
     public void stop() {
-    	listenerThread.interrupt();
         try {
             serverSocket.close();
             listenerThread.join();

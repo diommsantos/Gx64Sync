@@ -18,7 +18,6 @@ import javax.swing.SwingConstants;
 import docking.ActionContext;
 import docking.ComponentProvider;
 import docking.action.DockingAction;
-import docking.action.MenuData;
 import docking.action.ToolBarData;
 import ghidra.framework.plugintool.Plugin;
 import resources.ResourceManager;
@@ -56,10 +55,6 @@ public class GSyncProvider extends ComponentProvider{
 		gsp = (GSyncPlugin) plugin;
 		sessionStatus.put(-1, new Messages.Session("none", "none"));
 		buildPanel();
-	}
-	
-	public void init() {
-		createActions();
 		gsp.sh.installClientHandlerErrorsCallbacks((sessionHandle) -> {
 			sessionStatus.remove(sessionHandle);
 			Messages.Session lastSession = sessionStatus.lastEntry().getValue();
@@ -88,6 +83,7 @@ public class GSyncProvider extends ComponentProvider{
 				setStatus(STATUS.WAITING_CONNECTION);
 		});
 		gsp.sh.subscribe(Messages.Session.class, this::remoteSessionInfoHandler);
+		createActions();
 	}
 	
 	// Customize GUI
@@ -175,7 +171,6 @@ public class GSyncProvider extends ComponentProvider{
 		for(DockingAction action : actions) {
 			dockingTool.addLocalAction(this, action);
 		}
-		//dockingTool.setMenuGroup(new String[] {"Location Sync"}, "LocationSync", null);
 		
 	}
 	

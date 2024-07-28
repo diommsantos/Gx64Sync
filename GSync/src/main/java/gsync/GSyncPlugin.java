@@ -73,25 +73,7 @@ public class GSyncPlugin extends ProgramPlugin {
 
 		// TODO: Customize provider (or remove if a provider is not desired)
 		String pluginName = getName();
-		provider = new GSyncProvider(this, pluginName);
-
-		// TODO: Customize help (or remove if help is not desired)
-		String topicName = this.getClass().getPackage().getName();
-		String anchorName = "HelpAnchor";
-		provider.setHelpLocation(new HelpLocation(topicName, anchorName));
-	}
-
-	@Override
-	public void init() {
-		super.init();
-		
-		// TODO: Acquire services if necessary
-		cs = tool.getService(ConsoleService.class);
-		pm = tool.getService(ProgramManager.class);
-		cvs = tool.getService(CodeViewerService.class);
-		gts = tool.getService(GoToService.class);
-        cs.println("GSync init");
-        sh = new SyncHandler(new Logger() {
+		sh = new SyncHandler(new Logger() {
         	public void log(String s) {
         		cs.print(s);
         	}
@@ -115,8 +97,24 @@ public class GSyncPlugin extends ProgramPlugin {
         cmmts = new CommentSync(sh, cvs, pm);
         dbgs = new DebuggerSync(sh, pm, cvs);
         hs = new HyperSync(sh, cs, cvs, pm, gts);
-        
-        provider.init();
+		provider = new GSyncProvider(this, pluginName);
+		// TODO: Customize help (or remove if help is not desired)
+		String topicName = this.getClass().getPackage().getName();
+		String anchorName = "HelpAnchor";
+		provider.setHelpLocation(new HelpLocation(topicName, anchorName));
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		
+		// TODO: Acquire services if necessary
+		cs = tool.getService(ConsoleService.class);
+		pm = tool.getService(ProgramManager.class);
+		cvs = tool.getService(CodeViewerService.class);
+		gts = tool.getService(GoToService.class);
+        cs.println("GSync init");
+
 	}
 	
 	@Override
