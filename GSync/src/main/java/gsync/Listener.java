@@ -5,11 +5,10 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.function.Consumer;
-import java.util.function.BiConsumer;
 
 public class Listener {
 	
-	protected Consumer<String> logger;
+	protected Logger logger;
 	protected Consumer<Socket> onConnectionAccept;
 	
 	private ServerSocket serverSocket;
@@ -19,15 +18,27 @@ public class Listener {
     protected final int PORT = 9100;
     
     
-    public Listener(Consumer<String> logger) {
-    	this.logger = logger;
-    	logln("Server constructor Called!");
+    public Listener(Logger logger) {
+    	Listener self = this;
+    	this.logger = new Logger() {
+        	public void log(String s) {
+        		logger.log(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void logError(String s) {
+        		logger.logError(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void logln(String s) {
+        		logger.logln(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void loglnError(String s) {
+        		logger.loglnError(self.getClass().getSimpleName()+": "+s);
+        	}
+        };
     }
-        
-    private void logln(String ls) {
-    	logger.accept(String.format("%s\n", ls));
-    }
-    
+            
     public void installOnConnectionAccept(Consumer<Socket> paramOnConnectionAccept) {
     	this.onConnectionAccept = paramOnConnectionAccept;
     }
@@ -35,14 +46,14 @@ public class Listener {
     private void bind() throws IOException {
         InetAddress byAddress = InetAddress.getByName(HOST);
         this.serverSocket = new ServerSocket(PORT, 0, byAddress);
-        logln("[>] server listening ");
+        logger.logln("Listening for connections!");
     }
     
     public void start() {
     	try {
     		bind();
     	} catch (IOException e) {
-    		logln(String.format("[x] listener start failed (%s)", e.getMessage()));
+    		logger.loglnError( e.getMessage());
     		return;
     	}
     	listenerThread = new Thread(new Runnable() {
@@ -50,11 +61,11 @@ public class Listener {
 				try {
 		            while (true) {
 		                Socket client = serverSocket.accept();
-		                logln("[!] listener connection accepted!");
+		                logger.logln("Connection accepted!");
 		                onConnectionAccept.accept(client);
 		            }
 		        } catch (IOException e) {
-		            logln(String.format("[!] listener exception: %s", e.getMessage()));
+		            logger.loglnError(e.getMessage());
 		        }
 			}
 		});
@@ -67,7 +78,7 @@ public class Listener {
             try {
                 serverSocket.close();
             } catch (IOException e) {
-                logln(String.format("[>] Listener stop: %s", e.getMessage()));
+                logger.loglnError(e.getMessage());
             }
         }
     	serverSocket = null;

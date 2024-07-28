@@ -1,6 +1,5 @@
 package gsync;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -9,24 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.function.Consumer;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import docking.ActionContext;
 import docking.ComponentProvider;
 import docking.action.DockingAction;
-import docking.action.MenuData;
-import docking.action.ToolBarData;
 import ghidra.framework.plugintool.Plugin;
-import resources.Icons;
 import resources.ResourceManager;
 
 public class GSyncProvider extends ComponentProvider{

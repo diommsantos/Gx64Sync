@@ -7,16 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableSet;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import org.json.JSONObject;
 
 import com.fasterxml.jackson.jr.ob.JSON;
 import com.fasterxml.jackson.jr.ob.JSON.Feature;
@@ -25,9 +22,12 @@ import com.fasterxml.jackson.jr.ob.JSONObjectException;
 
 public class SyncHandler {
 	
-	protected Consumer<String> logger;
+	protected Logger rawLogger;
+	protected Logger logger;
 	
-	//SyncHandler State callback
+	boolean active = false;
+	
+	//SyncHandler State callbacks
 	protected List<Runnable> startCallbacks = new ArrayList<Runnable>();
 	protected List<Runnable> stopCallbacks = new ArrayList<Runnable>();
 	protected List<Runnable> errorCallbacks = new ArrayList<Runnable>();
@@ -37,19 +37,43 @@ public class SyncHandler {
 	
 	protected Listener listener;
 	
+	protected int lastActiveSessionHandle = 0;
 	protected TreeMap<Integer, ClientHandler> sessions = new TreeMap<Integer, ClientHandler>();
 	protected Lock sessionLock = new ReentrantLock(true);
 	
-	boolean active = false;
-	
 	List<String> ids = new ArrayList<String>();
 	Map<String, Class<?>> messages;
-	
 	Map<String, SortedMap<Integer, BiConsumer<Message, Integer>>> subscribers;
 	
-	public SyncHandler(Consumer<String> logger){
-		this.logger = logger;
-		listener = new Listener(logger);
+	public SyncHandler(Logger logger){
+		this.rawLogger = logger;
+		SyncHandler self = this;
+    	this.logger = new Logger() {
+        	public void log(String s) {
+        		logger.log(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void logError(String s) {
+        		logger.logError(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void logln(String s) {
+        		logger.logln(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void loglnError(String s) {
+        		logger.loglnError(self.getClass().getSimpleName()+": "+s);
+        	}
+        };
+		listener = new Listener(rawLogger);
+		this.installClientHandlerErrorsCallbacks((sessionHandle) -> {
+			if(lastActiveSessionHandle == sessionHandle)
+				lastActiveSessionHandle = sessions.lastKey();
+		});
+		this.installSessionStopCallbacks((sessionHandle) -> {
+			if(lastActiveSessionHandle == sessionHandle)
+				lastActiveSessionHandle = sessions.lastKey();
+		});
 		
 		//Initialize the ids list, messages and subscribers maps
 		Class<?>[] decMessagesClasses = Messages.class.getDeclaredClasses();
@@ -108,27 +132,24 @@ public class SyncHandler {
 	
 	protected void receiver(String data, ClientHandler session){
 		try {
-			JSONObject jsonObj = new JSONObject(data);
-			String id = jsonObj.getString("id");
+			Map<String, Object> jsonMap = JSON.std.mapFrom(data);
+			String id = (String) jsonMap.get("id");
 			Message messageObj = decode(data, id);
 			sessionLock.lock();
+			lastActiveSessionHandle = getSessionHandle(session);
 			for(BiConsumer<Message, Integer> subscriber: subscribers.get(id).values())
-				subscriber.accept(messageObj, getSessionHandle(session));
+				subscriber.accept(messageObj, lastActiveSessionHandle);
 			sessionLock.unlock();
-		}catch(RuntimeException  e){
-			e.printStackTrace();
+		}catch(IOException  e){
+			logger.loglnError(e.getMessage());
+			for(Runnable callback : errorCallbacks)
+				callback.run();
 		}
 	}
 	
-	protected Message decode(String data, String id){
+	protected Message decode(String data, String id) throws JSONObjectException, IOException{
 		Class<?> messageClass = messages.get(id);
-		Object messageObj = null;
-		try {
-			messageObj = JSON.std.with(Feature.INCLUDE_STATIC_FIELDS).beanFrom(messageClass, data);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Object messageObj = JSON.std.with(Feature.INCLUDE_STATIC_FIELDS).beanFrom(messageClass, data);
 		return (Message) messageObj;
 	}
 	
@@ -153,7 +174,7 @@ public class SyncHandler {
 	}
 	
 	protected void onConnectionAccept(Socket sessionSocket) {
-		ClientHandler clientSession = new ClientHandler(sessionSocket, logger, this::sessionStopper, this::errorRecuperator);
+		ClientHandler clientSession = new ClientHandler(sessionSocket, rawLogger, this::sessionStopper, this::errorRecuperator);
 		clientSession.installReceiver(this::receiver);
 		int sessionHandle = sessions.isEmpty() ? 0 : sessions.lastKey()+1; 
  		sessions.put(sessionHandle, clientSession);
@@ -220,19 +241,12 @@ public class SyncHandler {
 		try {
 			sessions.get(sessionHandle).send(this.encode(message));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.loglnError(e.getMessage());
 		}
 		
 	}
 	
 	public void send(Object message){
-		try {
-			sessions.firstEntry().getValue().send(this.encode(message));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+			send(message, lastActiveSessionHandle);
 	}
 }

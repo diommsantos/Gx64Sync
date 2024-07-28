@@ -3,8 +3,6 @@ package gsync;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-
 import docking.ActionContext;
 import docking.action.DockingAction;
 import docking.action.ToolBarData;

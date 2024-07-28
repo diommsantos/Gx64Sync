@@ -11,7 +11,7 @@ import java.util.function.BiConsumer;
 
 public class ClientHandler {
 	
-	protected Consumer<String> logger;
+	protected Logger logger;
 	protected BiConsumer<String, ClientHandler> receiver;
 	protected Consumer<ClientHandler> sessionStopper;
 	protected BiConsumer<ClientHandler, IOException> errorRecuperator;
@@ -24,17 +24,30 @@ public class ClientHandler {
     
     private Thread clientThread = null;
 	
-	ClientHandler(Socket client, Consumer<String> logger, Consumer<ClientHandler> sessionStopper, BiConsumer<ClientHandler, IOException> errorRecuperator){
+	ClientHandler(Socket client, Logger logger, Consumer<ClientHandler> sessionStopper, BiConsumer<ClientHandler, IOException> errorRecuperator){
+		ClientHandler self = this;
+    	this.logger = new Logger() {
+        	public void log(String s) {
+        		logger.log(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void logError(String s) {
+        		logger.logError(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void logln(String s) {
+        		logger.logln(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void loglnError(String s) {
+        		logger.loglnError(self.getClass().getSimpleName()+": "+s);
+        	}
+        };
 		this.clientSocket = client;
-		this.logger= logger;
 		this.sessionStopper = sessionStopper;
 		this.errorRecuperator = errorRecuperator;
 	}
-	
-	private void logln(String ls) {
-    	logger.accept(String.format("%s\n", ls));
-    }
-	
+		
 	public void installReceiver(BiConsumer<String, ClientHandler> paramReceiver) {
 		this.receiver = paramReceiver;
 	}
@@ -60,7 +73,7 @@ public class ClientHandler {
 		            out.close();
 		            sessionStopper.accept(self);
 		        } catch (IOException e) {
-		            logln(String.format("[!] ClientHandler error: %s", e.getMessage()));
+		            logger.loglnError(e.getMessage());
 		            errorRecuperator.accept(self, e);
 		        }
 			}
@@ -79,7 +92,7 @@ public class ClientHandler {
 		try {
 			clientSocket.close();
 		} catch (IOException e) {
-            logln(String.format("[>] ClientHandler stop: %s", e.getMessage()));
+            logger.loglnError(e.getMessage());
         }
 		clientThread.interrupt();
 	}

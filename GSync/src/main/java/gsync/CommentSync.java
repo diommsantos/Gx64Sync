@@ -11,7 +11,6 @@ import ghidra.app.services.ProgramManager;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.listing.CodeUnit;
 import ghidra.program.model.listing.Program;
-import ghidra.app.cmd.comments.SetCommentCmd;
 
 public class CommentSync {
 		SyncHandler sh;

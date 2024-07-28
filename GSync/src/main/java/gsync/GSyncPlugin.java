@@ -15,15 +15,6 @@
  */
 package gsync;
 
-import java.awt.BorderLayout;
-import java.net.Socket;
-
-import javax.swing.*;
-
-import docking.ActionContext;
-import docking.ComponentProvider;
-import docking.action.DockingAction;
-import docking.action.ToolBarData;
 import ghidra.app.ExamplesPluginPackage;
 import ghidra.app.plugin.PluginCategoryNames;
 import ghidra.app.plugin.ProgramPlugin;
@@ -35,8 +26,6 @@ import ghidra.framework.plugintool.*;
 import ghidra.framework.plugintool.util.PluginStatus;
 import ghidra.program.util.ProgramLocation;
 import ghidra.util.HelpLocation;
-import ghidra.util.Msg;
-import resources.Icons;
 
 /**
  * TODO: Provide class-level documentation that describes what this plugin does.
@@ -101,8 +90,24 @@ public class GSyncPlugin extends ProgramPlugin {
 		pm = tool.getService(ProgramManager.class);
 		cvs = tool.getService(CodeViewerService.class);
 		gts = tool.getService(GoToService.class);
-        cs.println("[*] Gsync init");
-        sh = new SyncHandler((s)->cs.print(s));
+        cs.println("GSync init");
+        sh = new SyncHandler(new Logger() {
+        	public void log(String s) {
+        		cs.print(s);
+        	}
+        	
+        	public void logError(String s) {
+        		cs.printError(s);
+        	}
+        	
+        	public void logln(String s) {
+        		cs.println(s);
+        	}
+        	
+        	public void loglnError(String s) {
+        		cs.printlnError(s);
+        	}
+        });
         
         gsOn = new GSyncOn(sh, (s)->cs.print(s));
 		TS = new TestSender(sh, (s)->cs.print(s));

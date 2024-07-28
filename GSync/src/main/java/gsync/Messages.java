@@ -67,7 +67,7 @@ public class Messages {
 	    public boolean state;
 	    
 	    public HyperSyncState(){} public HyperSyncState(boolean state) {this.state = state;}
-	};
+	}
 	
 	public static class RelativeAddress extends Message{
 		public static String id = "rva";

@@ -1,7 +1,6 @@
 package gsync;
 
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class Test {
 	

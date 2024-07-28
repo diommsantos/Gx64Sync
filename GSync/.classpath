@@ -5,6 +5,16 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="ghidra_scripts"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.17.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/GSync/javadoc/jackson-core-2.17.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jackson-jr-objects-2.17.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/GSync/javadoc/jackson-jr-objects-2.17.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-21">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -748,21 +758,6 @@
 	<classpathentry kind="lib" path="C:/Users/Diogo Santos/Desktop/Projetos/Tools/ghidra_11.0.3_PUBLIC/Ghidra/Processors/x86/lib/x86.jar" sourcepath="C:/Users/Diogo Santos/Desktop/Projetos/Tools/ghidra_11.0.3_PUBLIC/Ghidra/Processors/x86/lib/x86-src.zip">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/C:\Users\Diogo Santos\Desktop\Projetos\Tools\ghidra_11.0.3_PUBLIC\docs\GhidraAPI_javadoc.zip!/api/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jackson-core-2.17.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/GSync/javadoc/jackson-core-2.17.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jackson-jr-objects-2.17.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/GSync/javadoc/jackson-jr-objects-2.17.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/json-20230618.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/GSync/javadoc/json-20230618-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
