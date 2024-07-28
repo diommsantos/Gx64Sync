@@ -38,7 +38,10 @@ import ghidra.util.HelpLocation;
 	shortDescription = "Plugin short description goes here.",
 	description = "Plugin long description goes here.",
 	servicesRequired = {
-			ConsoleService.class
+			ConsoleService.class,
+			ProgramManager.class,
+			CodeViewerService.class,
+			GoToService.class
 	}
 )
 //@formatter:on
@@ -55,9 +58,25 @@ public class GSyncPlugin extends ProgramPlugin {
 	CodeViewerService cvs;
 	GoToService gts;
 	
+	Logger logger = new Logger() {
+    	public void log(String s) {
+    		cs.print(s);
+    	}
+    	
+    	public void logError(String s) {
+    		cs.printError(s);
+    	}
+    	
+    	public void logln(String s) {
+    		cs.println(s);
+    	}
+    	
+    	public void loglnError(String s) {
+    		cs.printlnError(s);
+    	}
+    };
+	
 	//Features
-	public GSyncOn gsOn;
-	public TestSender TS;
 	public LocationSync locs;
 	public CommentSync cmmts;
 	public DebuggerSync dbgs;
@@ -70,38 +89,6 @@ public class GSyncPlugin extends ProgramPlugin {
 	 */
 	public GSyncPlugin(PluginTool tool) {
 		super(tool);
-
-		// TODO: Customize provider (or remove if a provider is not desired)
-		String pluginName = getName();
-		sh = new SyncHandler(new Logger() {
-        	public void log(String s) {
-        		cs.print(s);
-        	}
-        	
-        	public void logError(String s) {
-        		cs.printError(s);
-        	}
-        	
-        	public void logln(String s) {
-        		cs.println(s);
-        	}
-        	
-        	public void loglnError(String s) {
-        		cs.printlnError(s);
-        	}
-        });
-        
-        gsOn = new GSyncOn(sh, (s)->cs.print(s));
-		TS = new TestSender(sh, (s)->cs.print(s));
-        locs = new LocationSync(sh, (s)->cs.print(s), pm, cvs, gts);
-        cmmts = new CommentSync(sh, cvs, pm);
-        dbgs = new DebuggerSync(sh, pm, cvs);
-        hs = new HyperSync(sh, cs, cvs, pm, gts);
-		provider = new GSyncProvider(this, pluginName);
-		// TODO: Customize help (or remove if help is not desired)
-		String topicName = this.getClass().getPackage().getName();
-		String anchorName = "HelpAnchor";
-		provider.setHelpLocation(new HelpLocation(topicName, anchorName));
 	}
 
 	@Override
@@ -114,6 +101,19 @@ public class GSyncPlugin extends ProgramPlugin {
 		cvs = tool.getService(CodeViewerService.class);
 		gts = tool.getService(GoToService.class);
         cs.println("GSync init");
+        
+		sh = new SyncHandler(logger);
+        
+        locs = new LocationSync(logger, sh, pm, cvs, gts);
+        cmmts = new CommentSync(sh, cvs, pm);
+        dbgs = new DebuggerSync(sh, pm, cvs);
+        hs = new HyperSync(sh, locs, cs, cvs, pm, gts);
+        
+        String pluginName = getName();
+		provider = new GSyncProvider(this, pluginName);
+		String topicName = this.getClass().getPackage().getName();
+		String anchorName = "HelpAnchor";
+		provider.setHelpLocation(new HelpLocation(topicName, anchorName));
 
 	}
 	

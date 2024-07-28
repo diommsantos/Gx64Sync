@@ -16,6 +16,7 @@ import ghidra.program.util.ProgramLocation;
 public class HyperSync {
 	
 	SyncHandler sh;
+	LocationSync locs;
 	ConsoleService cs;
 	CodeViewerService cvs;
 	ProgramManager pm;
@@ -26,8 +27,9 @@ public class HyperSync {
 	int subscriberHandle;
 	int sessionHandle;
 	
-	public HyperSync(SyncHandler sh, ConsoleService cs, CodeViewerService cvs, ProgramManager pm, GoToService gts) {
+	public HyperSync(SyncHandler sh, LocationSync locs, ConsoleService cs, CodeViewerService cvs, ProgramManager pm, GoToService gts) {
 		this.sh = sh;
+		this.locs = locs;
 		this.cs = cs;
 		this.cvs = cvs;
 		this.pm = pm;
@@ -37,14 +39,14 @@ public class HyperSync {
 			if(active && hsSession == sessionHandle) {
 				sh.unsubscribe(subscriberHandle);
 				active = false;
-				cs.println("HyperSync: HyperSync stopped!");
+				cs.println("HyperSync stopped!");
 			}
 		});
 		sh.installClientHandlerErrorsCallbacks((hsSession) ->{
 			if(active && hsSession == sessionHandle) {
 				sh.unsubscribe(subscriberHandle);
 				active = false;
-				cs.println("HyperSync: HyperSync stopped!");
+				cs.println("HyperSync stopped!");
 			}
 				
 		});
@@ -53,6 +55,7 @@ public class HyperSync {
 	public void start() {
 		if(active)
 			return;
+		locs.stop(); //Necessary due to incompatibility with LocationSync
 		NavigableSet<Integer> sessionHandles = sh.getAllSessionHandles();
 		if(sessionHandles.isEmpty())
 			return;
@@ -60,16 +63,17 @@ public class HyperSync {
 		subscriberHandle = this.sh.subscribe(Messages.RelativeAddress.class, this::remoteRVAHandler);
 		active = true;
 		sh.send(new Messages.HyperSyncState(true), sessionHandle);
-		cs.println("HyperSync: HyperSync started!");
+		cs.println("HyperSync started!");
 	}
 	
 	public void stop() {
 		if(!active)
 			return;
+		locs.start(); //Not forgetting to start LocationSync again
 		sh.unsubscribe(subscriberHandle);
 		active = false;
 		sh.send(new Messages.HyperSyncState(false), sessionHandle);
-		cs.println("HyperSync: HyperSync stopped!");
+		cs.println("HyperSync stopped!");
 	}
 	
 	private void syncHyperSyncState(Messages.HyperSyncState hss, int hsSession) {

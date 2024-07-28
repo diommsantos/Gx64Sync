@@ -8,6 +8,7 @@ import ghidra.app.services.CodeViewerService;
 import ghidra.app.services.GoToService;
 import ghidra.app.services.ProgramManager;
 import ghidra.program.model.address.Address;
+import ghidra.program.model.listing.Program;
 import docking.ActionContext;
 import docking.action.DockingAction;
 import docking.action.MenuData;
@@ -15,19 +16,35 @@ import docking.action.MenuData;
 public class LocationSync {
 
 	SyncHandler sh;
-	Consumer<String> logger;
+	Logger logger;
 	ProgramManager pm;
 	CodeViewerService cvs;
 	GoToService gts;
 	
 	private boolean active = false;
-	private long remoteBase;
 	private int sessionHandle;
-	private List<Integer> subscriberHandles = new ArrayList<Integer>(2);
+	private int subscriberHandle;
 	
-	public LocationSync(SyncHandler sh, Consumer<String> logger, ProgramManager pm, CodeViewerService cvs, GoToService gts) {
+	public LocationSync(Logger logger, SyncHandler sh, ProgramManager pm, CodeViewerService cvs, GoToService gts) {
+		LocationSync self = this;
+    	this.logger = new Logger() {
+        	public void log(String s) {
+        		logger.log(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void logError(String s) {
+        		logger.logError(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void logln(String s) {
+        		logger.logln(self.getClass().getSimpleName()+": "+s);
+        	}
+        	
+        	public void loglnError(String s) {
+        		logger.loglnError(self.getClass().getSimpleName()+": "+s);
+        	}
+        };
 		this.sh = sh;
-		this.logger = logger;
 		this.pm = pm;
 		this.cvs = cvs;
 		this.gts = gts;
@@ -38,66 +55,42 @@ public class LocationSync {
 		if(active)
 			return;
 		this.active = true;
-		subscriberHandles.add(0, sh.subscribe(Messages.Base.class, this::getRemoteBase));
-		subscriberHandles.add(1, sh.subscribe(Messages.Location.class, this::getRemoteAddress));
+		subscriberHandle = sh.subscribe(Messages.RelativeAddress.class, this::syncRemoteAddress);
 	}
 	
 	public void stop() {
 		if(!active)
 			return;
-		sh.unsubscribe(subscriberHandles.get(0));
-		sh.unsubscribe(subscriberHandles.get(1));
+		sh.unsubscribe(subscriberHandle);
 		this.active = false;
 	}
 	
-	private void getRemoteBase(Messages.Base mBase, int shandle) {
+	private void syncRemoteAddress(Messages.RelativeAddress ra, int shandle) {
 		this.sessionHandle = shandle;
-		this.remoteBase = mBase.base;
-		sh.send(new Messages.Base(pm.getCurrentProgram().getImageBase().getOffset()), sessionHandle);
-	}
-	
-	private void getRemoteAddress(Messages.Location mLoc, int shandle) {
-		this.sessionHandle = shandle;
-		Address base = pm.getCurrentProgram().getImageBase(); 
-		gts.goTo(base.getNewAddress(mLoc.loc-this.remoteBase+base.getOffset()));
-	}
-	
-	public void sendGhidraBase(){
-		if(active)
-			sh.send(new Messages.Base(pm.getCurrentProgram().getImageBase().getOffset()), sessionHandle);
+		Program openpg[] = pm.getAllOpenPrograms();
+		int i = 0;
+		for(; i < openpg.length; i++) {
+			if(openpg[i].getExecutablePath().substring(1).replace("/", "\\").equals(ra.modPath))
+				break;
+		}
+		if(i == openpg.length) {
+			logger.logln(String.format("It is not possible to sync the address. The %s module is not loaded!", ra.modPath));
+			return;
+		}
+		gts.goTo(openpg[i].getImageBase().add(ra.modRVA));
 	}
 	
 	public void sendGhidraLocation(){
-		if(active)
-			sh.send(new Messages.Location(cvs.getCurrentLocation().getAddress().getOffset()), sessionHandle);
+		if(!active)
+			return;
+		String modPath = pm.getCurrentProgram().getExecutablePath().substring(1).replace("/", "\\");
+		long rva = cvs.getCurrentLocation().getAddress().getOffset()-pm.getCurrentProgram().getImageBase().getOffset();
+		sh.send(new Messages.RelativeAddress(modPath, rva), sessionHandle);
 	}
 	
 	//GUI stuff (actions and menus)
 	public List<DockingAction> getActions(String providerName) {
-		List<DockingAction> actions = new ArrayList<DockingAction>(5);
-		
-		actions.add(new DockingAction("Start Location Sync", providerName) {
-			@Override
-			public void actionPerformed(ActionContext context) {
-				sh.start();
-				start();
-				
-			}
-		});
-		actions.get(0).setMenuBarData(new MenuData(new String[]{"Location Sync", "Start"}, null, "LocationSync"));
-		actions.get(0).setEnabled(true);
-		actions.get(0).markHelpUnnecessary();
-		
-		actions.add(new DockingAction("Stop Location Sync", providerName) {
-			@Override
-			public void actionPerformed(ActionContext context) {
-				stop();
-				
-			}
-		});
-		actions.get(1).setMenuBarData(new MenuData(new String[]{"Location Sync", "Stop"}, null, "LocationSync"));
-		actions.get(1).setEnabled(true);
-		actions.get(1).markHelpUnnecessary();
+		List<DockingAction> actions = new ArrayList<DockingAction>(1);
 		
 		actions.add(new DockingAction("Sync Location", providerName) {
 			@Override
@@ -106,20 +99,10 @@ public class LocationSync {
 				
 			}
 		});
-		actions.get(2).setMenuBarData(new MenuData(new String[]{"Location Sync", "Sync Location"}, null, "LocationSync"));
-		actions.get(2).setEnabled(true);
-		actions.get(2).markHelpUnnecessary();
+		actions.get(0).setMenuBarData(new MenuData(new String[]{"Sync Location"}, null, "1-LocationSync"));
+		actions.get(0).setEnabled(true);
+		actions.get(0).markHelpUnnecessary();
 		
-		actions.add(new DockingAction("Sync Base", providerName) {
-			@Override
-			public void actionPerformed(ActionContext context) {
-				sendGhidraBase();
-				
-			}
-		});
-		actions.get(3).setMenuBarData(new MenuData(new String[]{"Location Sync", "Sync Base"}, null, "LocationSync"));
-		actions.get(3).setEnabled(true);
-		actions.get(3).markHelpUnnecessary();
 		
 		return actions;
 	}
