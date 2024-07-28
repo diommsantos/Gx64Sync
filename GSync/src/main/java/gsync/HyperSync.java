@@ -3,8 +3,6 @@ package gsync;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NavigableSet;
-import java.util.Set;
-
 import docking.ActionContext;
 import docking.action.DockingAction;
 import docking.action.MenuData;
@@ -36,14 +34,14 @@ public class HyperSync {
 		this.gts = gts;
 		sh.subscribe(Messages.HyperSyncState.class, this::syncHyperSyncState);
 		sh.installSessionStopCallbacks((hsSession) ->{
-			if(hsSession == sessionHandle) {
+			if(active && hsSession == sessionHandle) {
 				sh.unsubscribe(subscriberHandle);
 				active = false;
 				cs.println("HyperSync: HyperSync stopped!");
 			}
 		});
 		sh.installClientHandlerErrorsCallbacks((hsSession) ->{
-			if(hsSession == sessionHandle) {
+			if(active && hsSession == sessionHandle) {
 				sh.unsubscribe(subscriberHandle);
 				active = false;
 				cs.println("HyperSync: HyperSync stopped!");
