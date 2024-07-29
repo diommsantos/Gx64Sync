@@ -1,7 +1,8 @@
 #include "Client.hpp"
 
-Client::Client(Logger callback, ErrorHandler errorCallback) : 
-loggerCallback_(callback), 
+Client::Client(Logger callback, MessageHandler messageHandlerCallback, ErrorHandler errorCallback) : 
+loggerCallback_(callback),
+onMessageReceivedCallback_(messageHandlerCallback),
 errorHandlerCallback(errorCallback),
 m_socket(io_context)
 {
@@ -45,10 +46,6 @@ void Client::stop() {
     catch (asio::system_error ec) {
         loggerCallback_(ec.what());
     }
-}
-
-void Client::installMessageHandler(MessageHandler callback){
-    onMessageReceivedCallback_ = callback;
 }
 
 void Client::send(const std::string& message) {

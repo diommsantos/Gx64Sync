@@ -13,11 +13,10 @@ public:
 	using Logger = std::function<void(const std::string_view)>;
 	using ErrorHandler = std::function<void(Client *client, asio::error_code e)>;
 
-	Client(Logger callback, ErrorHandler errorCallback);
+	Client(Logger callback, MessageHandler messageHandlerCallback, ErrorHandler errorCallback);
 
 	bool start();
 	void stop();
-	void installMessageHandler(MessageHandler callback);
 	void send(const std::string& message);
 
 private:

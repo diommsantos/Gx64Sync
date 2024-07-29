@@ -20,11 +20,10 @@ std::vector<std::string_view> SyncHandler::ids{ getMessageIds() };
 
 SyncHandler::SyncHandler(SyncHandler::Logger callback):
 loggerCallback_{callback}, 
-session(callback, std::bind(&SyncHandler::MessageErrorHandler, this, std::placeholders::_1, std::placeholders::_2))
+session(callback,
+        std::bind(&SyncHandler::MessageHandler, this, std::placeholders::_1),
+        std::bind(&SyncHandler::MessageErrorHandler, this, std::placeholders::_1, std::placeholders::_2))
 {
-    session.installMessageHandler(std::bind(&SyncHandler::MessageHandler,
-        this,
-        std::placeholders::_1));
 }
 
 SyncHandler::~SyncHandler(){
