@@ -14,7 +14,6 @@ class SyncHandler
     using Subscriber = std::function<void(const Messages::Message&)>;
 private:
     bool active{ false };
-    bool error{ false };
     Logger loggerCallback_;
     Client session;
     void MessageHandler(const std::string_view);

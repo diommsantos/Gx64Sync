@@ -22,6 +22,9 @@ SyncHandler::SyncHandler(SyncHandler::Logger callback):
 loggerCallback_{callback}, 
 session(callback, std::bind(&SyncHandler::MessageErrorHandler, this, std::placeholders::_1, std::placeholders::_2))
 {
+    session.installMessageHandler(std::bind(&SyncHandler::MessageHandler,
+        this,
+        std::placeholders::_1));
 }
 
 SyncHandler::~SyncHandler(){
@@ -47,22 +50,10 @@ void SyncHandler::installClientErrorsCallback(std::function<void(void)> callback
 bool SyncHandler::start(){
     if (active)
         return true;
-    if (error) {
-        session.stop();
-        session.~Client();
-        new (&session) Client(loggerCallback_, std::bind(&SyncHandler::MessageErrorHandler, this, std::placeholders::_1, std::placeholders::_2));
-        error = false;
-    }
-    session.installMessageHandler(std::bind(&SyncHandler::MessageHandler, 
-                                            this, 
-                                            std::placeholders::_1));
     if (!(active = session.start()))
-        error = true;
-    else 
-    {
-        for (std::function<void(void)> callback : startCallbacks)
-            callback();
-    }
+        return false;
+    for (std::function<void(void)> callback : startCallbacks)
+        callback();
     return active;
 }
 
@@ -70,8 +61,6 @@ void SyncHandler::stop(){
     if (!active)
         return;
     session.stop();
-    session.~Client();
-    new (&session) Client(loggerCallback_, std::bind(&SyncHandler::MessageErrorHandler, this, std::placeholders::_1, std::placeholders::_2));
     active = false;
     for (std::function<void(void)> callback : stopCallbacks)
         callback();
@@ -89,11 +78,12 @@ void SyncHandler::MessageHandler(const std::string_view encMessage){
     }catch(const std::exception& e){
         loggerCallback_("SyncHandler error: receivedMessage "+std::string(encMessage)
         +" error: "+e.what()+"\n");
+        for (std::function<void(void)> callback : errorCallbacks)
+            callback();
     }
 }
 
 void SyncHandler::MessageErrorHandler(Client* session, asio::error_code) {
-    error = true;
     active = false;
     for (std::function<void(void)> callback : clientErrorsCallbacks)
         callback();

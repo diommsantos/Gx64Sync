@@ -33,6 +33,7 @@ private:
 	asio::ip::tcp::socket m_socket;
 	asio::streambuf message;
 
+	bool cleanup_before_start{ false };
 	std::thread m_thread;
     
 
