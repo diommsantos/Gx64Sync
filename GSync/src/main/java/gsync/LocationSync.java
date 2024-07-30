@@ -2,12 +2,9 @@ package gsync;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-
 import ghidra.app.services.CodeViewerService;
 import ghidra.app.services.GoToService;
 import ghidra.app.services.ProgramManager;
-import ghidra.program.model.address.Address;
 import ghidra.program.model.listing.Program;
 import docking.ActionContext;
 import docking.action.DockingAction;
