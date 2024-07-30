@@ -14,6 +14,7 @@ public:
 	using ErrorHandler = std::function<void(Client *client, asio::error_code e)>;
 
 	Client(Logger callback, MessageHandler messageHandlerCallback, ErrorHandler errorCallback);
+	~Client();
 
 	bool start();
 	void stop();

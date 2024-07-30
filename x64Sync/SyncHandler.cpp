@@ -26,10 +26,6 @@ session(callback,
 {
 }
 
-SyncHandler::~SyncHandler(){
-    stop();
-}
-
 void SyncHandler::installStartCallback(std::function<void(void)> callback) {
     startCallbacks.push_back(callback);
 }
@@ -75,8 +71,7 @@ void SyncHandler::MessageHandler(const std::string_view encMessage){
             subscriber(*message);
         }
     }catch(const std::exception& e){
-        loggerCallback_("SyncHandler error: receivedMessage "+std::string(encMessage)
-        +" error: "+e.what()+"\n");
+        loggerCallback_("SyncHandler: " + std::string(e.what()) + "\n");
         for (std::function<void(void)> callback : errorCallbacks)
             callback();
     }

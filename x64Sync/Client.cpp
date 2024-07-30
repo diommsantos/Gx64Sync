@@ -8,6 +8,14 @@ m_socket(io_context)
 {
 }
 
+Client::~Client() {
+    asio::error_code ec;
+    m_socket.shutdown(asio::ip::tcp::socket::shutdown_both, ec);
+    m_socket.close(ec);
+    if(m_thread.joinable())
+        m_thread.join();
+}
+
 bool Client::start(){
     if (std::this_thread::get_id() == m_thread.get_id())
         throw std::runtime_error("Start method can't be called from the Client m_thread!");
@@ -21,7 +29,7 @@ bool Client::start(){
     asio::error_code ec;
     m_socket.connect(ep, ec);
     if (ec) {
-        loggerCallback_("Error connecting to server: " + std::string(ec.message()));
+        loggerCallback_("Client: " + ec.message() + "\n");
         m_socket = asio::ip::tcp::socket(io_context);
         return false;
     }
@@ -55,7 +63,7 @@ void Client::send(const std::string& message) {
         cleanup_before_start = true;
         m_socket.shutdown(asio::ip::tcp::socket::shutdown_both);
         m_socket.close();
-        loggerCallback_("Error sending message: " + std::string(ec.message()));
+        loggerCallback_("Client: " + ec.message() + "\n");
         errorHandlerCallback(this, ec);
     }
 }
@@ -79,7 +87,7 @@ void Client::DataHandler(const asio::error_code& error, size_t bytes_transferred
         cleanup_before_start = true;
         m_socket.shutdown(asio::ip::tcp::socket::shutdown_both);
         m_socket.close();
-        loggerCallback_("Connection error: " + std::string(error.message()));
+        loggerCallback_("Client: " + error.message() + "\n");
         errorHandlerCallback(this, error);
     }
 }

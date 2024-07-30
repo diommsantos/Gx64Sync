@@ -5,8 +5,16 @@ HyperSync::HyperSync(SyncHandler& sh):
 sh{ sh }
 {
 	subscriberHandles[0] = sh.subscribe<Messages::HyperSyncState>(std::bind(&HyperSync::syncHyperSyncState, this, std::placeholders::_1));
-	sh.installStopCallback([this]() { active = false; dputs("HyperSync: HyperSync stopped!"); });
-	sh.installClientErrorsCallback([this]() { active = false; dputs("HyperSync: HyperSync stopped!"); });
+	sh.installStopCallback([this]() {
+		if (!active) return; 
+		active = false; 
+		dputs("HyperSync stopped!\n"); 
+	});
+	sh.installClientErrorsCallback([this]() {
+		if (!active) return;
+		active = false;
+		dputs("HyperSync stopped!\n");
+	});
 }
 
 void HyperSync::start() {
@@ -16,7 +24,7 @@ void HyperSync::start() {
 	subscriberHandles[1] = sh.subscribe<Messages::RelativeAddress>(std::bind(&HyperSync::remoteRVAHandler, this, std::placeholders::_1));
 	sh.send(Messages::HyperSyncState{ true });
 	active = true;
-	dputs("HyperSync: HyperSync started!");
+	dputs("HyperSync started!\n");
 }
 
 void HyperSync::stop() {
@@ -24,7 +32,7 @@ void HyperSync::stop() {
 		return;
 	sh.send(Messages::HyperSyncState{ false });
 	active = false;
-	dputs("HyperSync: HyperSync stopped!");
+	dputs("HyperSync stopped!\n");
 }
 
 bool HyperSync::isActive() {

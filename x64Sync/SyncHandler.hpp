@@ -29,7 +29,6 @@ private:
 
 public:
     SyncHandler(Logger callback);
-    ~SyncHandler();
     void installStartCallback(std::function<void(void)> callback);
     void installStopCallback(std::function<void(void)> callback);
     void installErrorCallback(std::function<void(void)> callback);
