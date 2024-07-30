@@ -44,12 +44,12 @@ void registerCommentSyncCommands() {
 }
 
 void menuAddCommentSync() {
-	_plugin_menuaddentry(hMenu, COMMENT_SYNC_MENU_IDENTIFIERS::SYNC, "Sync Comment");
+	_plugin_menuaddentry(hMenu, MENU_IDENTIFIERS::COMMENTSYNC_SYNC_COMMENT, "Sync Comment");
 }
 
 void menuEntryCommentSync(int hEntry) {
 	switch (hEntry) 
 	{
-	case COMMENT_SYNC_MENU_IDENTIFIERS::SYNC: csSendx64DbgCommentCommand(0, nullptr); break;
+	case MENU_IDENTIFIERS::COMMENTSYNC_SYNC_COMMENT: csSendx64DbgCommentCommand(0, nullptr); break;
 	}
 }

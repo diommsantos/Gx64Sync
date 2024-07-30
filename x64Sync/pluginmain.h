@@ -68,3 +68,12 @@ extern int hMenuStack;
 extern int hMenuGraph;
 extern int hMenuMemmap;
 extern int hMenuSymmod;
+
+//Menu identifiers
+namespace MENU_IDENTIFIERS {
+	enum MENU_IDENTIFIERS {
+		LOCATIONSYNC_SYNC_LOCATION,
+		COMMENTSYNC_SYNC_COMMENT,
+		HYPERSYNC_HYPER_SYNC
+	};
+}

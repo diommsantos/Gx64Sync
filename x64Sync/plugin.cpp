@@ -33,7 +33,7 @@ namespace x64Sync {
     LocationSync ls{ sh };
     CommentSync cs{ sh };
     DebbugerSync ds{ sh };
-    HyperSync hs{ sh };
+    HyperSync hs{ sh, ls };
 
 }
 
@@ -74,7 +74,7 @@ bool pluginInit(PLUG_INITSTRUCT* initStruct)
 void pluginStop()
 {
     // Prefix of the functions to call here: _plugin_unregister
-
+    x64Sync::sh.stop();
     dprintf("pluginStop(pluginHandle: %d)\n", pluginHandle);
 }
 

@@ -3,12 +3,13 @@
 
 #include "Messages.hpp"
 #include "SyncHandler.hpp"
+#include "LocationSync.hpp"
 #include "pluginmain.h"
 
 class HyperSync
 {
 public:
-	HyperSync(SyncHandler& sh);
+	HyperSync(SyncHandler& sh, LocationSync& ls);
 	void start();
 	void stop();
 	bool isActive();
@@ -16,6 +17,7 @@ public:
 
 private:
 	SyncHandler& sh;
+	LocationSync& ls;
 	bool active{ false };
 	bool remoteLocationChange{ false };
 	int subscriberHandles[2];
@@ -29,12 +31,6 @@ namespace x64Sync { extern HyperSync hs; }
 static bool hsStartCommand(int argc, char** argv);
 static bool hsStopCommand(int argc, char** argv);
 void registerHyperSyncCommands();
-
-namespace HYPER_SYNC_MENU_IDENTIFIERS {
-	enum HYPER_SYNC_MENU_IDENTIFIERS {
-		START_STOP = 100,
-	};
-}
 
 void menuAddHyperSync();
 void menuEntryHyperSync(int hEntry);

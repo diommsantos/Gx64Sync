@@ -1,17 +1,20 @@
 #include "HyperSync.hpp"
+#include "LocationSync.hpp"
 #include "pluginmain.h"
 
-HyperSync::HyperSync(SyncHandler& sh):
-sh{ sh }
+HyperSync::HyperSync(SyncHandler& sh, LocationSync& ls):
+sh{ sh }, ls{ls}
 {
 	subscriberHandles[0] = sh.subscribe<Messages::HyperSyncState>(std::bind(&HyperSync::syncHyperSyncState, this, std::placeholders::_1));
 	sh.installStopCallback([this]() {
-		if (!active) return; 
+		if (!active) return;
+		this->sh.unsubscribe(subscriberHandles[1]);
 		active = false; 
 		dputs("HyperSync stopped!\n"); 
 	});
 	sh.installClientErrorsCallback([this]() {
 		if (!active) return;
+		this->sh.unsubscribe(subscriberHandles[1]);
 		active = false;
 		dputs("HyperSync stopped!\n");
 	});
@@ -21,6 +24,7 @@ void HyperSync::start() {
 	if (active)
 		return;
 	sh.start();
+	ls.stop();
 	subscriberHandles[1] = sh.subscribe<Messages::RelativeAddress>(std::bind(&HyperSync::remoteRVAHandler, this, std::placeholders::_1));
 	sh.send(Messages::HyperSyncState{ true });
 	active = true;
@@ -31,6 +35,8 @@ void HyperSync::stop() {
 	if (!active)
 		return;
 	sh.send(Messages::HyperSyncState{ false });
+	sh.unsubscribe(subscriberHandles[1]);
+	ls.start();
 	active = false;
 	dputs("HyperSync stopped!\n");
 }
@@ -83,17 +89,18 @@ void registerHyperSyncCommands() {
 }
 
 void menuAddHyperSync() {
-	_plugin_menuaddentry(hMenu, HYPER_SYNC_MENU_IDENTIFIERS::START_STOP, "Hyper Sync");
+	_plugin_menuaddentry(hMenu, MENU_IDENTIFIERS::HYPERSYNC_HYPER_SYNC, "Hyper Sync");
 }
 
 void menuEntryHyperSync(int hEntry) {
 	switch (hEntry)
 	{
-	case HYPER_SYNC_MENU_IDENTIFIERS::START_STOP:
+	case MENU_IDENTIFIERS::HYPERSYNC_HYPER_SYNC:
 		if (!x64Sync::hs.isActive())
 			x64Sync::hs.start();
 		else
 			x64Sync::hs.stop();
+		break;
 	default:
 		break;
 	}
