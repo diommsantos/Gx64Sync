@@ -43,7 +43,7 @@ details.
     
 # Usage
 
-![Gx64Sync Demo ](/docs/Gx64SyncDemo.gif)
+![Gx64Sync Demo ](/docs/Gx64Sync_usage.mp4)
 
 # Installation
 
