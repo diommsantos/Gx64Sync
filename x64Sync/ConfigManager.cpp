@@ -16,7 +16,7 @@ ConfigManager::ConfigManager(Logger logger) :
 	_dupenv_s(&userprofile, &size, "USERPROFILE");
 	configFilePath = userprofile+std::string("\\config.sync");
 #else
-	//Probably wrong?
+	//Almost sure that this doesn't work for linux/macOS
 	configFilePath = std::string(std::getenv("HOME")) + "/config.sync";
 #endif
 	glz::error_ctx configError = glz::read_file_json(config, configFilePath, std::string{});
