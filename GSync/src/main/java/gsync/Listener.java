@@ -9,13 +9,14 @@ import java.util.function.Consumer;
 public class Listener {
 	
 	protected Logger logger;
+	protected ConfigManager configManager;
 	protected Consumer<Socket> onConnectionAccept;
 	
 	private ServerSocket serverSocket;
     private Thread listenerThread = null;
     
-    protected final String HOST = "localhost";
-    protected final int PORT = 9100;
+    protected final String HOST = ConfigManager.getConfig("GSYNC_HOST", "localhost");
+    protected final int PORT = ConfigManager.getConfig("GSYNC_PORT", 9100);
     
     
     public Listener(Logger logger) {
@@ -37,7 +38,7 @@ public class Listener {
         		logger.loglnError(self.getClass().getSimpleName()+": "+s);
         	}
         };
-    }
+        this.configManager = new ConfigManager(logger);    }
             
     public void installOnConnectionAccept(Consumer<Socket> paramOnConnectionAccept) {
     	this.onConnectionAccept = paramOnConnectionAccept;
