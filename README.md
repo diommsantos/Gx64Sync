@@ -1,6 +1,6 @@
 # Gx64Sync
 
-**Gx64Sync** stands for Ghidra-x64Dbg SYNChronization (you can sugest and vote on new name at [Suggestion for a name](https://github.com/diommsantos/Gx64Sync/issues/3)). It is a set
+**Gx64Sync** stands for Ghidra-x64Dbg SYNChronization (you can sugest and vote on a new name at [Suggestion for a name](https://github.com/diommsantos/Gx64Sync/issues/3)). It is a set
 of plugins that help synchronize a debugging x64Dbg session with Ghidra.
 The underlying idea is simple: take the best from both worlds (static and
 dynamic analysis).
