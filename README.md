@@ -36,14 +36,16 @@ details.
 -------------------------------------------------------------------------------
 
 # Features
+* Synchronization of addresses in both ways (sync addresses from Ghidra to x64Dbg and from x64Dbg to Ghidra)
+* Comment migration both ways
+* Debugger commands from ghidra
 * Fast and fully asynchronous
-* Allows for synchronization of addresses in both ways (sync addresses from Ghidra to x64Dbg and from x64Dbg to Ghidra)
 * Easily extensible, see [DEV.md](/DEV.md)
 * and much more...
     
 # Usage
 
-![Gx64Sync Demo ](/docs/Gx64Sync_usage.mp4)
+![Gx64Sync Usage](/docs/Gx64Sync_usage.gif)
 
 # Installation
 
@@ -125,8 +127,8 @@ should appear in the log tab of x64Dbg.
 - [ ] Add pre-built GSync plugins for the latest Ghidra versions
 - [ ] Improve README.md and DEV.md
 - [ ] Get a cooler name than Gx64Sync ;)
-- [ ] fix x64Dbg closing crash
-- [ ] Improve logging in GSync and x64Sync
+- [x] fix x64Dbg closing crash
+- [x] Improve logging in GSync and x64Sync
 - [x] Implement HyperSync (fully automatic syncing, that is once an address is highlited,
 both in Ghidra or x64Sync, it is synced in the other tool)
 - [ ] Automatic C++ virtual methods shenanigans?
@@ -135,7 +137,6 @@ Have suggestions? Open an issue or contact me at diommsantos@gmail.com!
 
 # Known Bugs/Limitations
 
-- x64Dbg sometimes crashes when closing
 - **THERE IS NO AUTHENTICATION/ENCRYPTION** whatsoever between the parties; you're on your own.
 
 Conflict(s):
