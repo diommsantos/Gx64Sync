@@ -1,6 +1,7 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#include "ConfigManager.hpp"
 #include "asio.hpp"
 #include <functional>
 
@@ -22,12 +23,13 @@ public:
 
 private:
 	Logger loggerCallback_;
+	ConfigManager configManager;
 	void DataHandler(const asio::error_code& ec, std::size_t bytes_transferred);
     MessageHandler onMessageReceivedCallback_;
 	ErrorHandler errorHandlerCallback;
 
-	std::string host = "127.0.0.1";  // or "localhost"
-	int port = 9100;
+	std::string host = ConfigManager::getConfig("X64SYNC_HOST", std::string("127.0.0.1"));  // or "localhost"
+	int port = ConfigManager::getConfig("X64SYNC_PORT", (double) 9100);
 	tcp::endpoint ep;
 	asio::io_context io_context;
 	asio::ip::tcp::socket m_socket;

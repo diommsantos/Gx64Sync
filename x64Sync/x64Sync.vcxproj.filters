@@ -51,6 +51,9 @@
     <ClInclude Include="HyperSync.hpp">
       <Filter>Header Files\Features</Filter>
     </ClInclude>
+    <ClInclude Include="ConfigManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="plugin.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="HyperSync.cpp">
       <Filter>Source Files\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

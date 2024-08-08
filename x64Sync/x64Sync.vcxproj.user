@@ -4,7 +4,7 @@
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommand>"C:\Users\Diogo Santos\Desktop\Projetos\Tools\x64Dbg\release\x64\x64dbg.exe"</LocalDebuggerCommand>
+    <LocalDebuggerCommand>"C:\Users\Diogo\Desktop\Projetos\Tools\x64Dbg\release\x64\x64dbg.exe"</LocalDebuggerCommand>
     <LocalDebuggerAttach>true</LocalDebuggerAttach>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>

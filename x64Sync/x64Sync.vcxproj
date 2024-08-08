@@ -184,6 +184,7 @@
   <ItemGroup>
     <ClInclude Include="Client.hpp" />
     <ClInclude Include="CommentSync.hpp" />
+    <ClInclude Include="ConfigManager.hpp" />
     <ClInclude Include="DebuggerSync.hpp" />
     <ClInclude Include="HyperSync.hpp" />
     <ClInclude Include="LocationSync.hpp">
@@ -201,6 +202,7 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="CommentSync.cpp" />
+    <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="DebuggerSync.cpp" />
     <ClCompile Include="HyperSync.cpp" />
     <ClCompile Include="LocationSync.cpp">

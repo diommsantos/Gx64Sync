@@ -20,7 +20,7 @@ namespace x64Sync {
         if (res = sh.start())
             dputs("Connection established!");
         else
-            dputs("An error occured while establishing the connectiona :(");
+            dputs("An error occured while establishing the connection :(");
         return res; 
     }
 

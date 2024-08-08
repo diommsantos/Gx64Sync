@@ -2,6 +2,7 @@
 
 Client::Client(Logger callback, MessageHandler messageHandlerCallback, ErrorHandler errorCallback) : 
 loggerCallback_(callback),
+configManager(callback),
 onMessageReceivedCallback_(messageHandlerCallback),
 errorHandlerCallback(errorCallback),
 m_socket(io_context)
