@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
 import java.util.TreeMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -45,7 +44,7 @@ public class GSyncProvider extends ComponentProvider{
     
 	private List<DockingAction> actions = new ArrayList<DockingAction>(20);
 	
-	protected SortedMap<Integer, Messages.Session> sessionStatus = new TreeMap<Integer, Messages.Session>();
+	protected TreeMap<Integer, Messages.Session> sessionStatus = new TreeMap<Integer, Messages.Session>();
 	
 	GSyncPlugin gsp;
 	
