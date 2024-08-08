@@ -49,7 +49,7 @@ details.
 ![Gx64Sync Usage](/docs/Gx64Sync_usage.gif)
 
 ## Configuration
-To configure the the ip and ports that GSync and x64Sync use, create a file with the name `config.sync` in your home directory (if you are not sure where to create this file both GSync and x64Sync log the absolute path they are expecting if they don't find this file). This should be a standard json file with any of the properties (propertie omissions are allowed) from the below example inside. Other properties will simply be ignored by GSync and x64Sync.
+To configure the IP and ports that GSync and x64Sync use, create a file with the name `config.sync` in your home directory (if you are not sure where to create this file both GSync and x64Sync log the absolute path they are expecting if they don't find this file). This should be a standard json file with any of the properties (propertie omissions are allowed) from the below example inside. Other properties will simply be ignored by GSync and x64Sync.
 Example of `config.sync` contents:
 ```
 {
