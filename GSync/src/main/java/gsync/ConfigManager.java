@@ -13,12 +13,13 @@ import com.fasterxml.jackson.jr.ob.JSON;
 public class ConfigManager {
 	Logger logger;
 	
+	static boolean active = false;
 	static Path configFilePath;
 	static Map<String, Object> config;
 	static IOException configException = null;
 	
 	public ConfigManager(Logger logger) {
-		if(config != null || configException != null)
+		if(active)
 			return;
 		ConfigManager self = this;
     	this.logger = new Logger() {
@@ -45,6 +46,7 @@ public class ConfigManager {
 			this.logger.logln(String.format("Config file %s not found. Using default configurations.", ((NoSuchFileException) configException).getFile()));
         else
 			this.logger.loglnError(configException.getMessage());
+        active = true;
 	}
 	
 	static {
@@ -61,6 +63,8 @@ public class ConfigManager {
 	
 	@SuppressWarnings("unchecked")
 	public static <valueType> valueType getConfig(String key){
+		if(config == null)
+			return null;
 		return (valueType) config.get(key);
 	}
 	

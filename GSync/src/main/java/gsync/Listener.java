@@ -38,7 +38,8 @@ public class Listener {
         		logger.loglnError(self.getClass().getSimpleName()+": "+s);
         	}
         };
-        this.configManager = new ConfigManager(logger);    }
+        this.configManager = new ConfigManager(logger);    
+    }
             
     public void installOnConnectionAccept(Consumer<Socket> paramOnConnectionAccept) {
     	this.onConnectionAccept = paramOnConnectionAccept;
