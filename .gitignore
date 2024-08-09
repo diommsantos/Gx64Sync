@@ -1,2 +1,4 @@
 hercules_3-2-8.exe
 /.vs/
+/tests/calculator.rep/
+/tests/calculator.gpr
