@@ -11,6 +11,7 @@
 class SyncHandler
 {
     using Logger = std::function<void(const std::string_view)>;
+    using Decoder = std::function<glz::error_ctx(Messages::Message&, const std::string_view)>;
     using Subscriber = std::function<void(const Messages::Message&)>;
 private:
     bool active{ false };
@@ -19,6 +20,7 @@ private:
     void MessageHandler(const std::string_view);
     void MessageErrorHandler(Client* session, asio::error_code);
     static std::vector<std::string_view> ids;
+    static std::unordered_map<std::string_view, Decoder> decoders;
     std::map<std::string_view, std::map<int, Subscriber>> subscribers;
 
     //SyncHandler State callbacks
