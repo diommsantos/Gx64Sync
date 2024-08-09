@@ -121,5 +121,11 @@ public class GSyncPlugin extends ProgramPlugin {
 	protected void locationChanged(ProgramLocation loc) {
 		hs.GhidraRVAHandler(loc);
 	}
+	
+	@Override
+	protected boolean canClose() {
+		sh.stop();
+		return true;
+	}
 		
 }
