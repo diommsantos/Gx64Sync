@@ -109,7 +109,7 @@ public class HyperSync {
 			remoteLocationChange = false;
 			return;
 		}
-		String modName = pm.getCurrentProgram().getName();
+		String modName = pm.getCurrentProgram().toString();
 		sh.send(new Messages.RelativeAddress(modName, pm.getCurrentProgram().getExecutableMD5(), loc.getAddress().getOffset()-pm.getCurrentProgram().getImageBase().getOffset()), sessionHandle);
 	}
 	

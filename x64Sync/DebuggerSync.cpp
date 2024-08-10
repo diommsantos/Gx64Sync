@@ -2,14 +2,16 @@
 #include <functional>
 #include "pluginmain.h"
 
+namespace x64Sync { extern std::unordered_map<std::string, duint> fileHashes; }
+
 DebbugerSync::DebbugerSync(SyncHandler &sh):
 sh{ sh }
 {
 	sh.subscribe<Messages::DebbuggerCmd>(std::bind(&DebbugerSync::debuggerCmdHandler, this, std::placeholders::_1));
 }
 
-void DebbugerSync::debuggerCmdHandler(const Messages::DebbuggerCmd& dbgCmdM) {
-	switch (dbgCmdM.cmdType)
+void DebbugerSync::debuggerCmdHandler(const Messages::DebbuggerCmd& dbgCmd) {
+	switch (dbgCmd.cmdType)
 	{
 	case Messages::DebbuggerCmd::CMDTYPE::RUN:
 		Cmd("run");
@@ -25,16 +27,9 @@ void DebbugerSync::debuggerCmdHandler(const Messages::DebbuggerCmd& dbgCmdM) {
 		break;
 	case Messages::DebbuggerCmd::CMDTYPE::BREAKPOINT:
 		std::string cmd("bp ");
-		BridgeList<Script::Module::ModuleInfo> modList;
-		Script::Module::GetList(&modList);
-		for (int i = 0; i < modList.Count(); i++) {
-			if (strcmp(modList[i].path, dbgCmdM.modPath.data()) == 0) {
-				//DbgSetCommentAt(modList[i].base + cmmt.rva, cmmt.comment.data());
-				cmd = cmd + +"."+std::to_string(modList[i].base + dbgCmdM.rva);
-				Cmd(cmd.data());
-				return;
-			}
-		}
+		cmd = cmd + +"."+std::to_string(x64Sync::fileHashes[dbgCmd.modHash] + dbgCmd.rva);
+		Cmd(cmd.data());
+		return;
 		
 		break;
 	}

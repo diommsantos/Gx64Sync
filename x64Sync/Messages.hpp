@@ -42,7 +42,7 @@ namespace Messages {
     struct Comment
     {
         static constexpr std::string_view id{ "cmmt" };
-        std::string modname;
+        std::string modHash;
         address rva;
         std::string comment;
     };
@@ -59,7 +59,7 @@ namespace Messages {
         enum class CMDTYPE { RUN, PAUSE, STEPINTO, STEPOVER, BREAKPOINT };
         static constexpr std::string_view id{ "dbgcmd" };
         CMDTYPE cmdType;
-        std::string modPath;
+        std::string modHash;
         address rva;
 
     };

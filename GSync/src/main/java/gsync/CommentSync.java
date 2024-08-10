@@ -32,16 +32,16 @@ public class CommentSync {
 			String cmmt = commentCU.getComment(CodeUnit.EOL_COMMENT);
 			if(cmmt == null)
 				cmmt = "";
-			String modname = pm.getCurrentProgram().getExecutablePath().substring(1).replace("/", "\\");
+			String modHash = pm.getCurrentProgram().getExecutableMD5();
 			Address base = pm.getCurrentProgram().getImageBase(); 
-			sh.send(new Messages.Comment(modname, currAddr.getOffset()-base.getOffset(), cmmt));
+			sh.send(new Messages.Comment(modHash, currAddr.getOffset()-base.getOffset(), cmmt));
 		}
 		
 		private void syncRemoteComment(Messages.Comment cmmt) {
 			Program openpg[] = pm.getAllOpenPrograms();
 			int i = 0;
 			for(; i < openpg.length; i++) {
-				if(openpg[i].getExecutablePath().substring(1).replace("/", "\\").equals(cmmt.modname))
+				if(openpg[i].getExecutableMD5().equals(cmmt.modHash))
 					break;
 			}
 			if(i == openpg.length)

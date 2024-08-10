@@ -27,11 +27,11 @@ public class Messages {
 	
 	public static class Comment extends Message{
 		public static String id = "cmmt";
-		public String modname;
+		public String modHash;
 		public long rva;
 		public String comment;
 		
-		public Comment() {} public Comment(String modname, long rva, String cmmt) {this.modname = modname; this.rva = rva; this.comment = cmmt;}
+		public Comment() {} public Comment(String modHash, long rva, String cmmt) {this.modHash = modHash; this.rva = rva; this.comment = cmmt;}
 	}
 	
 	public static class Session extends Message{
@@ -46,10 +46,10 @@ public class Messages {
 		public enum CMDTYPE{RUN, PAUSE, STEPINTO, STEPOVER, BREAKPOINT}
 		public static String id = "dbgcmd";
 		public CMDTYPE cmdType;
-		public String modPath;
+		public String modHash;
 		public long rva;
 		
-		public DebuggerCmd(){} public DebuggerCmd(CMDTYPE cmdType, String modPath, long rva){this.cmdType = cmdType; this.modPath = modPath; this.rva = rva;}
+		public DebuggerCmd(){} public DebuggerCmd(CMDTYPE cmdType, String modHash, long rva){this.cmdType = cmdType; this.modHash = modHash; this.rva = rva;}
 		
 	}
 	

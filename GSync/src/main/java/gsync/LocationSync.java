@@ -80,7 +80,7 @@ public class LocationSync {
 	public void sendGhidraLocation(){
 		if(!active)
 			return;
-		String modName = pm.getCurrentProgram().getName();
+		String modName = pm.getCurrentProgram().toString();
 		long rva = cvs.getCurrentLocation().getAddress().getOffset()-pm.getCurrentProgram().getImageBase().getOffset();
 		sh.send(new Messages.RelativeAddress(modName, pm.getCurrentProgram().getExecutableMD5(), rva), sessionHandle);
 	}

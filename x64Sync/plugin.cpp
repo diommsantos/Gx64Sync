@@ -36,6 +36,7 @@ namespace x64Sync {
     DebbugerSync ds{ sh };
     HyperSync hs{ sh, ls };
 
+    //this map uses as keys md5 hashes of the loaded modules and as values their base rva
     std::unordered_map<std::string, duint> fileHashes{};
 
     std::string getMD5FileHash(std::string_view filePath) {

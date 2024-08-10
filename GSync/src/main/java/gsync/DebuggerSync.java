@@ -24,30 +24,30 @@ public class DebuggerSync {
 	}
 	
 	public void run() {
-		String modPath = pm.getCurrentProgram().getExecutablePath().substring(1).replace("/", "\\");
-		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.RUN, modPath, -1));
+		String modHash = pm.getCurrentProgram().getExecutableMD5();
+		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.RUN, modHash, -1));
 	}
 	
 	public void pause() {
-		String modPath = pm.getCurrentProgram().getExecutablePath().substring(1).replace("/", "\\");
-		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.PAUSE, modPath, -1));
+		String modHash = pm.getCurrentProgram().getExecutableMD5();
+		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.PAUSE, modHash, -1));
 	}
 	
 	public void setBreakpoint() {
 		Address currAddr = cvs.getCurrentLocation().getAddress();
 		Address base = pm.getCurrentProgram().getImageBase();
-		String modPath = pm.getCurrentProgram().getExecutablePath().substring(1).replace("/", "\\");
-		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.BREAKPOINT, modPath, currAddr.getOffset()-base.getOffset()));
+		String modHash = pm.getCurrentProgram().getExecutableMD5();
+		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.BREAKPOINT, modHash, currAddr.getOffset()-base.getOffset()));
 	}
 	
 	public void stepInto() {
-		String modPath = pm.getCurrentProgram().getExecutablePath().substring(1).replace("/", "\\");
-		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.STEPINTO, modPath, -1));
+		String modHash = pm.getCurrentProgram().getExecutableMD5();
+		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.STEPINTO, modHash, -1));
 	}
 	
 	public void stepOver() {
-		String modPath = pm.getCurrentProgram().getExecutablePath().substring(1).replace("/", "\\");
-		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.STEPOVER, modPath, -1));
+		String modHash = pm.getCurrentProgram().getExecutableMD5();
+		sh.send(new Messages.DebuggerCmd(DebuggerCmd.CMDTYPE.STEPOVER, modHash, -1));
 	}
 	
 	//GUI stuff (actions and menus)
