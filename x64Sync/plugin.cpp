@@ -36,7 +36,7 @@ namespace x64Sync {
     DebbugerSync ds{ sh };
     HyperSync hs{ sh, ls };
 
-    std::unordered_map<std::string, std::string> fileHashes{};
+    std::unordered_map<std::string, duint> fileHashes{};
 
     std::string getMD5FileHash(std::string_view filePath) {
         MD5 fileHash;
@@ -119,7 +119,7 @@ extern "C" __declspec(dllexport) void CBSELCHANGED(CBTYPE cbType, PLUG_CB_SELCHA
 
 extern "C" __declspec(dllexport) void CBCREATEPROCESS(CBTYPE cbType, PLUG_CB_CREATEPROCESS* procInfo) {
     dprintf("ImageName: %s\n", procInfo->modInfo->ImageName);
-    x64Sync::fileHashes[x64Sync::getMD5FileHash(procInfo->modInfo->ImageName)] = procInfo->modInfo->ImageName;
+    x64Sync::fileHashes[x64Sync::getMD5FileHash(procInfo->modInfo->ImageName)] = procInfo->modInfo->BaseOfImage;
 }
 
 extern "C" __declspec(dllexport) void CBEXITPROCESS(CBTYPE cbType, PLUG_CB_EXITPROCESS* procInfo) {
@@ -129,7 +129,7 @@ extern "C" __declspec(dllexport) void CBEXITPROCESS(CBTYPE cbType, PLUG_CB_EXITP
 
 extern "C" __declspec(dllexport) void CBLOADDLL(CBTYPE cbType, PLUG_CB_LOADDLL* dllInfo) {
     dprintf("DllImageName: %s\n", dllInfo->modInfo->ImageName);
-    x64Sync::fileHashes[x64Sync::getMD5FileHash(dllInfo->modInfo->ImageName)] = dllInfo->modInfo->ImageName;
+    x64Sync::fileHashes[x64Sync::getMD5FileHash(dllInfo->modInfo->ImageName)] = dllInfo->modInfo->BaseOfImage;
 }
 
 extern "C" __declspec(dllexport) void CBUNLOADDLL(CBTYPE cbType, PLUG_CB_UNLOADDLL* dllInfo) {
@@ -139,7 +139,7 @@ extern "C" __declspec(dllexport) void CBUNLOADDLL(CBTYPE cbType, PLUG_CB_UNLOADD
     using namespace x64Sync;
     auto it = fileHashes.begin();
     while (it != fileHashes.end()) {
-        if (strcmp(it->second.data(),modPath) == 0) {
+        if ((duint) dllInfo->UnloadDll->lpBaseOfDll == it->second) {
             fileHashes.erase(it);
             break;
         }

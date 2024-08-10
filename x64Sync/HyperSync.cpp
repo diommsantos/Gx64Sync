@@ -2,6 +2,8 @@
 #include "LocationSync.hpp"
 #include "pluginmain.h"
 
+namespace x64Sync { extern std::unordered_map<std::string, duint> fileHashes; }
+
 HyperSync::HyperSync(SyncHandler& sh, LocationSync& ls):
 sh{ sh }, ls{ls}
 {
@@ -53,17 +55,11 @@ void HyperSync::syncHyperSyncState(const Messages::HyperSyncState& hss){
 }
 
 void HyperSync::remoteRVAHandler(const Messages::RelativeAddress& ra){
-	BridgeList<Script::Module::ModuleInfo> modList;
-	Script::Module::GetList(&modList);
-	for (int i = 0; i < modList.Count(); i++) {
-		if (strcmp(modList[i].path, ra.modPath.data()) == 0) {
-			remoteLocationChange = true;
-			GuiDisasmAt(modList[i].base + ra.modRVA, modList[i].base + ra.modRVA);
-			return;
-		}
-	}
-	dprintf("HyperSync: It is not possible to sync the address. The %s module is not loaded!", ra.modPath);
-
+	auto it = x64Sync::fileHashes.find(ra.modHash);
+	if (it == x64Sync::fileHashes.end())
+		dprintf("HyperSync: It is not possible to sync the address. The %s module is not loaded!", ra.modName);
+	remoteLocationChange = true;
+	GuiDisasmAt(it->second + ra.rva, it->second + ra.rva);
 }
 
 void HyperSync::x64DbgRVAHandler(PLUG_CB_SELCHANGED* sel){
@@ -73,10 +69,16 @@ void HyperSync::x64DbgRVAHandler(PLUG_CB_SELCHANGED* sel){
 		remoteLocationChange = false;
 		return;
 	}
-	char modPath[300];
-
-	DbgFunctions()->ModPathFromAddr(sel->VA, modPath, 300);
-	sh.send(Messages::RelativeAddress{ modPath, sel->VA - Script::Module::BaseFromAddr(sel->VA) });
+	duint va = Script::Gui::Disassembly::SelectionGetStart();
+	duint modBase = Script::Module::BaseFromAddr(va);
+	char modName[32];
+	Script::Module::NameFromAddr(modBase, modName);
+	auto it = x64Sync::fileHashes.begin();
+	while (it != x64Sync::fileHashes.end()) {
+		if (it->second == modBase)
+			return sh.send(Messages::RelativeAddress{ modName, it->first, va - modBase });
+		it++;
+	}
 
 }
 

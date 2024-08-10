@@ -71,9 +71,10 @@ public class Messages {
 	
 	public static class RelativeAddress extends Message{
 		public static String id = "rva";
-		public String modPath;
-		public long modRVA;
+		public String modName;
+		public String modHash;
+		public long rva;
 		
-		public RelativeAddress() {} public RelativeAddress(String modPath, long rva) {this.modPath = modPath; this.modRVA = rva;} 
+		public RelativeAddress() {} public RelativeAddress(String modName, String modHash, long rva) {this.modName = modName; this.modHash = modHash; this.rva = rva;} 
 	}
 }

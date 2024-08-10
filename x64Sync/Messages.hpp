@@ -73,8 +73,9 @@ namespace Messages {
     struct RelativeAddress
     {
         static constexpr std::string_view id{ "rva" };
-        std::string modPath;
-        address modRVA;
+        std::string modName;
+        std::string modHash;
+        address rva;
     };
     
 

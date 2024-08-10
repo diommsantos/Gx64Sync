@@ -91,15 +91,15 @@ public class HyperSync {
 		Program openpg[] = pm.getAllOpenPrograms();
 		int i = 0;
 		for(; i < openpg.length; i++) {
-			if(openpg[i].getExecutablePath().substring(1).replace("/", "\\").equals(ra.modPath))
+			if(openpg[i].getExecutableMD5().equals(ra.modHash))
 				break;
 		}
 		if(i == openpg.length) {
-			cs.println(String.format("HyperSync: It is not possible to sync the address. The %s module is not loaded!", ra.modPath));
+			cs.println(String.format("HyperSync: It is not possible to sync the address. The %s module is not loaded!", ra.modName));
 			return;
 		}
 		remoteLocationChange = true;
-		gts.goTo(openpg[i].getImageBase().add(ra.modRVA));
+		gts.goTo(openpg[i].getImageBase().add(ra.rva));
 	}
 	
 	public void GhidraRVAHandler(ProgramLocation loc) {
@@ -109,8 +109,8 @@ public class HyperSync {
 			remoteLocationChange = false;
 			return;
 		}
-		String modPath = pm.getCurrentProgram().getExecutablePath().substring(1).replace("/", "\\");
-		sh.send(new Messages.RelativeAddress(modPath, loc.getAddress().getOffset()-pm.getCurrentProgram().getImageBase().getOffset()), sessionHandle);
+		String modName = pm.getCurrentProgram().getName();
+		sh.send(new Messages.RelativeAddress(modName, pm.getCurrentProgram().getExecutableMD5(), loc.getAddress().getOffset()-pm.getCurrentProgram().getImageBase().getOffset()), sessionHandle);
 	}
 	
 	public List<DockingAction> getActions(String providerName) {

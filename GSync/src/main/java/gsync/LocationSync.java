@@ -67,22 +67,22 @@ public class LocationSync {
 		Program openpg[] = pm.getAllOpenPrograms();
 		int i = 0;
 		for(; i < openpg.length; i++) {
-			if(openpg[i].getExecutablePath().substring(1).replace("/", "\\").equals(ra.modPath))
+			if(openpg[i].getExecutableMD5().equals(ra.modHash))
 				break;
 		}
 		if(i == openpg.length) {
-			logger.logln(String.format("It is not possible to sync the address. The %s module is not loaded!", ra.modPath));
+			logger.logln(String.format("It is not possible to sync the address. The %s module is not loaded!", ra.modName));
 			return;
 		}
-		gts.goTo(openpg[i].getImageBase().add(ra.modRVA));
+		gts.goTo(openpg[i].getImageBase().add(ra.rva));
 	}
 	
 	public void sendGhidraLocation(){
 		if(!active)
 			return;
-		String modPath = pm.getCurrentProgram().getExecutablePath().substring(1).replace("/", "\\");
+		String modName = pm.getCurrentProgram().getName();
 		long rva = cvs.getCurrentLocation().getAddress().getOffset()-pm.getCurrentProgram().getImageBase().getOffset();
-		sh.send(new Messages.RelativeAddress(modPath, rva), sessionHandle);
+		sh.send(new Messages.RelativeAddress(modName, pm.getCurrentProgram().getExecutableMD5(), rva), sessionHandle);
 	}
 	
 	//GUI stuff (actions and menus)

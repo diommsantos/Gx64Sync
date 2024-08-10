@@ -3,7 +3,7 @@
 #include "pluginmain.h"
 #include "md5.h"
 
-namespace x64Sync { extern std::unordered_map<std::string, std::string> fileHashes; }
+namespace x64Sync { extern std::unordered_map<std::string, duint> fileHashes; }
 
 LocationSync::LocationSync(SyncHandler &sh):
 sh{ sh }
@@ -29,24 +29,25 @@ bool LocationSync::start() {
 }
 
 void LocationSync::syncRemoteAdress(const Messages::RelativeAddress& ra) {
-	BridgeList<Script::Module::ModuleInfo> modList;
-	Script::Module::GetList(&modList);
-	for (int i = 0; i < modList.Count(); i++) {
-		if (strcmp(modList[i].path, ra.modPath.data()) == 0) {
-			GuiDisasmAt(modList[i].base + ra.modRVA, modList[i].base + ra.modRVA);
-			return;
-		}
-	}
-	dprintf("It is not possible to sync the address. The %s module is not loaded!", ra.modPath);
+	auto it = x64Sync::fileHashes.find(ra.modHash);
+	if ( it == x64Sync::fileHashes.end())
+		return dprintf("It is not possible to sync the address. The %s module is not loaded!", ra.modName);
+	GuiDisasmAt(it->second + ra.rva, it->second + ra.rva);
 }
 
 void LocationSync::sendx64DbgLocation() {
 	if (!active)
 		return;
-	char modPath[300];
 	duint va = Script::Gui::Disassembly::SelectionGetStart();
-	DbgFunctions()->ModPathFromAddr(va, modPath, 300);
-	sh.send(Messages::RelativeAddress{ modPath, va - Script::Module::BaseFromAddr(va) });
+	duint modBase = Script::Module::BaseFromAddr(va);
+	char modName[32];
+	Script::Module::NameFromAddr(modBase, modName);
+	auto it = x64Sync::fileHashes.begin();
+	while (it != x64Sync::fileHashes.end()) {
+		if (it->second == modBase) 
+			return sh.send(Messages::RelativeAddress{ modName, it->first, va - modBase});
+		it++;
+	}
 }
 
 void LocationSync::stop() {
