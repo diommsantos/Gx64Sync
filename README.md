@@ -134,6 +134,7 @@ The plugin should work right out of the box. If it was installed correctly somet
 should appear in the log tab of x64Dbg.
 
 # TODO
+- [ ] Change the implementation of LocationSync and HyperSync so that they exhange files hashes instead of file paths (see [Remote sync changes in Java code](https://github.com/diommsantos/Gx64Sync/issues/7) as to why)
 - [x] Support Comment migration (CommentSync)
 - [x] make a GUI for GSync similar to ret-sync
 - [x] Implement all the features of [ret-sync](https://github.com/bootleg/ret-sync) (debugger commands in Ghidra...) 
