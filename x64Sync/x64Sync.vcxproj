@@ -190,6 +190,7 @@
     <ClInclude Include="LocationSync.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="md5.h" />
     <ClInclude Include="Messages.hpp" />
     <ClInclude Include="plugin.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
@@ -208,6 +209,7 @@
     <ClCompile Include="LocationSync.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="md5.cpp" />
     <ClCompile Include="plugin.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test SyncHandler|x64'">true</ExcludedFromBuild>
     </ClCompile>

@@ -3,6 +3,7 @@
 #include "CommentSync.hpp"
 #include "DebuggerSync.hpp"
 #include "HyperSync.hpp"
+#include "md5.h"
 #include "plugin.h"
 
 //x64Sync Plugin Specific variables/functions
@@ -34,6 +35,21 @@ namespace x64Sync {
     CommentSync cs{ sh };
     DebbugerSync ds{ sh };
     HyperSync hs{ sh, ls };
+
+    std::unordered_map<std::string, std::string> fileHashes{};
+
+    std::string getMD5FileHash(std::string_view filePath) {
+        MD5 fileHash;
+        char buffer[1024];
+        std::ifstream file(filePath.data(), std::ifstream::binary);
+
+        while (file.good()) {
+            file.read(buffer, sizeof(buffer));
+            fileHash.add(buffer, file.gcount());
+        }
+
+        return fileHash.getHash();
+    }
 
 }
 
@@ -99,4 +115,34 @@ extern "C" __declspec(dllexport) void CBMENUENTRY(CBTYPE cbType, PLUG_CB_MENUENT
 
 extern "C" __declspec(dllexport) void CBSELCHANGED(CBTYPE cbType, PLUG_CB_SELCHANGED * sel) {
     x64Sync::hs.x64DbgRVAHandler(sel);
+}
+
+extern "C" __declspec(dllexport) void CBCREATEPROCESS(CBTYPE cbType, PLUG_CB_CREATEPROCESS* procInfo) {
+    dprintf("ImageName: %s\n", procInfo->modInfo->ImageName);
+    x64Sync::fileHashes[x64Sync::getMD5FileHash(procInfo->modInfo->ImageName)] = procInfo->modInfo->ImageName;
+}
+
+extern "C" __declspec(dllexport) void CBEXITPROCESS(CBTYPE cbType, PLUG_CB_EXITPROCESS* procInfo) {
+    dprintf("Exiting Process.\n");
+    x64Sync::fileHashes.clear();
+}
+
+extern "C" __declspec(dllexport) void CBLOADDLL(CBTYPE cbType, PLUG_CB_LOADDLL* dllInfo) {
+    dprintf("DllImageName: %s\n", dllInfo->modInfo->ImageName);
+    x64Sync::fileHashes[x64Sync::getMD5FileHash(dllInfo->modInfo->ImageName)] = dllInfo->modInfo->ImageName;
+}
+
+extern "C" __declspec(dllexport) void CBUNLOADDLL(CBTYPE cbType, PLUG_CB_UNLOADDLL* dllInfo) {
+    char modPath[MAX_PATH];
+    DbgFunctions()->ModPathFromAddr((duint) dllInfo->UnloadDll->lpBaseOfDll, modPath, MAX_PATH);
+    dprintf("Unloaded DllImageName: %s\n", modPath);
+    using namespace x64Sync;
+    auto it = fileHashes.begin();
+    while (it != fileHashes.end()) {
+        if (strcmp(it->second.data(),modPath) == 0) {
+            fileHashes.erase(it);
+            break;
+        }
+        ++it;
+    }
 }

@@ -54,6 +54,9 @@
     <ClInclude Include="ConfigManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="md5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="plugin.cpp">
@@ -84,6 +87,9 @@
       <Filter>Source Files\Features</Filter>
     </ClCompile>
     <ClCompile Include="ConfigManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="md5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

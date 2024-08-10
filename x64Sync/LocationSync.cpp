@@ -1,6 +1,9 @@
 #include "LocationSync.hpp"
 #include <functional>
 #include "pluginmain.h"
+#include "md5.h"
+
+namespace x64Sync { extern std::unordered_map<std::string, std::string> fileHashes; }
 
 LocationSync::LocationSync(SyncHandler &sh):
 sh{ sh }
