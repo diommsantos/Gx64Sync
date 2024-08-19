@@ -53,10 +53,10 @@ To configure the IP and ports that GSync and x64Sync use, create a file with the
 Example of `config.sync` contents:
 ```
 {
-"GSYNC_HOST" = "127.0.0.1",
-"GSYNC_PORT" = 9100,
-"X64SYNC_HOST" = "127.0.1",
-"X64SYNC_PORT" = 9100
+"GSYNC_HOST" : "127.0.0.1",
+"GSYNC_PORT" : 9100,
+"X64SYNC_HOST" : "127.0.0.1",
+"X64SYNC_PORT" : 9100
 }
 ```
 
