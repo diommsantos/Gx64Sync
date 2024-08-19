@@ -103,7 +103,7 @@ public class HyperSync {
 	}
 	
 	public void GhidraRVAHandler(ProgramLocation loc) {
-		if(!active) 
+		if(!active || loc == null) 
 			return;
 		if(remoteLocationChange) {
 			remoteLocationChange = false;
