@@ -99,7 +99,7 @@ public class HyperSync {
 			return;
 		}
 		remoteLocationChange = true;
-		gts.goTo(openpg[i].getImageBase().add(ra.rva));
+		gts.goTo(openpg[i].getImageBase().add(ra.rva), openpg[i]);
 	}
 	
 	public void GhidraRVAHandler(ProgramLocation loc) {
