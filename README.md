@@ -60,6 +60,10 @@ Example of `config.sync` contents:
 }
 ```
 
+x64dbg reads `X64SYNC_HOST` and `X64SYNC_PORT` fields. They should direct to listening GSync plugin. Other fields are ignored.
+
+GSync plugin reads `GSYNC_HOST` and `GSYNC_PORT` fields. They should direct to x64dbg machine. Other fields are ignored.
+
 # Installation
 
 In order for Gx64Sync to function correctly, is necessary to install both the Ghidra plugin and the x64Dbg plugin. 
