@@ -30,7 +30,8 @@ bool Client::start(){
     asio::error_code ec;
     m_socket.connect(ep, ec);
     if (ec) {
-        loggerCallback_("Client: " + ec.message() + "\n");
+        loggerCallback_("Client: Tried to connect to "+host+":"+std::to_string(port) + 
+                        " but " + ec.message() + "\n");
         m_socket = asio::ip::tcp::socket(io_context);
         return false;
     }
