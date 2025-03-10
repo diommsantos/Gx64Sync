@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cmake",
+            "label": "CMake: build 64-bit debug",
+            "command": "build",
+            "preset": "64-bit-debug",
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "CMake 64-bit debug build task"
+        },
+        {
+            "type": "cmake",
+            "label": "CMake: build 32-bit debug",
+            "command": "build",
+            "preset": "32-bit-debug",
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "CMake 32-bit debug build task"
+        },
+        {
+            "label": "Setup 64-bit x64Sync Debug Environment",
+            "type": "shell",
+            "command": "SetupDebugEnv.bat",
+            "args": [
+                "64"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Setup 32-bit x64Sync Debug Environment",
+            "type": "shell",
+            "command": "SetupDebugEnv.bat",
+            "args": [
+                "32"
+            ],
+            "group": "build"
+        }
+    ]
+}

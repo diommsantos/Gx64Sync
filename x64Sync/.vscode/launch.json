@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug x64Sync - 64-bit",
+            "type": "cppvsdbg",
+            "request": "attach",
+            "preLaunchTask": "CMake: build 64-bit debug",
+            "processId":"${command:regex-process-picker.pickProcessMatchingRegexList1}"
+        },
+        {
+            "name": "Debug x64Sync - 32-bit",
+            "type": "cppvsdbg",
+            "request": "attach",
+            "preLaunchTask": "CMake: build 32-bit debug",
+            "processId":"${command:regex-process-picker.pickProcessMatchingRegexList2}"
+        }
+
+    ],
+}

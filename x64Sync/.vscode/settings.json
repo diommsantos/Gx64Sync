@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "functional": "cpp",
+        "memory": "cpp",
+        "string": "cpp"
+    },
+    "regex-process-picker.regexList1":["x64dbg"],
+    "regex-process-picker.regexList2":["x32dbg"],
+    "regex-process-picker.skipUserDialogIfOnlyOneOption":true,
+}

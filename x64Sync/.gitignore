@@ -1,8 +1,7 @@
-/.vs/
-/Debug/
-/x64Sync/
-/Release/**
-!/Release/x64Sync.dp32
-/x64/**
-!/x64/Release
-!/x64/Release/x64Sync.dp64
+/build/**
+!/build/64-bit/
+!/build/64-bit/Release/
+!/build/64-bit/Release/x64Sync.dp64
+!/build/32-bit/
+!/build/32-bit/Release/
+!/build/32-bit/Release/x64Sync.dp32

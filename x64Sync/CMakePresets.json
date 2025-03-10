@@ -1,0 +1,63 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "64-bit",
+            "displayName": "Visual Studio Community 2022 - amd64",
+            "description": "Using compilers for Visual Studio 17 2022 (x64 architecture)",
+            "generator": "Visual Studio 17 2022",
+            "toolset": "host=x64",
+            "architecture": "x64",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}",
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe"
+            }
+        },
+        {
+            "name": "32-bit",
+            "displayName": "Visual Studio Community 2022 - x86",
+            "description": "Using compilers for Visual Studio 17 2022 (x64 architecture)",
+            "generator": "Visual Studio 17 2022",
+            "toolset": "host=x64",
+            "architecture": "Win32",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}",
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "64-bit-debug",
+            "displayName": "Debug Build 64-bit",
+            "configurePreset": "64-bit",
+            "configuration": "Debug",
+            "jobs": 12
+        },
+        {
+            "name": "64-bit-release",
+            "displayName": "Release Build 64-bit",
+            "configurePreset": "64-bit",
+            "configuration": "Release",
+            "jobs": 12
+        },
+        {
+            "name": "32-bit-debug",
+            "displayName": "Debug Build 32-bit",
+            "configurePreset": "32-bit",
+            "configuration": "Debug",
+            "jobs": 12
+        },
+        {
+            "name": "32-bit-release",
+            "displayName": "Release Build 32-bit",
+            "configurePreset": "32-bit",
+            "configuration": "Release",
+            "jobs": 12
+        }
+    ]
+}
