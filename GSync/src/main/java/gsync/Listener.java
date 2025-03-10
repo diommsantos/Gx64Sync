@@ -78,8 +78,12 @@ public class Listener {
 	
     public void stop() {
         try {
-            serverSocket.close();
-            listenerThread.join();
+            if (serverSocket != null) {
+                serverSocket.close();
+            }
+            if (listenerThread != null) {
+                listenerThread.join();
+            }
         } catch (IOException | InterruptedException e) {
             logger.loglnError(e.getMessage());
         }
