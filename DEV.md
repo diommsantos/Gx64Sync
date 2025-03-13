@@ -10,6 +10,7 @@
 
 ## Prerequisites
 1. [Microsoft Visual Studio](https://visualstudio.microsoft.com/) (I use the 2022 version but other recent versions should work as well)
+2. [CMake](https://cmake.org/download/)
 2. [Eclipse IDE for JAVA Developers](https://www.eclipse.org/downloads/)
 
 ## Debugging GSync
@@ -47,35 +48,26 @@ exists and is selected. If that is the case ``Window``->``GSyncPlugin`` menu opt
 > by gradle while building the plugin.
 
 ## Debugging x64Sync
+1. Edit `SetupDebugEnv.bat` and change the variable `x64DBG_PATH` to your x64Dbg path.
 
 ### 64-bit version
-1. For debugging the 64-bit version, copy ``GSync\x64Sync\PluginDevHelper.dp64`` to the ``x64DBG_INSTALL_DIR\release\x64\plugins`` folder where ``x64DBG_INSTALL_DIR`` is the installation directory of x64Dbg. See [PluginDevHelper](https://github.com/x64dbg/PluginDevHelper) for more details.
-2. Open ``x64Sync.sln`` in Visual Studio and run the x64 Debug Configurations. This should create a `x64\Debug` folder  in the `x64Sync` folder and a `.dp64` file inside.
-3. Change directories to the `x64\Debug` folder and run the following command:
-   ```
-   mklink x64Sync.dp64 x64DBG_INSTALL_DIR\release\x64\plugins\x64Sync
-   ```
-   Once again ``x64DBG_INSTALL_DIR`` is the installation directory of x64Dbg.
-4. In Visual Studio select `Debug`-> `x64Sync Debug Properties`. Verify that ``Configuration:`` is set to ``Debug`` and ``Platform:`` to ``x64``. Under ``Configuration Properties``->``Debugging`` change the command property to ``x64DBG_INSTALL_DIR\release\x64\x64dbg.exe``. 
-5. Run the `PluginDevServer.exe`.
-6. Start the 64-bit version of x64Debug. 
-Your debug configuration is complete, and it should be possible to debug x64Sync from inside Visual Studio.
+2. In the `x64Sync` folder run the following commands:
+```
+SetupDebugEnv.bat 64
+cmake --preset 64-bit
+cmake --build --preset 64-bit-debug
+```
 
 ### 32-bit version
-1. For the 32-bit version, copy ``GSync\x64Sync\PluginDevHelper.dp32`` to the ``x64DBG_INSTALL_DIR\release\x32\plugins``.
-2. Open ``x64Sync.sln`` in Visual Studio and run the x86 Debug Configurations. This should create a `Debug` folder  in the `x64Sync` folder and a `.dp32` file inside.
-3. Change directories to the `Debug` folder and run the following command:
-   ```
-   mklink x64Sync.dp32 x64DBG_INSTALL_DIR\release\x32\plugins\x64Sync
-   ```
-   Once again ``x64DBG_INSTALL_DIR`` is the installation directory of x64Dbg.
-4. In Visual Studio select `Debug`-> `x64Sync Debug Properties`. Verify that ``Configuration:`` is set to ``Debug`` and ``Platform:`` to ``x32``. Under ``Configuration Properties``->``Debugging`` change the command property to ``x64DBG_INSTALL_DIR\release\x32\x32dbg.exe``. 
-5. Run the `PluginDevServer.exe`.
-6. Start the 32-bit version of x64Debug. 
+2. In the `x64Sync` folder run the following commands:
+```
+SetupDebugEnv.bat 32
+cmake --preset 32-bit
+cmake --build --preset 32-bit-debug
+```
 
-### Troubleshooting
-> [!WARNING] 
-> Do not forget to run `PluginDevServer.exe` and the appropriate version of x64Debug to properly debug x64Sync.
+> [!TIP]
+> If you use VS Code as your code editor instructions 2 are implemented as tasks. I suggest installing the extension [Regex Process Picker](https://marketplace.visualstudio.com/items?itemName=ptrck.regex-process-picker) for a more seamless deubg cycle. Automatic unload/reload of the debug version of `x64Sync` is set up after you complete all the instructions but don't forget to check out [PluginDevHelper](https://github.com/x64dbg/PluginDevHelper) for help! 
 
 # Software Architecture
 
