@@ -70,7 +70,7 @@ In order for Gx64Sync to function correctly, is necessary to install both the Gh
 
 ## Ghidra plugin
 
-The Ghidra plugin is tied to the Ghidra version it is being installed on. Currently is necessary to build it;
+The Ghidra plugin is tied to the Ghidra version it is being installed on. Currently it is necessary to build it;
 built plugins will be provided in the future for the latest Ghidra versions. 
 
 ### Build the Ghidra extension
